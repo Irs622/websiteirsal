@@ -35,73 +35,73 @@ export function Home() {
   };
 
   return (
-    <div className="relative overflow-hidden selection:bg-[#E7E5E4] selection:text-[#0C0A09]">
+    <div className="relative overflow-hidden selection:bg-[#e7e5e4] selection:text-[#0c0a09]">
       {/* ======================================================== */}
-      {/* SECTION 1: HERO                                          */}
+      {/* SECTION 1: HERO (hero-band)                              */}
       {/* ======================================================== */}
       <section
         id="hero"
         aria-label="Introduction"
-        className="relative min-h-[88vh] sm:min-h-[92vh] flex flex-col justify-center pt-8 pb-20 px-6 sm:px-8 border-b border-[#E7E5E4]"
+        className="relative min-h-[85vh] sm:min-h-[88vh] flex flex-col justify-center pt-10 pb-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#f5f5f5]"
       >
-        {/* Subtle Pastel Atmospheric Gradient Glows in Background */}
+        {/* Soft Pastel Atmospheric Gradient Orbs drifting behind hero */}
         <AtmosphericGlow
           color="mint"
           size={520}
-          className="-top-20 -left-24 opacity-35"
+          className="-top-24 -left-20 opacity-40"
           animation="drift-1"
         />
         <AtmosphericGlow
           color="lavender"
           size={560}
-          className="top-1/4 -right-32 opacity-40"
+          className="top-1/4 -right-28 opacity-45"
           animation="drift-2"
         />
         <AtmosphericGlow
           color="peach"
           size={420}
-          className="bottom-10 left-1/3 opacity-30"
+          className="bottom-6 left-1/3 opacity-35"
           animation="drift-1"
         />
 
         <div className="relative z-10 max-w-[1200px] mx-auto w-full">
-          {/* Top Editorial Eyebrow */}
+          {/* Eyebrow: Location & Academic Fellowship */}
           <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-[#777169]">
-            <span className="label-editorial text-[#0C0A09] font-medium tracking-[0.16em]">
+            <span className="caption-uppercase text-[#0c0a09]">
               Editorial Identity
             </span>
-            <span className="text-[#D6D3D1]">•</span>
-            <span className="inline-flex items-center gap-1.5 text-[13px]">
-              <MapPin size={13} className="text-[#0C0A09]" />
+            <span className="text-[#d6d3d1]">•</span>
+            <span className="inline-flex items-center gap-1.5 body-sm text-[#777169]">
+              <MapPin size={13} className="text-[#0c0a09]" />
               {personalInfo.location}
             </span>
-            <span className="text-[#D6D3D1] hidden sm:inline">•</span>
-            <span className="text-[13px] text-[#777169] hidden sm:inline">
+            <span className="text-[#d6d3d1] hidden sm:inline">•</span>
+            <span className="body-sm text-[#777169] hidden sm:inline">
               LPDP Scholar
             </span>
           </div>
 
-          {/* Master Headline (EB Garamond Light 300) */}
+          {/* Master Headline: Waldenburg Light 300 (display-mega: 64px / 300 / -1.92px) */}
           <div className="max-w-4xl space-y-4 mb-8">
-            <h1 className="display-hero text-[#0C0A09]">
+            <h1 className="display-mega text-[#0c0a09]">
               {personalInfo.heroHeadline}
             </h1>
-            <p className="display-secondary text-[#292524] font-light max-w-3xl leading-[1.18]">
+            <p className="display-xl text-[#292524] font-light max-w-3xl leading-[1.12]">
               {personalInfo.heroSubheadline}
             </p>
           </div>
 
-          {/* Concise Editorial Introduction */}
-          <p className="body-editorial text-[17px] sm:text-[19px] text-[#4E4E4E] max-w-2xl leading-relaxed mb-10">
+          {/* Concise Editorial Introduction (body-md: 16px / 400 / 0.16px) */}
+          <p className="body-md text-[#4e4e4e] max-w-2xl leading-relaxed mb-10 text-[16px] sm:text-[18px]">
             {personalInfo.heroIntro}
           </p>
 
           {/* Identity & Social Badges */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-12 text-[14px]">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 sm:pr-6 sm:border-r border-[#E7E5E4]">
-              <span className="font-medium text-[#0C0A09] text-[15px]">{personalInfo.name}</span>
-              <span className="text-[#D6D3D1] hidden sm:inline">—</span>
-              <span className="text-[#4E4E4E] font-normal">{personalInfo.professionalTitle}</span>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 sm:pr-6 sm:border-r border-[#e7e5e4]">
+              <span className="title-sm text-[#0c0a09]">{personalInfo.name}</span>
+              <span className="text-[#d6d3d1] hidden sm:inline">—</span>
+              <span className="body-md text-[#4e4e4e]">{personalInfo.professionalTitle}</span>
             </div>
 
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -109,7 +109,7 @@ export function Home() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+                className="inline-flex items-center gap-1.5 body-sm text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
               >
                 <GithubIcon size={15} />
                 <span>GitHub</span>
@@ -120,7 +120,7 @@ export function Home() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+                className="inline-flex items-center gap-1.5 body-sm text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
               >
                 <LinkedinIcon size={15} />
                 <span>LinkedIn</span>
@@ -129,7 +129,7 @@ export function Home() {
 
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+                className="inline-flex items-center gap-1.5 body-sm text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
               >
                 <Mail size={15} />
                 <span>{personalInfo.email}</span>
@@ -137,11 +137,11 @@ export function Home() {
             </div>
           </div>
 
-          {/* Primary & Secondary Call to Actions */}
+          {/* CTAs: Ink Pill (button-primary) & Outline Pill (button-outline) */}
           <div className="flex flex-wrap items-center gap-4">
             <Button
               variant="primary"
-              size="lg"
+              size="md"
               onClick={() => scrollToSection('projects')}
               icon={<ArrowDown size={15} />}
             >
@@ -153,8 +153,8 @@ export function Home() {
               className="inline-block"
             >
               <Button
-                variant="secondary"
-                size="lg"
+                variant="outline"
+                size="md"
                 icon={<FileText size={15} />}
               >
                 Download CV
@@ -165,12 +165,12 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 2: ABOUT                                         */}
+      {/* SECTION 2: ABOUT (01 / ABOUT)                            */}
       {/* ======================================================== */}
       <section
         id="about"
         aria-label="About LM. Irsal Shydiq"
-        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+        className="py-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#fafafa]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -185,7 +185,7 @@ export function Home() {
               {aboutContent.narrative.map((paragraph, idx) => (
                 <p
                   key={idx}
-                  className="body-editorial text-[17px] leading-relaxed text-[#292524]"
+                  className="body-md text-[17px] leading-relaxed text-[#292524]"
                 >
                   {paragraph}
                 </p>
@@ -193,7 +193,7 @@ export function Home() {
 
               {/* Core Interests List */}
               <div className="pt-6">
-                <span className="label-editorial text-[#777169] block mb-3">
+                <span className="caption-uppercase text-[#777169] block mb-3">
                   Research &amp; Engineering Interests
                 </span>
                 <div className="flex flex-wrap gap-2">
@@ -208,9 +208,9 @@ export function Home() {
 
             {/* Right: Portrait & Compact Professional Snapshot (5 cols) */}
             <div className="lg:col-span-5 space-y-8">
-              {/* Portrait Composition */}
-              <div className="relative overflow-hidden rounded-[24px] border border-[#E7E5E4] bg-[#FFFFFF] p-3 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-[18px] bg-[#F5F5F5]">
+              {/* Portrait Composition with 24px radius & soft drop */}
+              <div className="relative overflow-hidden rounded-[24px] border border-[#e7e5e4] bg-[#ffffff] p-3 shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[18px] bg-[#f5f5f5]">
                   <img
                     src={portraitImg}
                     alt="LM. Irsal Shydiq — Software Engineer and LPDP Scholar in Bandung, Indonesia"
@@ -218,27 +218,27 @@ export function Home() {
                     loading="lazy"
                   />
                 </div>
-                <div className="p-3 pt-4 flex items-center justify-between text-[12px] text-[#777169]">
-                  <span className="font-mono">Fig 1.0 — Portrait</span>
-                  <span>Bandung, Indonesia</span>
+                <div className="p-3 pt-4 flex items-center justify-between caption">
+                  <span className="font-mono text-[12px]">Fig 1.0 — Portrait</span>
+                  <span className="text-[12px]">Bandung, Indonesia</span>
                 </div>
               </div>
 
-              {/* Snapshot Cards */}
+              {/* Snapshot Cards (rounded.xl = 16px) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {aboutContent.snapshot.map((item) => (
                   <div
                     key={item.label}
-                    className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[16px] p-4 space-y-1"
+                    className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-4 space-y-1 shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
                   >
-                    <span className="label-editorial text-[#777169] text-[10px] block">
+                    <span className="caption-uppercase text-[#777169] text-[10px] block">
                       {item.label}
                     </span>
-                    <h4 className="text-[14px] font-medium text-[#0C0A09]">
+                    <h4 className="title-sm text-[#0c0a09]">
                       {item.value}
                     </h4>
                     {item.detail && (
-                      <p className="text-[12px] text-[#777169]">{item.detail}</p>
+                      <p className="caption text-[#777169] text-[12px]">{item.detail}</p>
                     )}
                   </div>
                 ))}
@@ -249,12 +249,12 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 3: EXPERTISE                                     */}
+      {/* SECTION 3: EXPERTISE (02 / EXPERTISE)                    */}
       {/* ======================================================== */}
       <section
         id="expertise"
         aria-label="Technical Expertise"
-        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#F5F5F5]"
+        className="py-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#f5f5f5]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -270,29 +270,29 @@ export function Home() {
                 key={category.id}
                 variant="card"
                 padding="md"
-                className="flex flex-col justify-between hover:border-[#D6D3D1] transition-all group"
+                className="flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="label-editorial text-[#777169]">
+                    <span className="caption-uppercase text-[#777169]">
                       0{index + 1}
                     </span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E7E5E4] group-hover:bg-[#0C0A09] transition-colors" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#e7e5e4] group-hover:bg-[#0c0a09] transition-colors" />
                   </div>
 
-                  <h3 className="font-display text-[24px] font-light text-[#0C0A09] mb-2">
+                  <h3 className="display-sm text-[#0c0a09] mb-2">
                     {category.name}
                   </h3>
 
-                  <p className="text-[14px] text-[#777169] leading-relaxed mb-6">
+                  <p className="body-sm text-[#777169] leading-relaxed mb-6">
                     {category.tagline}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-[#E7E5E4]">
+                <div className="pt-4 border-t border-[#e7e5e4]">
                   <div className="flex flex-wrap gap-1.5">
                     {category.skills.map((skill) => (
-                      <Badge key={skill} variant="neutral" size="sm">
+                      <Badge key={skill} variant="default" size="sm">
                         {skill}
                       </Badge>
                     ))}
@@ -305,12 +305,12 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 4: EXPERIENCE                                    */}
+      {/* SECTION 4: EXPERIENCE (03 / EXPERIENCE)                  */}
       {/* ======================================================== */}
       <section
         id="experience"
         aria-label="Professional Experience"
-        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+        className="py-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#fafafa]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -324,21 +324,21 @@ export function Home() {
             {experienceContent.items.map((item, index) => (
               <div
                 key={item.id}
-                className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[20px] p-6 sm:p-8 hover:border-[#D6D3D1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
+                className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-6 sm:p-8 hover:border-[#d6d3d1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)]"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
                   {/* Left Column: Organization & Timeline (4 cols) */}
                   <div className="lg:col-span-4 space-y-1">
-                    <span className="label-editorial text-[#777169] block mb-1">
+                    <span className="caption-uppercase text-[#777169] block mb-1">
                       0{index + 1} • {item.type}
                     </span>
-                    <h3 className="font-display text-[24px] font-light text-[#0C0A09]">
+                    <h3 className="display-sm text-[#0c0a09]">
                       {item.company}
                     </h3>
-                    <p className="text-[15px] font-medium text-[#292524]">
+                    <p className="body-strong text-[#292524] mt-1">
                       {item.role}
                     </p>
-                    <div className="pt-2 text-[13px] text-[#777169] flex flex-col gap-0.5">
+                    <div className="pt-2 body-sm text-[#777169] flex flex-col gap-0.5">
                       <span>{item.period}</span>
                       <span>{item.location}</span>
                     </div>
@@ -346,16 +346,16 @@ export function Home() {
 
                   {/* Right Column: Key Responsibilities (8 cols) */}
                   <div className="lg:col-span-8 space-y-4">
-                    <span className="label-editorial text-[#777169] block">
+                    <span className="caption-uppercase text-[#777169] block">
                       Core Responsibilities &amp; Impact
                     </span>
                     <ul className="space-y-2.5">
                       {item.responsibilities.map((resp, i) => (
                         <li
                           key={i}
-                          className="flex items-start gap-3 text-[14px] leading-relaxed text-[#4E4E4E]"
+                          className="flex items-start gap-3 body-sm leading-relaxed text-[#4e4e4e]"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#0C0A09] mt-2 shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a09] mt-2 shrink-0" />
                           <span>{resp}</span>
                         </li>
                       ))}
@@ -364,7 +364,7 @@ export function Home() {
                     {item.techStack && (
                       <div className="pt-3 flex flex-wrap gap-1.5">
                         {item.techStack.map((tech) => (
-                          <Badge key={tech} variant="neutral" size="sm">
+                          <Badge key={tech} variant="default" size="sm">
                             {tech}
                           </Badge>
                         ))}
@@ -379,12 +379,12 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 5: SELECTED WORK                                 */}
+      {/* SECTION 5: SELECTED WORK (04 / SELECTED WORK)            */}
       {/* ======================================================== */}
       <section
         id="projects"
         aria-label="Selected Engineering Projects"
-        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#F5F5F5]"
+        className="py-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#f5f5f5]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -407,12 +407,12 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 6: RESEARCH & INTERESTS                          */}
+      {/* SECTION 6: RESEARCH & INTERESTS (05 / RESEARCH)          */}
       {/* ======================================================== */}
       <section
         id="research"
         aria-label="Research and Technical Inquiries"
-        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+        className="py-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#fafafa]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -422,39 +422,39 @@ export function Home() {
             subheadline={researchContent.subheadline}
           />
 
-          {/* Featured Ongoing Research Direction */}
-          <div className="mb-14 bg-[#FFFFFF] border border-[#E7E5E4] rounded-[24px] p-8 sm:p-10 shadow-[0_2px_16px_rgba(0,0,0,0.03)] relative overflow-hidden">
+          {/* Featured Ongoing Research Direction (rounded.xxl = 24px) */}
+          <div className="mb-14 bg-[#ffffff] border border-[#e7e5e4] rounded-[24px] p-8 sm:p-10 shadow-[0_4px_16px_rgba(0,0,0,0.04)] relative overflow-hidden">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-              <span className="label-editorial text-[#777169]">
+              <span className="caption-uppercase text-[#777169]">
                 Featured Research Direction
               </span>
-              <span className="inline-flex items-center text-[12px] text-amber-900 bg-amber-50 border border-amber-200 rounded-full px-3 py-0.5">
+              <span className="inline-flex items-center text-[12px] text-amber-900 bg-amber-50 border border-amber-200 rounded-full px-3 py-0.5 font-medium">
                 {researchContent.featuredDirection.status}
               </span>
             </div>
 
-            <h3 className="font-display text-[28px] sm:text-[34px] font-light text-[#0C0A09] leading-tight mb-4">
+            <h3 className="display-md text-[#0c0a09] leading-tight mb-4">
               "{researchContent.featuredDirection.title}"
             </h3>
 
-            <p className="body-editorial text-[16px] text-[#4E4E4E] leading-relaxed mb-6 max-w-4xl">
+            <p className="body-md text-[#4e4e4e] leading-relaxed mb-6 max-w-4xl">
               {researchContent.featuredDirection.description}
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-[#E7E5E4]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-[#e7e5e4]">
               <div>
-                <span className="label-editorial text-[#0C0A09] block mb-1">
+                <span className="caption-uppercase text-[#0c0a09] block mb-1">
                   Investigation Methodology
                 </span>
-                <p className="text-[14px] text-[#4E4E4E] leading-relaxed">
+                <p className="body-sm text-[#4e4e4e] leading-relaxed">
                   {researchContent.featuredDirection.methodology}
                 </p>
               </div>
               <div>
-                <span className="label-editorial text-[#0C0A09] block mb-1">
+                <span className="caption-uppercase text-[#0c0a09] block mb-1">
                   Target Outcomes
                 </span>
-                <p className="text-[14px] text-[#4E4E4E] leading-relaxed">
+                <p className="body-sm text-[#4e4e4e] leading-relaxed">
                   {researchContent.featuredDirection.anticipatedOutcomes}
                 </p>
               </div>
@@ -462,29 +462,29 @@ export function Home() {
 
             <div className="pt-6 flex flex-wrap gap-2">
               {researchContent.featuredDirection.keywords.map((kw) => (
-                <Badge key={kw} variant="neutral" size="sm">
+                <Badge key={kw} variant="default" size="sm">
                   {kw}
                 </Badge>
               ))}
             </div>
           </div>
 
-          {/* Clean Editorial Research List */}
+          {/* Clean Editorial Research List (feature-card: rounded.xl = 16px, p-6) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {researchContent.interests.map((item, idx) => (
               <div
                 key={item.topic}
-                className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[18px] p-5 sm:p-6 hover:border-[#D6D3D1] transition-all"
+                className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-6 hover:border-[#d6d3d1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="label-editorial text-[#777169]">
+                  <span className="caption-uppercase text-[#777169]">
                     0{idx + 1} • {item.category}
                   </span>
                 </div>
-                <h4 className="font-display text-[22px] font-light text-[#0C0A09] mb-2">
+                <h4 className="display-sm text-[#0c0a09] mb-2">
                   {item.topic}
                 </h4>
-                <p className="text-[14px] text-[#4E4E4E] leading-relaxed">
+                <p className="body-sm text-[#4e4e4e] leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -494,12 +494,12 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 7: LEADERSHIP                                    */}
+      {/* SECTION 7: LEADERSHIP (06 / LEADERSHIP)                  */}
       {/* ======================================================== */}
       <section
         id="leadership"
         aria-label="Leadership and Community"
-        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#F5F5F5]"
+        className="py-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#f5f5f5]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -514,35 +514,35 @@ export function Home() {
               <Surface
                 key={role.organization}
                 variant="card"
-                padding="md"
+                padding="lg"
                 className="space-y-6"
               >
                 <div>
-                  <span className="label-editorial text-[#777169] block mb-1">
+                  <span className="caption-uppercase text-[#777169] block mb-1">
                     0{idx + 1} • {role.period}
                   </span>
-                  <h3 className="font-display text-[24px] font-light text-[#0C0A09]">
+                  <h3 className="display-sm text-[#0c0a09]">
                     {role.organization}
                   </h3>
-                  <p className="text-[15px] font-medium text-[#292524] mt-1">
+                  <p className="body-strong text-[#292524] mt-1">
                     {role.role}
                   </p>
-                  <p className="text-[13px] text-[#777169] mt-0.5">
+                  <p className="caption text-[#777169] mt-0.5">
                     {role.scope}
                   </p>
                 </div>
 
-                <div className="space-y-2.5 pt-2 border-t border-[#E7E5E4]">
-                  <span className="label-editorial text-[#777169] block">
+                <div className="space-y-2.5 pt-2 border-t border-[#e7e5e4]">
+                  <span className="caption-uppercase text-[#777169] block">
                     Strategic Initiatives
                   </span>
                   <ul className="space-y-2">
                     {role.contributions.map((c, i) => (
                       <li
                         key={i}
-                        className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#4E4E4E]"
+                        className="flex items-start gap-2.5 body-sm leading-relaxed text-[#4e4e4e]"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#0C0A09] mt-2 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a09] mt-2 shrink-0" />
                         <span>{c}</span>
                       </li>
                     ))}
@@ -551,7 +551,7 @@ export function Home() {
 
                 <div className="pt-2 flex flex-wrap gap-1.5">
                   {role.tags.map((tag) => (
-                    <Badge key={tag} variant="neutral" size="sm">
+                    <Badge key={tag} variant="default" size="sm">
                       {tag}
                     </Badge>
                   ))}
@@ -568,7 +568,7 @@ export function Home() {
       <section
         id="education"
         aria-label="Education and Certifications"
-        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+        className="py-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#fafafa]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -581,47 +581,47 @@ export function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Formal University Education (5 cols) */}
             <div className="lg:col-span-5 space-y-4">
-              <span className="label-editorial text-[#777169] block">
+              <span className="caption-uppercase text-[#777169] block">
                 Higher Education
               </span>
 
-              <div className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[20px] p-6 sm:p-8 space-y-4 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+              <div className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-6 sm:p-8 space-y-4 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
                 <div>
-                  <h3 className="font-display text-[26px] font-light text-[#0C0A09]">
+                  <h3 className="display-sm text-[#0c0a09]">
                     {educationContent.education.institution}
                   </h3>
-                  <p className="text-[16px] font-medium text-[#292524] mt-1">
+                  <p className="body-strong text-[#292524] mt-1">
                     {educationContent.education.degree}
                   </p>
-                  <p className="text-[14px] text-[#777169]">
+                  <p className="body-sm text-[#777169]">
                     {educationContent.education.field}
                   </p>
                 </div>
 
-                <div className="py-3 border-t border-b border-[#E7E5E4] grid grid-cols-2 gap-4 text-[13px]">
+                <div className="py-3 border-t border-b border-[#e7e5e4] grid grid-cols-2 gap-4 text-[13px]">
                   <div>
-                    <span className="label-editorial block text-[#777169]">Timeline</span>
-                    <span className="font-medium text-[#0C0A09]">
+                    <span className="caption-uppercase block text-[#777169]">Timeline</span>
+                    <span className="font-medium text-[#0c0a09]">
                       {educationContent.education.status}
                     </span>
                   </div>
                   <div>
-                    <span className="label-editorial block text-[#777169]">Grade</span>
-                    <span className="font-medium text-[#0C0A09]">
+                    <span className="caption-uppercase block text-[#777169]">Grade</span>
+                    <span className="font-medium text-[#0c0a09]">
                       GPA: {educationContent.education.gpa}
                     </span>
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <span className="label-editorial block text-[#777169]">Honor &amp; Fellowship</span>
+                  <span className="caption-uppercase block text-[#777169]">Honor &amp; Fellowship</span>
                   <p className="text-[13px] font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-2.5">
                     {educationContent.education.scholarship}
                   </p>
                 </div>
 
                 {educationContent.education.notes && (
-                  <p className="text-[13px] text-[#777169] leading-relaxed">
+                  <p className="caption text-[#777169] leading-relaxed">
                     {educationContent.education.notes}
                   </p>
                 )}
@@ -630,7 +630,7 @@ export function Home() {
 
             {/* Verified Certifications Catalog (7 cols) */}
             <div className="lg:col-span-7 space-y-4">
-              <span className="label-editorial text-[#777169] block">
+              <span className="caption-uppercase text-[#777169] block">
                 Verified Technical Certifications (2025 – 2026)
               </span>
 
@@ -638,19 +638,19 @@ export function Home() {
                 {educationContent.certifications.map((cert) => (
                   <div
                     key={cert.name}
-                    className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[16px] p-4 flex flex-col justify-between hover:border-[#D6D3D1] transition-all"
+                    className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-5 flex flex-col justify-between hover:border-[#d6d3d1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
                   >
                     <div>
-                      <div className="flex items-center justify-between text-[11px] text-[#777169] mb-1">
+                      <div className="flex items-center justify-between caption text-[11px] mb-1">
                         <span>{cert.issuer}</span>
                         <span className="font-mono">{cert.year}</span>
                       </div>
-                      <h4 className="text-[14px] font-medium text-[#0C0A09] leading-snug">
+                      <h4 className="title-sm text-[#0c0a09] leading-snug">
                         {cert.name}
                       </h4>
                     </div>
 
-                    <p className="text-[12px] text-[#777169] pt-2 mt-2 border-t border-[#E7E5E4]/60">
+                    <p className="caption text-[12px] pt-2 mt-2 border-t border-[#e7e5e4]/60">
                       {cert.credentialFocus}
                     </p>
                   </div>
@@ -662,38 +662,38 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 9: CONTACT                                       */}
+      {/* SECTION 9: CONTACT (cta-band)                            */}
       {/* ======================================================== */}
       <section
         id="contact"
         aria-label="Contact and Collaboration"
-        className="py-24 sm:py-32 px-6 sm:px-8 bg-[#F5F5F5] relative overflow-hidden"
+        className="py-24 px-6 sm:px-8 bg-[#f5f5f5] relative overflow-hidden border-t border-[#e7e5e4]"
       >
         <AtmosphericGlow
           color="rose"
           size={500}
-          className="-bottom-20 -right-20 opacity-30"
+          className="-bottom-20 -right-20 opacity-35"
           animation="drift-1"
         />
         <AtmosphericGlow
           color="mint"
           size={420}
-          className="top-10 left-10 opacity-30"
+          className="top-10 left-10 opacity-35"
           animation="drift-2"
         />
 
         <div className="relative z-10 max-w-[900px] mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2">
-            <span className="label-editorial text-[#777169] tracking-[0.16em]">
+            <span className="caption-uppercase text-[#777169]">
               07 / CONTACT
             </span>
           </div>
 
-          <h2 className="display-hero text-[#0C0A09] max-w-2xl mx-auto">
+          <h2 className="display-mega text-[#0c0a09] max-w-2xl mx-auto">
             Have something meaningful to build?
           </h2>
 
-          <p className="body-editorial text-[18px] sm:text-[20px] text-[#4E4E4E] max-w-xl mx-auto leading-relaxed">
+          <p className="body-md text-[17px] sm:text-[19px] text-[#4e4e4e] max-w-xl mx-auto leading-relaxed">
             I'm open to engineering opportunities, technical collaborations, and projects that create meaningful impact.
           </p>
 
@@ -704,8 +704,8 @@ export function Home() {
             >
               <Button
                 variant="primary"
-                size="lg"
-                icon={<ArrowUpRight size={16} />}
+                size="md"
+                icon={<ArrowUpRight size={15} />}
               >
                 Get in Touch
               </Button>
@@ -719,19 +719,19 @@ export function Home() {
             >
               <Button
                 variant="outline"
-                size="lg"
-                icon={<LinkedinIcon size={16} />}
+                size="md"
+                icon={<LinkedinIcon size={15} />}
               >
                 Connect on LinkedIn
               </Button>
             </a>
           </div>
 
-          <div className="pt-8 text-[14px] text-[#777169]">
+          <div className="pt-8 body-sm text-[#777169]">
             <span>Direct Email: </span>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="font-medium text-[#0C0A09] hover:underline"
+              className="font-medium text-[#0c0a09] hover:underline"
             >
               {personalInfo.email}
             </a>

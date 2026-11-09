@@ -11,7 +11,7 @@ export function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 12);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -48,10 +48,10 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 h-20 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-200 ${
           isScrolled
-            ? 'bg-[#F5F5F5]/90 backdrop-blur-md border-b border-[#E7E5E4] shadow-[0_2px_12px_rgba(0,0,0,0.02)]'
-            : 'bg-[#F5F5F5]/60 backdrop-blur-sm border-b border-transparent'
+            ? 'bg-[#f5f5f5]/90 backdrop-blur-md border-b border-[#e7e5e4] shadow-[0_2px_12px_rgba(0,0,0,0.02)]'
+            : 'bg-[#f5f5f5]/60 backdrop-blur-sm border-b border-transparent'
         }`}
       >
         <div className="max-w-[1200px] h-full mx-auto px-6 sm:px-8 flex items-center justify-between">
@@ -61,38 +61,35 @@ export function Navigation() {
             className="group flex flex-col cursor-pointer"
             aria-label={`${personalInfo.name} - Home`}
           >
-            <span className="font-display text-[20px] sm:text-[22px] tracking-[-0.01em] font-light text-[#0C0A09] group-hover:opacity-75 transition-opacity">
+            <span className="font-display text-[20px] sm:text-[22px] tracking-[-0.4px] font-light text-[#0c0a09] group-hover:opacity-75 transition-opacity">
               {personalInfo.brandMark}
-            </span>
-            <span className="text-[11px] font-medium tracking-[0.08em] uppercase text-[#777169] -mt-0.5">
-              Bandung, ID
             </span>
           </Link>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links (Inter 15px / 500) */}
           <nav
             aria-label="Primary navigation"
-            className="hidden md:flex items-center gap-7 lg:gap-9"
+            className="hidden md:flex items-center gap-7 lg:gap-8"
           >
             {navLinks.map((item) => (
               <a
                 key={item.label}
                 href={item.to}
                 onClick={(e) => handleNavClick(e, item.to)}
-                className="text-[14px] font-medium tracking-[0.01em] text-[#4E4E4E] hover:text-[#0C0A09] transition-colors relative py-1"
+                className="nav-link text-[#4e4e4e] hover:text-[#0c0a09] transition-colors relative py-1"
               >
                 {item.label}
               </a>
             ))}
           </nav>
 
-          {/* Action CTAs: Get in Touch Pill */}
+          {/* Action CTAs: Ink Pill Button */}
           <div className="hidden sm:flex items-center gap-3">
             <a
               href={`mailto:${personalInfo.email}?subject=Collaboration%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
               className="inline-block"
             >
-              <Button variant="primary" size="sm" icon={<ArrowUpRight size={14} />}>
+              <Button variant="primary" size="md" icon={<ArrowUpRight size={14} />}>
                 Get in Touch
               </Button>
             </a>
@@ -101,7 +98,7 @@ export function Navigation() {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 rounded-full flex items-center justify-center border border-[#E7E5E4] bg-[#FFFFFF] text-[#0C0A09] hover:bg-[#FAFAFA] transition-colors"
+            className="md:hidden w-10 h-10 rounded-full flex items-center justify-center border border-[#e7e5e4] bg-[#ffffff] text-[#0c0a09] hover:bg-[#fafafa] transition-colors"
             aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Menu'}
             aria-expanded={mobileMenuOpen}
           >
@@ -112,7 +109,7 @@ export function Navigation() {
         {/* Mobile Slide-down Menu */}
         {mobileMenuOpen && (
           <div
-            className="md:hidden border-b border-[#E7E5E4] bg-[#F5F5F5] px-6 py-6 transition-all"
+            className="md:hidden border-b border-[#e7e5e4] bg-[#f5f5f5] px-6 py-6 transition-all"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile Navigation"
@@ -126,7 +123,7 @@ export function Navigation() {
                     handleNavClick(e, item.to);
                     setMobileMenuOpen(false);
                   }}
-                  className="text-[16px] font-medium text-[#0C0A09] py-1 border-b border-[#E7E5E4]/40"
+                  className="nav-link text-[#0c0a09] py-1 border-b border-[#e7e5e4]/40"
                 >
                   {item.label}
                 </a>
@@ -146,8 +143,8 @@ export function Navigation() {
         )}
       </header>
 
-      {/* Spacer matching exact header height */}
-      <div className="h-20" />
+      {/* Spacer matching exact 64px header height */}
+      <div className="h-16" />
     </>
   );
 }

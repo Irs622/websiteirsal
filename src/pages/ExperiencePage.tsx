@@ -13,11 +13,11 @@ export function ExperiencePage() {
   }, []);
 
   return (
-    <div className="py-12 sm:py-20 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
+    <div className="py-16 sm:py-24 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
       <div className="mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-[14px] text-[#777169] hover:text-[#0C0A09] transition-colors py-1.5 px-3 -ml-3 rounded-full hover:bg-black/[0.03]"
+          className="inline-flex items-center gap-2 body-sm text-[#777169] hover:text-[#0c0a09] transition-colors py-1.5 px-3 -ml-3 rounded-full hover:bg-black/[0.03]"
         >
           <ArrowLeft size={16} />
           <span>Back to Home</span>
@@ -26,17 +26,17 @@ export function ExperiencePage() {
 
       <header className="mb-14 space-y-4 max-w-3xl">
         <div className="flex items-center gap-3">
-          <span className="label-editorial text-[#777169]">
+          <span className="caption-uppercase text-[#777169]">
             {experienceContent.sectionNumber} / {experienceContent.sectionTitle}
           </span>
-          <div className="h-[1px] w-12 bg-[#E7E5E4]" />
+          <div className="h-[1px] w-12 bg-[#e7e5e4]" />
         </div>
 
-        <h1 className="display-hero text-[#0C0A09]">
+        <h1 className="display-mega text-[#0c0a09]">
           {experienceContent.headline}
         </h1>
 
-        <p className="body-editorial text-[18px] text-[#777169] leading-relaxed">
+        <p className="body-md text-[18px] text-[#777169] leading-relaxed">
           {experienceContent.subheadline}
         </p>
       </header>
@@ -46,36 +46,36 @@ export function ExperiencePage() {
         {experienceContent.items.map((item, index) => (
           <div
             key={item.id}
-            className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[20px] p-6 sm:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
+            className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-6 sm:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)]"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
               <div className="lg:col-span-4 space-y-1">
-                <span className="label-editorial text-[#777169] block mb-1">
+                <span className="caption-uppercase text-[#777169] block mb-1">
                   0{index + 1} • {item.type}
                 </span>
-                <h3 className="font-display text-[24px] font-light text-[#0C0A09]">
+                <h3 className="display-sm text-[#0c0a09]">
                   {item.company}
                 </h3>
-                <p className="text-[15px] font-medium text-[#292524]">
+                <p className="body-strong text-[#292524] mt-1">
                   {item.role}
                 </p>
-                <div className="pt-2 text-[13px] text-[#777169] flex flex-col gap-0.5">
+                <div className="pt-2 body-sm text-[#777169] flex flex-col gap-0.5">
                   <span>{item.period}</span>
                   <span>{item.location}</span>
                 </div>
               </div>
 
               <div className="lg:col-span-8 space-y-4">
-                <span className="label-editorial text-[#777169] block">
+                <span className="caption-uppercase text-[#777169] block">
                   Core Responsibilities &amp; Impact
                 </span>
                 <ul className="space-y-2.5">
                   {item.responsibilities.map((resp, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-3 text-[14px] leading-relaxed text-[#4E4E4E]"
+                      className="flex items-start gap-3 body-sm leading-relaxed text-[#4e4e4e]"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0C0A09] mt-2 shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a09] mt-2 shrink-0" />
                       <span>{resp}</span>
                     </li>
                   ))}
@@ -84,7 +84,7 @@ export function ExperiencePage() {
                 {item.techStack && (
                   <div className="pt-3 flex flex-wrap gap-1.5">
                     {item.techStack.map((tech) => (
-                      <Badge key={tech} variant="neutral" size="sm">
+                      <Badge key={tech} variant="default" size="sm">
                         {tech}
                       </Badge>
                     ))}
@@ -97,38 +97,38 @@ export function ExperiencePage() {
       </div>
 
       {/* Leadership Section */}
-      <section className="pt-12 border-t border-[#E7E5E4] space-y-8">
+      <section className="pt-12 border-t border-[#e7e5e4] space-y-8">
         <div>
-          <span className="label-editorial text-[#777169] block mb-2">
+          <span className="caption-uppercase text-[#777169] block mb-2">
             06 / LEADERSHIP &amp; COMMUNITY
           </span>
-          <h2 className="display-section text-[#0C0A09]">
+          <h2 className="display-lg text-[#0c0a09]">
             {leadershipContent.headline}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {leadershipContent.roles.map((role, idx) => (
-            <Surface key={role.organization} variant="card" padding="md" className="space-y-6">
+            <Surface key={role.organization} variant="card" padding="lg" className="space-y-6">
               <div>
-                <span className="label-editorial text-[#777169] block mb-1">
+                <span className="caption-uppercase text-[#777169] block mb-1">
                   0{idx + 1} • {role.period}
                 </span>
-                <h3 className="font-display text-[24px] font-light text-[#0C0A09]">
+                <h3 className="display-sm text-[#0c0a09]">
                   {role.organization}
                 </h3>
-                <p className="text-[15px] font-medium text-[#292524] mt-1">
+                <p className="body-strong text-[#292524] mt-1">
                   {role.role}
                 </p>
-                <p className="text-[13px] text-[#777169] mt-0.5">
+                <p className="caption text-[#777169] mt-0.5">
                   {role.scope}
                 </p>
               </div>
 
-              <ul className="space-y-2 pt-2 border-t border-[#E7E5E4]">
+              <ul className="space-y-2 pt-2 border-t border-[#e7e5e4]">
                 {role.contributions.map((c, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-[14px] text-[#4E4E4E]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#0C0A09] mt-2 shrink-0" />
+                  <li key={i} className="flex items-start gap-2.5 body-sm text-[#4e4e4e]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a09] mt-2 shrink-0" />
                     <span>{c}</span>
                   </li>
                 ))}

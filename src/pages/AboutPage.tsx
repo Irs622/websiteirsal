@@ -13,11 +13,11 @@ export function AboutPage() {
   }, []);
 
   return (
-    <div className="py-12 sm:py-20 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
+    <div className="py-16 sm:py-24 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
       <div className="mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 text-[14px] text-[#777169] hover:text-[#0C0A09] transition-colors py-1.5 px-3 -ml-3 rounded-full hover:bg-black/[0.03]"
+          className="inline-flex items-center gap-2 body-sm text-[#777169] hover:text-[#0c0a09] transition-colors py-1.5 px-3 -ml-3 rounded-full hover:bg-black/[0.03]"
         >
           <ArrowLeft size={16} />
           <span>Back to Home</span>
@@ -26,17 +26,17 @@ export function AboutPage() {
 
       <header className="mb-14 space-y-4 max-w-3xl">
         <div className="flex items-center gap-3">
-          <span className="label-editorial text-[#777169]">
+          <span className="caption-uppercase text-[#777169]">
             {aboutContent.sectionNumber} / {aboutContent.sectionTitle}
           </span>
-          <div className="h-[1px] w-12 bg-[#E7E5E4]" />
+          <div className="h-[1px] w-12 bg-[#e7e5e4]" />
         </div>
 
-        <h1 className="display-hero text-[#0C0A09]">
+        <h1 className="display-mega text-[#0c0a09]">
           {aboutContent.headline}
         </h1>
 
-        <p className="body-editorial text-[18px] text-[#777169] leading-relaxed">
+        <p className="body-md text-[18px] text-[#777169] leading-relaxed">
           The engineering background, academic focus, and values behind my work.
         </p>
       </header>
@@ -45,22 +45,22 @@ export function AboutPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-20">
         <div className="lg:col-span-7 space-y-6">
           {aboutContent.narrative.map((p, idx) => (
-            <p key={idx} className="body-editorial text-[17px] leading-relaxed text-[#292524]">
+            <p key={idx} className="body-md text-[17px] leading-relaxed text-[#292524]">
               {p}
             </p>
           ))}
 
-          <div className="pt-6 border-t border-[#E7E5E4] space-y-3">
-            <span className="label-editorial text-[#777169] block">
+          <div className="pt-6 border-t border-[#e7e5e4] space-y-3">
+            <span className="caption-uppercase text-[#777169] block">
               Guiding Engineering Statement
             </span>
-            <blockquote className="font-display text-[22px] font-light italic text-[#0C0A09] border-l-2 border-[#0C0A09] pl-4 py-1">
+            <blockquote className="display-sm italic text-[#0c0a09] border-l-2 border-[#0c0a09] pl-4 py-1">
               "{personalInfo.brandStatement}"
             </blockquote>
           </div>
 
           <div className="pt-6">
-            <span className="label-editorial text-[#777169] block mb-3">
+            <span className="caption-uppercase text-[#777169] block mb-3">
               Research &amp; Technical Focus
             </span>
             <div className="flex flex-wrap gap-2">
@@ -74,17 +74,17 @@ export function AboutPage() {
         </div>
 
         <div className="lg:col-span-5 space-y-8">
-          <div className="rounded-[24px] border border-[#E7E5E4] bg-[#FFFFFF] p-3 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
-            <div className="aspect-[3/4] overflow-hidden rounded-[18px] bg-[#F5F5F5]">
+          <div className="rounded-[24px] border border-[#e7e5e4] bg-[#ffffff] p-3 shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
+            <div className="aspect-[3/4] overflow-hidden rounded-[18px] bg-[#f5f5f5]">
               <img
                 src={portraitImg}
                 alt="LM. Irsal Shydiq"
                 className="w-full h-full object-cover grayscale-[15%]"
               />
             </div>
-            <div className="p-3 pt-4 flex items-center justify-between text-[12px] text-[#777169]">
-              <span className="font-mono">LM. Irsal Shydiq</span>
-              <span>Bandung, Indonesia</span>
+            <div className="p-3 pt-4 flex items-center justify-between caption">
+              <span className="font-mono text-[12px]">LM. Irsal Shydiq</span>
+              <span className="text-[12px]">Bandung, Indonesia</span>
             </div>
           </div>
 
@@ -92,16 +92,16 @@ export function AboutPage() {
             {aboutContent.snapshot.map((item) => (
               <div
                 key={item.label}
-                className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[16px] p-4 space-y-1"
+                className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-4 space-y-1 shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
               >
-                <span className="label-editorial text-[#777169] text-[10px] block">
+                <span className="caption-uppercase text-[#777169] text-[10px] block">
                   {item.label}
                 </span>
-                <h4 className="text-[14px] font-medium text-[#0C0A09]">
+                <h4 className="title-sm text-[#0c0a09]">
                   {item.value}
                 </h4>
                 {item.detail && (
-                  <p className="text-[12px] text-[#777169]">{item.detail}</p>
+                  <p className="caption text-[12px]">{item.detail}</p>
                 )}
               </div>
             ))}

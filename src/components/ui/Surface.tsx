@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface SurfaceProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  variant?: 'card' | 'subtle' | 'outline' | 'flat';
+  variant?: 'card' | 'subtle' | 'orb-card' | 'outline' | 'flat';
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
@@ -14,22 +14,23 @@ export function Surface({
   ...props
 }: SurfaceProps) {
   const variantClasses = {
-    card: 'bg-[#FFFFFF] border border-[#E7E5E4] shadow-[0_2px_12px_rgba(0,0,0,0.03)]',
-    subtle: 'bg-[#FAFAFA] border border-[#E7E5E4]',
-    outline: 'bg-transparent border border-[#E7E5E4]',
-    flat: 'bg-[#FFFFFF] border-none'
+    card: 'bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)] hover:border-[#d6d3d1]',
+    subtle: 'bg-[#fafafa] border border-[#e7e5e4] rounded-[16px]',
+    'orb-card': 'bg-[#fafafa] border border-[#e7e5e4] rounded-[24px]',
+    outline: 'bg-transparent border border-[#e7e5e4] rounded-[16px]',
+    flat: 'bg-[#ffffff] border-none rounded-[16px]'
   };
 
   const paddingClasses = {
     none: 'p-0',
     sm: 'p-4 sm:p-5',
-    md: 'p-6 sm:p-8',
-    lg: 'p-8 sm:p-10'
+    md: 'p-6 sm:p-6',
+    lg: 'p-6 sm:p-8'
   };
 
   return (
     <div
-      className={`rounded-[20px] transition-all duration-200 ${variantClasses[variant]} ${paddingClasses[padding]} ${className}`}
+      className={`transition-all duration-200 ${variantClasses[variant]} ${paddingClasses[padding]} ${className}`}
       {...props}
     >
       {children}

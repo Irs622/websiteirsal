@@ -14,19 +14,19 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const sizeClasses = {
-    sm: 'text-[11px] px-2.5 py-0.5',
-    md: 'text-[12px] px-3 py-1'
+    sm: 'text-[11px] px-2.5 py-0.5 tracking-[0.6px]',
+    md: 'text-[12px] px-2.5 py-1 tracking-[0.96px]'
   };
 
   const variantClasses = {
-    default: 'bg-[#FFFFFF] text-[#292524] border border-[#E7E5E4]',
-    neutral: 'bg-[#FAFAFA] text-[#777169] border border-[#E7E5E4]',
-    subtle: 'bg-black/[0.03] text-[#4E4E4E] border border-transparent'
+    default: 'bg-[#f0efed] text-[#0c0a09] border border-[#e7e5e4]',
+    neutral: 'bg-[#fafafa] text-[#777169] border border-[#e7e5e4]',
+    subtle: 'bg-black/[0.03] text-[#4e4e4e] border border-transparent'
   };
 
   return (
     <span
-      className={`inline-flex items-center font-normal tracking-wide rounded-full ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
+      className={`inline-flex items-center font-semibold uppercase rounded-full caption-uppercase ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
       {...props}
     >
       {children}
