@@ -90,6 +90,17 @@ export function Portfolio() {
     ? projects
     : projects.filter(p => p.category === activeCategory);
 
+  const getCategoryButtonClasses = (isActive: boolean) => {
+    if (isActive) {
+      return isLight
+        ? 'bg-[#292524] text-white border-[#292524] shadow-sm'
+        : 'bg-white text-[#0c0a09] border-white shadow-sm';
+    }
+    return isLight
+      ? 'bg-transparent text-[#4e4e4e] border-[#e7e5e4] hover:border-[#d6d3d1] hover:text-[#0c0a09]'
+      : 'bg-transparent text-[#a8a29e] border-[#292524] hover:border-[#3e3835] hover:text-white';
+  };
+
   return (
     <div className="relative min-h-screen pt-12 pb-24 px-6 overflow-hidden">
       {/* Background Atmospheric Orbs */}
@@ -137,16 +148,8 @@ export function Portfolio() {
                 key={category}
                 onClick={() => setActiveCategory(category)}
                 className={`
-                  h-10 px-5 rounded-full text-[14px] font-medium transition-all duration-150 cursor-pointer
-                  border
-                  ${isActive
-                    ? isLight
-                      ? 'bg-[#292524] text-white border-[#292524] shadow-sm'
-                      : 'bg-white text-[#0c0a09] border-white shadow-sm'
-                    : isLight
-                      ? 'bg-transparent text-[#4e4e4e] border-[#e7e5e4] hover:border-[#d6d3d1] hover:text-[#0c0a09]'
-                      : 'bg-transparent text-[#a8a29e] border-[#292524] hover:border-[#3e3835] hover:text-white'
-                  }
+                  h-10 px-5 rounded-full text-[14px] font-medium transition-all duration-150 cursor-pointer border
+                  ${getCategoryButtonClasses(isActive)}
                 `}
               >
                 {category}

@@ -8,14 +8,11 @@ import { SkillTag } from '../components/SkillTag';
 import { AtmosphericOrb } from '../components/AtmosphericOrb';
 import { AudioWaveformCard } from '../components/AudioWaveformCard';
 import { TestimonialCard } from '../components/TestimonialCard';
-import { useTheme } from '../contexts/ThemeContext';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import liveEventImage from 'figma:asset/5879bf3215834319cdadf80da5a00755d2ab9eb0.png';
 
 export function Home() {
   const navigate = useNavigate();
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
 
   const disciplines = [
     {

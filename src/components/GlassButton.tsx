@@ -6,6 +6,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: 'primary' | 'secondary' | 'outline' | 'text';
   size?: 'default' | 'sm' | 'lg';
   className?: string;
+  onClick?: (e?: any) => void | Promise<void>;
 }
 
 export function GlassButton({

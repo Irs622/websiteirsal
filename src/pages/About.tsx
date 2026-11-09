@@ -1,19 +1,16 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { Code, Palette, Camera, PenTool, Award, Briefcase, Video, ArrowUpRight, ArrowRight } from 'lucide-react';
+import { Code, Camera, Briefcase, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { GlassCard } from '../components/GlassCard';
 import { GlassButton } from '../components/GlassButton';
 import { SkillTag } from '../components/SkillTag';
 import { AtmosphericOrb } from '../components/AtmosphericOrb';
-import { useTheme } from '../contexts/ThemeContext';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import profileImage from 'figma:asset/10be68f43185b69174f9ad5cc031832d9e118087.png';
 
 export function About() {
-  const { theme } = useTheme();
   const navigate = useNavigate();
-  const isLight = theme === 'light';
 
   const skillGroups = [
     {
@@ -119,8 +116,8 @@ export function About() {
                 {/* Status Badge */}
                 <div className="mt-3 text-center">
                   <SkillTag size="sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1" />
-                    Based in Bandung, ID
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1.5" />
+                    <span>Based in Bandung, ID</span>
                   </SkillTag>
                 </div>
               </div>
@@ -193,7 +190,7 @@ export function About() {
                         {item.title}
                       </h3>
                       <p className="body-sm text-[#777169]">
-                        {item.company} • {item.period}
+                        {item.company}{' • '}{item.period}
                       </p>
                       <p className="body-sm text-[#4e4e4e] dark:text-[#a8a29e] mt-2 max-w-2xl">
                         {item.description}

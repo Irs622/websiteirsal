@@ -2,11 +2,11 @@ import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { AtmosphericOrb, OrbColor } from './AtmosphericOrb';
 
-export interface CardProps {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
-  onClick?: () => void;
+  onClick?: (e?: any) => void | Promise<void>;
   orbVariant?: OrbColor;
   variant?: 'card' | 'orb-card' | 'flat';
 }
