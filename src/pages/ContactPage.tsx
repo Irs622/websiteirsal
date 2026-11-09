@@ -24,7 +24,7 @@ export function ContactPage() {
   };
 
   return (
-    <div className="py-12 sm:py-20 px-6 sm:px-8 max-w-[1000px] mx-auto min-h-screen">
+    <div className="py-12 sm:py-20 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
       <div className="mb-8">
         <Link
           to="/"
@@ -37,7 +37,7 @@ export function ContactPage() {
 
       <header className="mb-12 space-y-4 max-w-2xl">
         <div className="flex items-center gap-2 font-mono text-[12px] text-[#6e6b65]">
-          <span>№ 08</span>
+          <span>08</span>
           <span>&bull;</span>
           <span>INQUIRIES &amp; DISPATCH</span>
         </div>
@@ -51,9 +51,9 @@ export function ContactPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-16">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
         {/* Left: Email dispatch ledger (7 cols) */}
-        <div className="md:col-span-7 bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 sm:p-8 space-y-5">
+        <div className="lg:col-span-7 bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 sm:p-8 space-y-5">
           <div>
             <span className="caption-uppercase text-[#6e6b65] block mb-1">
               Primary Channel
@@ -92,7 +92,7 @@ export function ContactPage() {
         </div>
 
         {/* Right: Profiles & Base (5 cols) */}
-        <div className="md:col-span-5 space-y-4">
+        <div className="lg:col-span-5 space-y-4">
           <div className="bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-5 space-y-3">
             <span className="caption-uppercase text-[#6e6b65] block">
               Repositories &amp; Networks
@@ -125,14 +125,14 @@ export function ContactPage() {
             </a>
           </div>
 
-          <div className="bg-[#f5f4f0] border border-[#e5e2dc] rounded-sm p-5 space-y-1">
-            <span className="caption-uppercase text-[#6e6b65] block">Location &amp; Timezone</span>
-            <div className="flex items-center gap-2 font-medium text-[#141413] text-[14px]">
-              <MapPin size={14} />
+          <div className="bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-5 space-y-1 font-mono text-[12px]">
+            <span className="caption-uppercase text-[#9c9890] block text-[10px]">Location &amp; Coordinates</span>
+            <div className="flex items-center gap-2 font-medium text-[#141413] text-[13px] pt-1">
+              <MapPin size={13} />
               <span>Bandung, West Java, Indonesia</span>
             </div>
-            <p className="caption text-[#6e6b65] font-mono text-[12px]">
-              UTC+7 (WIB) &bull; Open to remote and hybrid arrangements.
+            <p className="caption text-[#6e6b65] text-[11px] pt-1">
+              UTC+7 (WIB) &bull; Open to remote and hybrid arrangements worldwide.
             </p>
           </div>
         </div>

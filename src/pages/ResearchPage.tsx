@@ -24,7 +24,7 @@ export function ResearchPage() {
 
       <header className="mb-12 space-y-4 max-w-3xl">
         <div className="flex items-center gap-2 font-mono text-[12px] text-[#6e6b65]">
-          <span>№ 05</span>
+          <span>05</span>
           <span>&bull;</span>
           <span>APPLIED RESEARCH &amp; INQUIRIES</span>
         </div>
@@ -42,7 +42,7 @@ export function ResearchPage() {
       <div className="mb-14 bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 sm:p-8">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-3 border-b border-[#eeebe6] font-mono text-[11px]">
           <span className="caption-uppercase text-[#6e6b65]">
-            Featured Investigation
+            Active Research Investigation
           </span>
           <span className="text-[#1e3a2b] bg-[#1e3a2b]/5 px-2 py-0.5 rounded-sm border border-[#1e3a2b]/20">
             {researchContent.featuredDirection.status}
@@ -85,23 +85,26 @@ export function ResearchPage() {
         </div>
       </div>
 
-      {/* Research Areas Ledger */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {researchContent.interests.map((item, idx) => (
+      {/* Areas of Intellectual Inquiry (Clean ledger, no robotic RES-01) */}
+      <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
+        {researchContent.interests.map((item) => (
           <div
             key={item.topic}
-            className="bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-5 hover:border-[#d0ccc3] transition-colors"
+            className="p-5 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
           >
-            <div className="flex items-center justify-between mb-2 text-[11px] font-mono text-[#6e6b65]">
-              <span>RES-0{idx + 1}</span>
-              <span>{item.category}</span>
+            <div className="md:col-span-4 space-y-0.5">
+              <h3 className="title-sm text-[#141413]">
+                {item.topic}
+              </h3>
+              <span className="caption text-[11px] font-mono text-[#6e6b65] block">
+                {item.category}
+              </span>
             </div>
-            <h3 className="title-sm text-[#141413] mb-1.5">
-              {item.topic}
-            </h3>
-            <p className="body-sm text-[#44423e] leading-relaxed">
-              {item.description}
-            </p>
+            <div className="md:col-span-8">
+              <p className="body-sm text-[#44423e] leading-relaxed">
+                {item.description}
+              </p>
+            </div>
           </div>
         ))}
       </div>

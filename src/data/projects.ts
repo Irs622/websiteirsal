@@ -21,7 +21,6 @@ export interface ProjectItem {
   achievement?: string;
   githubUrl?: string;
   liveUrl?: string;
-  accentOrb?: 'mint' | 'peach' | 'lavender' | 'sky' | 'rose';
   specs?: ProjectTechnicalSpecs;
 }
 

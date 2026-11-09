@@ -25,7 +25,7 @@ export function ExperiencePage() {
 
       <header className="mb-12 space-y-4 max-w-3xl">
         <div className="flex items-center gap-2 font-mono text-[12px] text-[#6e6b65]">
-          <span>№ 03</span>
+          <span>03</span>
           <span>&bull;</span>
           <span>WORK HISTORY &amp; LEADERSHIP</span>
         </div>
@@ -39,9 +39,9 @@ export function ExperiencePage() {
         </p>
       </header>
 
-      {/* Experience Chronological Ledger */}
+      {/* Experience Chronological Ledger (No robotic LOG-01) */}
       <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#e5e2dc] mb-16">
-        {experienceContent.items.map((item, index) => (
+        {experienceContent.items.map((item) => (
           <div
             key={item.id}
             className="p-6 sm:p-8"
@@ -49,7 +49,7 @@ export function ExperiencePage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
               <div className="lg:col-span-4 space-y-1">
                 <span className="caption-uppercase text-[#6e6b65] block mb-1">
-                  LOG-0{index + 1} &bull; {item.type}
+                  {item.type}
                 </span>
                 <h3 className="display-sm text-[#141413]">
                   {item.company}
@@ -64,9 +64,6 @@ export function ExperiencePage() {
               </div>
 
               <div className="lg:col-span-8 space-y-4">
-                <span className="caption-uppercase text-[#6e6b65] block">
-                  Core Responsibilities &amp; Impact
-                </span>
                 <ul className="space-y-2">
                   {item.responsibilities.map((resp, i) => (
                     <li
@@ -100,7 +97,7 @@ export function ExperiencePage() {
       <section className="pt-10 border-t border-[#e5e2dc] space-y-8">
         <div>
           <span className="caption-uppercase text-[#6e6b65] block mb-2">
-            № 07 &bull; INSTITUTIONAL LEADERSHIP &amp; COMMUNITY
+            07 &bull; INSTITUTIONAL LEADERSHIP &amp; COMMUNITY
           </span>
           <h2 className="display-lg text-[#141413]">
             {leadershipContent.headline}
@@ -110,32 +107,30 @@ export function ExperiencePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {leadershipContent.roles.map((role, idx) => (
+        <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
+          {leadershipContent.roles.map((role) => (
             <div
               key={role.organization}
-              className="bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 space-y-4"
+              className="p-6 sm:p-8 space-y-4"
             >
-              <div>
-                <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65] mb-2">
-                  <span>LEAD-0{idx + 1}</span>
-                  <span>{role.period}</span>
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#eeebe6] pb-3">
+                <div>
+                  <h3 className="display-sm text-[#141413]">
+                    {role.organization}
+                  </h3>
+                  <p className="body-strong text-[#242321] mt-0.5">
+                    {role.role}
+                  </p>
+                  <p className="caption text-[#6e6b65] text-[12px] mt-0.5">
+                    {role.scope}
+                  </p>
                 </div>
-                <h3 className="display-sm text-[#141413]">
-                  {role.organization}
-                </h3>
-                <p className="body-strong text-[#242321] mt-0.5">
-                  {role.role}
-                </p>
-                <p className="caption text-[#6e6b65] text-[12px] mt-0.5">
-                  {role.scope}
-                </p>
+                <span className="font-mono text-[12px] text-[#6e6b65]">
+                  {role.period}
+                </span>
               </div>
 
-              <div className="pt-2 border-t border-[#eeebe6] space-y-1.5">
-                <span className="caption-uppercase block text-[#9c9890] text-[10px]">
-                  Key Initiatives &amp; Responsibilities
-                </span>
+              <div className="space-y-1.5">
                 <ul className="space-y-1.5">
                   {role.contributions.map((c, i) => (
                     <li

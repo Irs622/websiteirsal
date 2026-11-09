@@ -40,7 +40,7 @@ export function ProjectsPage() {
 
       <header className="mb-12 space-y-4 max-w-3xl">
         <div className="flex items-center gap-2 font-mono text-[12px] text-[#6e6b65]">
-          <span>№ 04</span>
+          <span>04</span>
           <span>&bull;</span>
           <span>SELECTED WORK &amp; CASE STUDIES</span>
         </div>

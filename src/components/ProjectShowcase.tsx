@@ -22,7 +22,7 @@ export function ProjectShowcase({ project, index }: ProjectShowcaseProps) {
       >
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-2.5 border-b border-[#eeebe6] text-[12px] font-mono text-[#6e6b65]">
           <div className="flex items-center gap-2.5">
-            <span className="text-[#141413] font-medium">№ 01</span>
+            <span className="text-[#141413] font-medium">01</span>
             <span className="text-[#d0ccc3]">&bull;</span>
             <span>ACCESSIBLE COMPUTING &bull; LEAD STUDY</span>
             <span className="text-[#d0ccc3]">&bull;</span>
@@ -129,7 +129,7 @@ export function ProjectShowcase({ project, index }: ProjectShowcaseProps) {
       >
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-2.5 border-b border-[#eeebe6] text-[12px] font-mono text-[#6e6b65]">
           <div className="flex items-center gap-2.5">
-            <span className="text-[#141413] font-medium">№ 02</span>
+            <span className="text-[#141413] font-medium">02</span>
             <span className="text-[#d0ccc3]">&bull;</span>
             <span>ACADEMIC PUBLICATION &bull; APPLIED AI &amp; WEBGL</span>
             <span className="text-[#d0ccc3]">&bull;</span>
@@ -223,7 +223,7 @@ export function ProjectShowcase({ project, index }: ProjectShowcaseProps) {
       >
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-2.5 border-b border-[#eeebe6] text-[12px] font-mono text-[#6e6b65]">
           <div className="flex items-center gap-2.5">
-            <span className="text-[#141413] font-medium">№ 03</span>
+            <span className="text-[#141413] font-medium">03</span>
             <span className="text-[#d0ccc3]">&bull;</span>
             <span>SYSTEMS ARCHITECTURE &bull; FULL-STACK PLATFORM</span>
             <span className="text-[#d0ccc3]">&bull;</span>
@@ -314,7 +314,7 @@ export function ProjectShowcase({ project, index }: ProjectShowcaseProps) {
     >
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-2 border-b border-[#eeebe6] text-[12px] font-mono text-[#6e6b65]">
         <div className="flex items-center gap-2.5">
-          <span className="text-[#141413] font-medium">№ 0{index + 1}</span>
+          <span className="text-[#141413] font-medium">0{index + 1}</span>
           <span className="text-[#d0ccc3]">&bull;</span>
           <span>{project.category}</span>
           <span className="text-[#d0ccc3]">&bull;</span>

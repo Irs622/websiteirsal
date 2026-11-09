@@ -26,7 +26,7 @@ export function AboutPage() {
 
       <header className="mb-12 space-y-4 max-w-3xl">
         <div className="flex items-center gap-2 font-mono text-[12px] text-[#6e6b65]">
-          <span>№ 01</span>
+          <span>01</span>
           <span>&bull;</span>
           <span>ACADEMIC BASE &amp; TRAJECTORY</span>
         </div>
@@ -73,7 +73,7 @@ export function AboutPage() {
         </div>
 
         <div className="lg:col-span-5 space-y-6">
-          <div className="border border-[#e5e2dc] bg-[#ffffff] p-2.5 rounded-sm">
+          <div className="border border-[#e5e2dc] bg-[#ffffff] p-2 rounded-sm">
             <div className="aspect-[3/4] overflow-hidden bg-[#f5f4f0] rounded-xs">
               <img
                 src={portraitImg}
@@ -81,42 +81,48 @@ export function AboutPage() {
                 className="w-full h-full object-cover filter grayscale-[10%]"
               />
             </div>
-            <div className="pt-3 px-1 flex items-center justify-between font-mono text-[11px] text-[#6e6b65] border-t border-[#eeebe6] mt-2.5">
+            <div className="pt-2.5 px-1 flex items-center justify-between font-mono text-[11px] text-[#6e6b65] border-t border-[#eeebe6] mt-2">
               <span className="text-[#141413]">LM. Irsal Shydiq</span>
               <span>Bandung, Indonesia</span>
             </div>
           </div>
 
-          {/* Academic & Scholarship Card */}
-          <div className="border border-[#e5e2dc] bg-[#ffffff] p-5 rounded-sm space-y-3">
-            <div className="flex items-center gap-2 border-b border-[#eeebe6] pb-2 text-[12px] font-mono text-[#141413]">
-              <GraduationCap size={15} />
-              <span className="font-medium">Informatics Engineering &bull; Class of 2027</span>
-            </div>
-            <p className="caption text-[#6e6b65]">
-              UIN Sunan Gunung Djati Bandung &bull; Current Cumulative GPA: 3.30 / 4.00
-            </p>
-            <div className="p-2.5 bg-[#f5f4f0] rounded-sm border border-[#e5e2dc] flex items-center gap-2 text-[12px] text-[#1e3a2b] font-mono">
-              <Award size={15} />
-              <span>LPDP Scholarship Awardee (MORA RI)</span>
-            </div>
-          </div>
-
-          {/* Snapshot Ledger */}
-          <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6] text-[13px]">
-            {aboutContent.snapshot.map((item) => (
-              <div key={item.label} className="p-3.5 space-y-0.5">
-                <span className="caption-uppercase text-[10px] text-[#6e6b65] block">
-                  {item.label}
+          {/* Consolidated Academic Dossier Ledger (Single clean card) */}
+          <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
+            <div className="p-5 space-y-2">
+              <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65]">
+                <span className="text-[#141413] font-medium flex items-center gap-1.5">
+                  <GraduationCap size={14} />
+                  Academic Base
                 </span>
-                <span className="font-medium text-[#141413] block">
-                  {item.value}
-                </span>
-                {item.detail && (
-                  <span className="caption text-[12px] text-[#6e6b65] block">{item.detail}</span>
-                )}
+                <span>Class of 2027</span>
               </div>
-            ))}
+              <h4 className="title-sm text-[#141413]">Informatics Engineering</h4>
+              <p className="caption text-[#6e6b65]">
+                UIN Sunan Gunung Djati Bandung &bull; Cumulative GPA: 3.30 / 4.00
+              </p>
+            </div>
+
+            <div className="p-5 space-y-1">
+              <span className="caption-uppercase text-[10px] text-[#9c9890] block">Fellowship</span>
+              <div className="flex items-center gap-2 text-[13px] font-medium text-[#1e3a2b]">
+                <Award size={15} />
+                <span>LPDP Scholarship Awardee</span>
+              </div>
+              <p className="caption text-[#6e6b65] text-[12px]">Ministry of Religious Affairs (Kemenag RI)</p>
+            </div>
+
+            <div className="p-5 space-y-1">
+              <span className="caption-uppercase text-[10px] text-[#9c9890] block">Current Production Engagement</span>
+              <span className="font-medium text-[#141413] text-[14px] block">Software Engineer Intern</span>
+              <span className="caption text-[#6e6b65] text-[12px] block">PT Inpartner Optima Integra &bull; Jakarta / Hybrid</span>
+            </div>
+
+            <div className="p-5 space-y-1">
+              <span className="caption-uppercase text-[10px] text-[#9c9890] block">Engineering Practice</span>
+              <span className="text-[13px] text-[#44423e] block">Full-Stack Web, Native Android, Accessible Systems (WCAG 2.2 AAA)</span>
+              <span className="caption text-[#6e6b65] text-[11px] font-mono block">Bandung, West Java, Indonesia &bull; UTC+7</span>
+            </div>
           </div>
         </div>
       </div>
