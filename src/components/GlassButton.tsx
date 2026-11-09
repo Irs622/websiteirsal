@@ -1,49 +1,68 @@
 import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 
-interface GlassButtonProps {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary';
-  onClick?: () => void;
+  variant?: 'primary' | 'secondary' | 'outline' | 'text';
+  size?: 'default' | 'sm' | 'lg';
   className?: string;
-  type?: 'button' | 'submit' | 'reset';
 }
 
-export function GlassButton({ 
-  children, 
-  variant = 'primary', 
-  onClick, 
+export function GlassButton({
+  children,
+  variant = 'primary',
+  size = 'default',
+  onClick,
   className = '',
-  type = 'button'
-}: GlassButtonProps) {
+  type = 'button',
+  ...props
+}: ButtonProps) {
   const { theme } = useTheme();
-  
-  const baseClasses = `
-    px-8 py-4 rounded-[16px]
-    backdrop-blur-[20px]
-    border
-    transition-all duration-300
-    cursor-pointer
-    font-medium
-  `;
-  
-  const primaryClasses = theme === 'light'
-    ? 'bg-blue-500/80 hover:bg-blue-600/90 border-white/30 text-white shadow-lg hover:shadow-blue-500/50 hover:scale-105'
-    : 'bg-cyan-500 hover:bg-cyan-400 border-cyan-400/30 text-black shadow-[0_0_20px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_rgba(6,182,212,0.7)] hover:scale-105';
-  
-  const secondaryClasses = theme === 'light'
-    ? 'bg-white/70 hover:bg-white/90 border-white/40 text-gray-800 shadow-md hover:shadow-lg hover:scale-105'
-    : 'bg-white/15 hover:bg-white/25 border-white/30 text-white shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105';
-  
-  const variantClasses = variant === 'primary' ? primaryClasses : secondaryClasses;
-  
+
+  const isLight = theme === 'light';
+
+  // Sizing
+  const sizeClasses = {
+    default: 'h-10 px-5 text-[15px]',
+    sm: 'h-8 px-4 text-[13px]',
+    lg: 'h-12 px-6 text-[16px]'
+  }[size];
+
+  // Variants following ElevenLabs editorial specifications
+  let variantClasses = '';
+
+  if (variant === 'primary') {
+    // Ink Primary pill (#292524) -> Active/Hover (#0c0a09)
+    variantClasses = isLight
+      ? 'bg-[#292524] hover:bg-[#0c0a09] active:bg-[#0c0a09] text-white border border-[#292524] shadow-sm hover:shadow active:scale-[0.99]'
+      : 'bg-white hover:bg-[#f0efed] active:bg-[#e7e5e4] text-[#0c0a09] border border-white shadow-sm hover:shadow active:scale-[0.99]';
+  } else if (variant === 'secondary' || variant === 'outline') {
+    // Outline pill with 1px hairline-strong border (#d6d3d1)
+    variantClasses = isLight
+      ? 'bg-transparent hover:bg-[#ffffff] active:bg-[#f0efed] text-[#0c0a09] border border-[#d6d3d1] hover:border-[#a8a29e] active:scale-[0.99]'
+      : 'bg-transparent hover:bg-[#1c1917] active:bg-[#292524] text-white border border-[#3e3835] hover:border-[#777169] active:scale-[0.99]';
+  } else if (variant === 'text') {
+    variantClasses = isLight
+      ? 'bg-transparent text-[#0c0a09] hover:text-[#4e4e4e] p-0 h-auto font-medium'
+      : 'bg-transparent text-white hover:text-[#a8a29e] p-0 h-auto font-medium';
+  }
+
+  const baseClasses = variant === 'text'
+    ? 'inline-flex items-center gap-2 transition-colors duration-150 cursor-pointer'
+    : `inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 cursor-pointer select-none ${sizeClasses}`;
+
   return (
-    <button 
+    <button
       type={type}
-      className={`${baseClasses} ${variantClasses} ${className}`}
       onClick={onClick}
+      className={`${baseClasses} ${variantClasses} ${className}`}
+      {...props}
     >
       {children}
     </button>
   );
 }
+
+// Export aliases for consistency with ElevenLabs naming
+export const Button = GlassButton;
+export const InkButton = GlassButton;

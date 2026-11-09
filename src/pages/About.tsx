@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
-import { Code, Palette, Camera, PenTool, Award, Briefcase, Video } from 'lucide-react';
+import { Code, Palette, Camera, PenTool, Award, Briefcase, Video, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { GlassCard } from '../components/GlassCard';
+import { GlassButton } from '../components/GlassButton';
 import { SkillTag } from '../components/SkillTag';
+import { AtmosphericOrb } from '../components/AtmosphericOrb';
 import { useTheme } from '../contexts/ThemeContext';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import profileImage from 'figma:asset/10be68f43185b69174f9ad5cc031832d9e118087.png';
@@ -11,228 +13,233 @@ import profileImage from 'figma:asset/10be68f43185b69174f9ad5cc031832d9e118087.p
 export function About() {
   const { theme } = useTheme();
   const navigate = useNavigate();
-  
-  const skills = [
-    { category: 'Design', items: ['Figma', 'Adobe XD', 'Sketch', 'Photoshop', 'Illustrator'] },
-    { category: 'Development', items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Node.js'] },
-    { category: 'Photography', items: ['Sony A7III', 'Lightroom', 'Capture One', 'Portrait', 'Landscape'] },
-    { category: 'Video Editing', items: ['Premiere Pro', 'After Effects', 'DaVinci Resolve', 'Final Cut Pro', 'Motion Graphics'] },
-    { category: 'Writing', items: ['UX Writing', 'Technical Writing', 'Content Strategy', 'SEO', 'Blogging'] }
+  const isLight = theme === 'light';
+
+  const skillGroups = [
+    {
+      category: 'Design Systems & UI',
+      items: ['Figma', 'Design Tokens', 'Prototyping', 'User Research', 'Typography Architecture']
+    },
+    {
+      category: 'Frontend Engineering',
+      items: ['React 18/19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Next.js', 'REST APIs']
+    },
+    {
+      category: 'Editorial Photography',
+      items: ['Sony A7III', 'High-speed Prime Glass', 'Adobe Lightroom', 'Event Coverage', 'Color Grading']
+    },
+    {
+      category: 'Film & Motion Editing',
+      items: ['Premiere Pro', 'After Effects', 'DaVinci Resolve', 'Rhythm & Sound Design', 'Short-form Narrative']
+    },
+    {
+      category: 'Writing & Editorial',
+      items: ['UX Copywriting', 'Technical Documentation', 'Design Essays', 'Case Studies', 'Content Strategy']
+    }
   ];
-  
+
   const experience = [
     {
       id: 'tech-innovators',
-      icon: <Briefcase size={24} />,
-      title: 'Freelance UI/UX Designer',
-      company: 'Independent',
-      period: '2024 - Present',
-      description: 'Designing user interfaces and experiences for various clients'
+      icon: <Briefcase size={16} />,
+      title: 'Independent UI/UX Designer',
+      company: 'Freelance & Studio Practice',
+      period: '2024 — Present',
+      description: 'Architecting digital interfaces, design tokens, and comprehensive design libraries for early-stage startups and established commercial ventures.'
     },
     {
       id: 'digital-solutions',
-      icon: <Code size={24} />,
-      title: 'Freelance React Developer',
-      company: 'Independent',
-      period: '2024 - Present',
-      description: 'Building responsive web applications for startups and businesses'
+      icon: <Code size={16} />,
+      title: 'Frontend React Developer',
+      company: 'Independent & Contract',
+      period: '2024 — Present',
+      description: 'Developing high-fidelity, performant React applications with TypeScript, strict type safety, modular layouts, and responsive fluid styling.'
     },
     {
       id: 'freelance-creative',
-      icon: <Award size={24} />,
-      title: 'Freelance Creative',
-      company: 'Independent',
-      period: '2022 - Present',
-      description: 'Photography and content creation for various brands'
+      icon: <Camera size={16} />,
+      title: 'Visual Creator & Photographer',
+      company: 'Independent Creative',
+      period: '2022 — Present',
+      description: 'Editorial concert photography, brand promotional narratives, and design-led written essays documenting modern digital craft.'
     }
   ];
-  
+
   return (
-    <div className="min-h-screen pt-16 pb-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
+    <div className="relative min-h-screen pt-12 pb-24 px-6 overflow-hidden">
+      {/* Background Atmospheric Orbs */}
+      <div className="absolute inset-0 pointer-events-none flex justify-between">
+        <AtmosphericOrb
+          color="peach"
+          size={520}
+          className="top-10 -right-20 opacity-40 dark:opacity-15"
+        />
+        <AtmosphericOrb
+          color="sky"
+          size={500}
+          className="top-[450px] -left-20 opacity-35 dark:opacity-15"
+        />
+      </div>
+
+      <div className="max-w-[1200px] mx-auto relative z-10">
+        {/* Editorial Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center max-w-2xl mx-auto mb-16"
         >
-          <h1 className={`mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-            About Me
+          <span className="caption-uppercase text-[#777169] block mb-2">Biography</span>
+          <h1 className="display-xl mb-4 font-display font-light">
+            About Irsal Shydiq
           </h1>
-          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>
-            Multidisciplinary creative passionate about crafting exceptional experiences
+          <p className="body-md text-[#4e4e4e] dark:text-[#a8a29e]">
+            A multidisciplinary creator balancing the quiet precision of editorial design with modern software engineering and documentary photography.
           </p>
         </motion.div>
-        
-        {/* Profile Section */}
+
+        {/* Profile Card (Pure white card, hairline border, soft drop) */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-16"
         >
-          <GlassCard>
-            <div className="grid md:grid-cols-[300px_1fr] gap-8 items-start">
-              {/* Profile Image */}
-              <div className="relative">
-                <div className={`
-                  w-full aspect-square rounded-[20px] overflow-hidden
-                  border-4 shadow-xl
-                  ${theme === 'light'
-                    ? 'border-white/50 shadow-blue-500/20'
-                    : 'border-white/20 shadow-blue-500/30'
-                  }
-                `}>
+          <GlassCard className="p-8 md:p-10">
+            <div className="grid md:grid-cols-[280px_1fr] gap-8 md:gap-12 items-center">
+              {/* Profile Image with 16px radius & hairline border */}
+              <div className="relative mx-auto md:mx-0 w-56 md:w-full">
+                <div className="w-full aspect-square rounded-[16px] overflow-hidden border border-[#e7e5e4] dark:border-[#292524] bg-[#f0efed] dark:bg-[#1c1917] shadow-sm">
                   <ImageWithFallback
                     src={profileImage}
                     alt="Irsal Shydiq"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                
                 {/* Status Badge */}
-                <div className={`
-                  absolute -bottom-4 left-1/2 -translate-x-1/2
-                  px-4 py-2 rounded-full backdrop-blur-[20px] border
-                  flex items-center gap-2
-                  ${theme === 'light'
-                    ? 'bg-white/80 border-white/40'
-                    : 'bg-white/20 border-white/20'
-                  }
-                `}>
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className={theme === 'light' ? 'text-gray-800' : 'text-white'}>
-                    Available for work
-                  </span>
+                <div className="mt-3 text-center">
+                  <SkillTag size="sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1" />
+                    Based in Bandung, ID
+                  </SkillTag>
                 </div>
               </div>
-              
-              {/* Bio */}
-              <div className="pt-4">
-                <h2 className={`mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                  Irsal Shydiq
+
+              {/* Editorial Bio Text */}
+              <div className="space-y-4">
+                <span className="caption-uppercase text-[#777169]">Creative Philosophy</span>
+                <h2 className="display-md font-display font-light text-[#0c0a09] dark:text-white">
+                  "Simplicity is not the lack of clutter, but the mastery of purpose."
                 </h2>
-                <p className={`mb-4 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
-                  I'm a multidisciplinary creative with a passion for crafting beautiful and 
-                  functional digital experiences. With 1 year of experience in UI/UX design 
-                  and React development, I bring a unique perspective that connects design 
-                  and code.
+                <p className="body-md text-[#4e4e4e] dark:text-[#a8a29e]">
+                  Over the past three years, I’ve operated at the intersection of aesthetic design and robust web engineering. I believe software should feel quietly intentional — clear typographic hierarchies, calm color palettes, and deliberate micro-interactions that serve human intent rather than algorithmic noise.
                 </p>
-                <p className={`mb-4 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
-                  Beyond digital work, I've spent the past 2 years exploring creativity 
-                  through photography and content writing. This combination allows me to 
-                  approach problems from different angles and deliver more holistic solutions.
+                <p className="body-md text-[#4e4e4e] dark:text-[#a8a29e]">
+                  When I am not coding in TypeScript or drafting components in Figma, I can be found documenting live musical performances with my 35mm primes or writing analytical essays on design systems.
                 </p>
-                <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
-                  When I'm not designing or coding, you'll find me capturing urban landscapes 
-                  through my camera, writing about design and technology, or experimenting 
-                  with new creative tools.
-                </p>
+
+                <div className="pt-4 flex items-center gap-4 flex-wrap">
+                  <GlassButton
+                    variant="primary"
+                    onClick={() => navigate('/contact')}
+                  >
+                    <span>Get in Touch</span>
+                    <ArrowRight size={15} />
+                  </GlassButton>
+                  <GlassButton
+                    variant="outline"
+                    onClick={() => navigate('/portfolio')}
+                  >
+                    <span>View Projects</span>
+                  </GlassButton>
+                </div>
               </div>
             </div>
           </GlassCard>
         </motion.div>
-        
-        {/* Skills Section */}
+
+        {/* Career Experience (ElevenLabs Voice Row inspired pattern: 32px circular icon plate, hairline dividers) */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className={`text-center mb-8 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-            Skills & Tools
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {skills.map((skillGroup, index) => (
-              <motion.div
-                key={skillGroup.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-              >
-                <GlassCard>
-                  <div className="flex items-center gap-3 mb-4">
-                    {skillGroup.category === 'Design' && <Palette className={theme === 'light' ? 'text-blue-600' : 'text-blue-400'} />}
-                    {skillGroup.category === 'Development' && <Code className={theme === 'light' ? 'text-blue-600' : 'text-blue-400'} />}
-                    {skillGroup.category === 'Photography' && <Camera className={theme === 'light' ? 'text-blue-600' : 'text-blue-400'} />}
-                    {skillGroup.category === 'Video Editing' && <Video className={theme === 'light' ? 'text-blue-600' : 'text-blue-400'} />}
-                    {skillGroup.category === 'Writing' && <PenTool className={theme === 'light' ? 'text-blue-600' : 'text-blue-400'} />}
-                    <h3 className={theme === 'light' ? 'text-gray-900' : 'text-white'}>
-                      {skillGroup.category}
-                    </h3>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {skillGroup.items.map((skill) => (
-                      <SkillTag key={skill}>{skill}</SkillTag>
-                    ))}
-                  </div>
-                </GlassCard>
-              </motion.div>
-            ))}
+          <div className="mb-8 pb-4 border-b border-[#e7e5e4] dark:border-[#292524] flex items-end justify-between">
+            <div>
+              <span className="caption-uppercase text-[#777169] block mb-1">Timeline</span>
+              <h2 className="display-lg font-display font-light">Experience & Practice</h2>
+            </div>
+            <span className="caption text-[#777169] hidden sm:inline">2022 — Present</span>
           </div>
-        </motion.div>
-        
-        {/* Experience Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <h2 className={`text-center mb-8 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-            Experience
-          </h2>
-          
-          <div className="space-y-6">
-            {experience.map((exp, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+
+          <div className="space-y-4">
+            {experience.map((item) => (
+              <GlassCard
+                key={item.id}
+                hover
+                onClick={() => navigate(`/experience/${item.id}`)}
+                className="p-6 transition-all"
               >
-                <GlassCard hover onClick={() => navigate(`/experience/${exp.id}`)}>
-                  <div className="flex gap-4">
-                    <div className={`
-                      w-14 h-14 rounded-[12px] flex items-center justify-center flex-shrink-0
-                      ${theme === 'light'
-                        ? 'bg-blue-500/20 text-blue-600'
-                        : 'bg-blue-500/20 text-blue-400'
-                      }
-                    `}>
-                      {exp.icon}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    {/* 32px circular plate (surface-strong #f0efed) */}
+                    <div className="w-10 h-10 rounded-full bg-[#f0efed] dark:bg-[#292524] flex items-center justify-center flex-shrink-0 text-[#0c0a09] dark:text-white border border-[#e7e5e4] dark:border-[#3e3835]">
+                      {item.icon}
                     </div>
-                    
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h4 className={`mb-1 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                            {exp.title}
-                          </h4>
-                          <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>
-                            {exp.company}
-                          </p>
-                        </div>
-                        <span className={`
-                          px-3 py-1 rounded-[8px] backdrop-blur-[20px] border
-                          ${theme === 'light'
-                            ? 'bg-white/60 border-white/40 text-gray-700'
-                            : 'bg-white/10 border-white/20 text-gray-300'
-                          }
-                        `}>
-                          {exp.period}
-                        </span>
-                      </div>
-                      <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
-                        {exp.description}
+                    <div>
+                      <h3 className="title-md text-[#0c0a09] dark:text-white font-medium">
+                        {item.title}
+                      </h3>
+                      <p className="body-sm text-[#777169]">
+                        {item.company} • {item.period}
+                      </p>
+                      <p className="body-sm text-[#4e4e4e] dark:text-[#a8a29e] mt-2 max-w-2xl">
+                        {item.description}
                       </p>
                     </div>
                   </div>
-                </GlassCard>
-              </motion.div>
+
+                  <div className="self-end md:self-center flex items-center gap-1.5 text-[13px] font-medium text-[#0c0a09] dark:text-white group">
+                    <span>Details</span>
+                    <ArrowUpRight size={14} />
+                  </div>
+                </div>
+              </GlassCard>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Skills & Tooling Matrix */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="mb-8 pb-4 border-b border-[#e7e5e4] dark:border-[#292524]">
+            <span className="caption-uppercase text-[#777169] block mb-1">Competencies</span>
+            <h2 className="display-lg font-display font-light">Skills & Capabilities</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {skillGroups.map((group) => (
+              <GlassCard key={group.category} className="p-6">
+                <h3 className="caption-uppercase text-[12px] text-[#777169] mb-4 font-semibold tracking-[0.96px]">
+                  {group.category}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 rounded-full text-[12px] font-medium bg-[#f0efed] dark:bg-[#292524] text-[#0c0a09] dark:text-white border border-[#e7e5e4] dark:border-[#3e3835]"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </GlassCard>
             ))}
           </div>
         </motion.div>

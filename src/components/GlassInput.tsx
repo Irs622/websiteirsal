@@ -10,56 +10,68 @@ interface GlassInputProps {
   rows?: number;
   required?: boolean;
   name?: string;
+  className?: string;
+  label?: string;
 }
 
-export function GlassInput({ 
-  type = 'text', 
-  placeholder, 
-  value, 
+export function GlassInput({
+  type = 'text',
+  placeholder,
+  value,
   onChange,
   multiline = false,
   rows = 4,
   required = false,
-  name
+  name,
+  className = '',
+  label
 }: GlassInputProps) {
   const { theme } = useTheme();
-  
+  const isLight = theme === 'light';
+
+  // ElevenLabs text-input spec:
+  // Background surface-card (#ffffff), text ink (#0c0a09), rounded.md (8px),
+  // padding 12px 16px, height 44px for input, 1px hairline-strong (#d6d3d1) border.
+  // On focus, border thickens to 2px ink.
   const baseClasses = `
-    w-full px-6 py-4 rounded-[16px]
-    backdrop-blur-[20px]
-    border
-    transition-all duration-300
-    outline-none
-    resize-none
+    w-full px-4 text-[15px] rounded-[8px]
+    transition-all duration-150 outline-none
+    ${isLight
+      ? 'bg-white text-[#0c0a09] placeholder:text-[#a8a29e] border border-[#d6d3d1] focus:border-[#0c0a09] focus:ring-1 focus:ring-[#0c0a09]'
+      : 'bg-[#1c1917] text-white placeholder:text-[#777169] border border-[#3e3835] focus:border-white focus:ring-1 focus:ring-white'
+    }
   `;
-  
-  const themeClasses = theme === 'light'
-    ? 'bg-white/60 border-white/40 text-gray-800 placeholder:text-gray-500 focus:bg-white/70 focus:border-blue-400 focus:shadow-lg focus:shadow-blue-500/20'
-    : 'bg-white/5 border-white/20 text-white placeholder:text-gray-400 focus:bg-white/10 focus:border-blue-400 focus:shadow-[0_0_20px_rgba(10,132,255,0.3)]';
-  
-  if (multiline) {
-    return (
-      <textarea
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        rows={rows}
-        required={required}
-        name={name}
-        className={`${baseClasses} ${themeClasses}`}
-      />
-    );
-  }
-  
+
   return (
-    <input
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      required={required}
-      name={name}
-      className={`${baseClasses} ${themeClasses}`}
-    />
+    <div className={`w-full ${className}`}>
+      {label && (
+        <label className={`block text-[13px] font-medium tracking-[0.15px] mb-1.5 ${isLight ? 'text-[#292524]' : 'text-[#d6d3d1]'}`}>
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
+      {multiline ? (
+        <textarea
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          rows={rows}
+          required={required}
+          className={`${baseClasses} py-3 resize-none`}
+        />
+      ) : (
+        <input
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          required={required}
+          className={`${baseClasses} h-[44px]`}
+        />
+      )}
+    </div>
   );
 }
+
+export const TextInput = GlassInput;

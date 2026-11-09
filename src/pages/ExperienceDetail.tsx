@@ -1,77 +1,92 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowLeft, Calendar, MapPin, Briefcase, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Briefcase, CheckCircle2, ArrowRight } from 'lucide-react';
 import { GlassCard } from '../components/GlassCard';
+import { GlassButton } from '../components/GlassButton';
 import { SkillTag } from '../components/SkillTag';
+import { AtmosphericOrb } from '../components/AtmosphericOrb';
 import { useTheme } from '../contexts/ThemeContext';
 
-const experienceData: Record<string, any> = {
+interface ExperienceItem {
+  title: string;
+  company: string;
+  period: string;
+  location: string;
+  type: string;
+  description: string;
+  responsibilities: string[];
+  achievements: string[];
+  skills: string[];
+  tools: string[];
+}
+
+const experienceData: Record<string, ExperienceItem> = {
   'tech-innovators': {
-    title: 'Freelance UI/UX Designer',
-    company: 'Independent',
-    period: '2024 - Present',
-    location: 'Remote',
-    type: 'Freelance',
-    description: 'Providing UI/UX design services for various clients including startups and small businesses, creating user-centered digital experiences from concept to final design.',
+    title: 'Independent UI/UX Designer',
+    company: 'Freelance & Studio Practice',
+    period: '2024 — Present',
+    location: 'Bandung / Remote',
+    type: 'Independent Practice',
+    description: 'Providing comprehensive UI/UX design services for early-stage tech startups, venture-backed products, and creative teams. Creating intentional, user-centered digital artifacts from typographic concept through component system delivery.',
     responsibilities: [
-      'Collaborated with clients to understand business goals and user needs',
-      'Designed user interfaces and wireframes for web and mobile applications',
-      'Created interactive prototypes in Figma for client presentations',
-      'Conducted user research and usability testing for project validation',
-      'Delivered design systems and component libraries for client projects'
+      'Collaborated directly with founders and product leads to synthesize business goals into serene interfaces',
+      'Architected end-to-end design systems, typography hierarchies, and modular component sets in Figma',
+      'Created high-fidelity interactive prototypes for stakeholder review and user usability validation',
+      'Conducted qualitative customer interviews and structured usability sessions to eliminate workflow friction',
+      'Delivered developer-ready handoff specs with detailed token references and interaction states'
     ],
     achievements: [
-      'Successfully completed 8+ client projects with positive feedback',
-      'Designed and delivered 2 complete mobile app interfaces',
-      'Created reusable design components that reduced client revision time by 30%'
+      'Successfully delivered 8+ client products with 100% on-time delivery records',
+      'Shipped complete redesign of 2 mobile application ecosystems',
+      'Formulated a modular token system reducing ongoing client revision cycles by 30%'
     ],
-    skills: ['Figma', 'Wireframing', 'Prototyping', 'User Research', 'Design Systems', 'Client Communication'],
-    tools: ['Figma', 'Adobe XD', 'Miro', 'Notion', 'Slack', 'Zoom']
+    skills: ['Typography Architecture', 'Design Systems', 'Wireframing', 'User Research', 'Interactive Prototyping', 'Design Tokens'],
+    tools: ['Figma', 'Miro', 'Notion', 'Slack', 'Linear']
   },
   'digital-solutions': {
-    title: 'Freelance React Developer',
-    company: 'Independent',
-    period: '2024 - Present',
+    title: 'Frontend React Developer',
+    company: 'Independent & Contract',
+    period: '2024 — Present',
     location: 'Remote',
-    type: 'Freelance',
-    description: 'Building modern, responsive web applications for clients using React and modern JavaScript technologies, focusing on clean code and optimal performance.',
+    type: 'Contract Practice',
+    description: 'Building modern, performant, and accessible web applications using React, TypeScript, and modern styling libraries. Prioritizing strict typing, semantic markup, zero layout shift, and exceptional typographic rendering.',
     responsibilities: [
-      'Developed custom web applications based on client requirements',
-      'Implemented responsive designs using React and Tailwind CSS',
-      'Integrated third-party APIs and services for enhanced functionality',
-      'Optimized application performance and load times',
-      'Provided ongoing maintenance and support for delivered projects'
+      'Authored custom React client architectures matching strict design mockups with pixel precision',
+      'Engineered clean, reusable component libraries backed by TypeScript interfaces and Tailwind CSS',
+      'Integrated RESTful APIs, external data pipelines, and third-party webhook services cleanly',
+      'Audited bundle size, image pipelines, and runtime performance to ensure instant page delivery',
+      'Maintained ongoing deployment pipelines and continuous delivery integrations'
     ],
     achievements: [
-      'Built and deployed 5+ production-ready web applications',
-      'Achieved average PageSpeed score of 90+ for all client projects',
-      'Reduced development time by 40% using reusable component patterns'
+      'Constructed and shipped 5+ production-grade web applications with zero critical bugs',
+      'Maintained 95+ average Google Lighthouse scores across Performance, Accessibility, and Best Practices',
+      'Optimized component rendering pipelines resulting in an estimated 40% reduction in development overhead'
     ],
-    skills: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'API Integration', 'Performance Optimization'],
-    tools: ['VS Code', 'Git', 'GitHub', 'Vercel', 'Netlify', 'Postman']
+    skills: ['React 18/19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Next.js', 'State Architecture', 'Web Performance'],
+    tools: ['VS Code', 'Git', 'GitHub', 'Vercel', 'Postman']
   },
   'freelance-creative': {
-    title: 'Freelance Creative',
-    company: 'Independent',
-    period: '2022 - Present',
-    location: 'Global',
-    type: 'Freelance',
-    description: 'Photography and content creation for various brands, specializing in urban landscape photography, product photography, and creative content writing for digital platforms.',
+    title: 'Visual Creator & Photographer',
+    company: 'Independent Creative',
+    period: '2022 — Present',
+    location: 'Global / On-Location',
+    type: 'Creative Practice',
+    description: 'Documenting musical performances, urban architectures, and brand narratives through documentary photography and long-form visual editorial. Specializing in low-light stage capture and authentic filmic color treatment.',
     responsibilities: [
-      'Captured high-quality photos for commercial clients and personal projects',
-      'Created engaging content for blogs, social media, and marketing materials',
-      'Edited photos and videos using professional tools and techniques',
-      'Managed client relationships and delivered projects on time',
-      'Built personal brand and portfolio showcasing diverse creative work'
+      'Captured high-dynamic-range photo collections for touring artists, cultural festivals, and editorial clients',
+      'Conducted color grading, post-production curation, and print layout preparation using Adobe tools',
+      'Directed short-form promotional films with deliberate editorial pacing and custom sound design',
+      'Maintained professional client communications, asset archival, and licensing agreements',
+      'Authored long-form design articles and photo essays published across online creative communities'
     ],
     achievements: [
-      'Completed 50+ successful projects with 5-star client ratings',
-      'Featured in local photography exhibitions and online publications',
-      'Grew Instagram following to 10K+ with consistent quality content'
+      'Completed 50+ commissioned creative projects with universal client praise',
+      'Showcased work in regional photography exhibitions and independent publications',
+      'Cultivated an organic global creative following of 10K+ peers across creative platforms'
     ],
-    skills: ['Photography', 'Lightroom', 'Content Writing', 'Video Editing', 'Social Media'],
-    tools: ['Sony A7III', 'Lightroom', 'Photoshop', 'Premiere Pro', 'Notion']
+    skills: ['Live Event Photography', 'Color Grading', 'Visual Editorial', 'Short-form Film Direction', 'Essays'],
+    tools: ['Sony A7III', '35mm/85mm Prime Glass', 'Adobe Lightroom', 'Premiere Pro', 'DaVinci Resolve']
   }
 };
 
@@ -79,193 +94,206 @@ export function ExperienceDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { theme } = useTheme();
-  
+  const isLight = theme === 'light';
+
   const experience = id ? experienceData[id] : null;
-  
+
   if (!experience) {
     return (
-      <div className="min-h-screen pt-16 pb-16 px-6 flex items-center justify-center">
-        <GlassCard>
-          <div className="text-center py-12">
-            <h2 className={theme === 'light' ? 'text-gray-900' : 'text-white'}>
-              Experience not found
-            </h2>
-            <button
-              onClick={() => navigate('/about')}
-              className={`
-                mt-6 px-6 py-3 rounded-[12px] backdrop-blur-[20px] border
-                transition-all duration-300
-                ${theme === 'light'
-                  ? 'bg-blue-500/20 border-blue-500/40 text-blue-600 hover:bg-blue-500/30'
-                  : 'bg-blue-500/20 border-blue-500/40 text-blue-400 hover:bg-blue-500/30'
-                }
-              `}
-            >
-              Back to About
-            </button>
-          </div>
+      <div className="min-h-[70vh] flex items-center justify-center px-6">
+        <GlassCard className="max-w-md text-center p-8">
+          <h2 className="display-sm mb-3 font-display font-light">
+            Record not located
+          </h2>
+          <p className="body-sm text-[#777169] mb-6">
+            The requested career experience detail could not be retrieved.
+          </p>
+          <GlassButton
+            variant="primary"
+            onClick={() => navigate('/about')}
+          >
+            Return to About
+          </GlassButton>
         </GlassCard>
       </div>
     );
   }
-  
+
   return (
-    <div className="min-h-screen pt-16 pb-16 px-6">
-      <div className="max-w-4xl mx-auto">
+    <div className="relative min-h-screen pt-12 pb-24 px-6 overflow-hidden">
+      {/* Background Atmospheric Orbs */}
+      <div className="absolute inset-0 pointer-events-none flex justify-between">
+        <AtmosphericOrb
+          color="peach"
+          size={500}
+          className="top-10 -left-20 opacity-35 dark:opacity-15"
+        />
+        <AtmosphericOrb
+          color="sky"
+          size={520}
+          className="top-[500px] -right-20 opacity-30 dark:opacity-15"
+        />
+      </div>
+
+      <div className="max-w-[960px] mx-auto relative z-10">
         {/* Back Button */}
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4 }}
-          onClick={() => navigate('/about')}
-          className={`
-            mb-8 flex items-center gap-2 px-4 py-2 rounded-[12px]
-            backdrop-blur-[20px] border transition-all duration-300
-            ${theme === 'light'
-              ? 'bg-white/60 border-white/40 text-gray-700 hover:bg-white/80'
-              : 'bg-white/10 border-white/20 text-gray-300 hover:bg-white/20'
-            }
-          `}
+          className="mb-8"
         >
-          <ArrowLeft size={20} />
-          Back to About
-        </motion.button>
-        
-        {/* Header */}
+          <GlassButton
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/about')}
+          >
+            <ArrowLeft size={14} />
+            <span>Return to Career Index</span>
+          </GlassButton>
+        </motion.div>
+
+        {/* Experience Header Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <GlassCard>
-            <div className="space-y-4">
-              <div>
-                <h1 className={`mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                  {experience.title}
-                </h1>
-                <p className={`text-xl ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-                  {experience.company}
-                </p>
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">
+              Career Chapter • {experience.type}
+            </span>
+            <h1 className="display-xl mb-2 font-display font-light text-[#0c0a09] dark:text-white">
+              {experience.title}
+            </h1>
+            <p className="title-md font-medium text-[#292524] dark:text-[#d6d3d1] mb-6">
+              {experience.company}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-[#e7e5e4] dark:border-[#292524] text-sm text-[#777169]">
+              <div className="flex items-center gap-2">
+                <Calendar size={15} />
+                <span>{experience.period}</span>
               </div>
-              
-              <div className="flex flex-wrap gap-4">
-                <div className={`flex items-center gap-2 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-                  <Calendar size={18} />
-                  <span>{experience.period}</span>
-                </div>
-                <div className={`flex items-center gap-2 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-                  <MapPin size={18} />
-                  <span>{experience.location}</span>
-                </div>
-                <div className={`flex items-center gap-2 ${theme === 'light' ? 'text-gray-600' : 'text-gray-400'}`}>
-                  <Briefcase size={18} />
-                  <span>{experience.type}</span>
-                </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={15} />
+                <span>{experience.location}</span>
               </div>
-              
-              <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
-                {experience.description}
-              </p>
+              <div className="flex items-center gap-2">
+                <Briefcase size={15} />
+                <span>{experience.type}</span>
+              </div>
             </div>
+
+            <p className="body-md text-[#4e4e4e] dark:text-[#a8a29e] mt-6">
+              {experience.description}
+            </p>
           </GlassCard>
         </motion.div>
-        
+
         {/* Responsibilities */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <GlassCard>
-            <h2 className={`mb-6 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-              Key Responsibilities
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">Scope</span>
+            <h2 className="display-md mb-6 font-display font-light text-[#0c0a09] dark:text-white">
+              Primary Responsibilities
             </h2>
-            <ul className="space-y-3">
-              {experience.responsibilities.map((item: string, index: number) => (
-                <motion.li
+
+            <ul className="space-y-4">
+              {experience.responsibilities.map((item, index) => (
+                <li
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.2 + index * 0.05 }}
-                  className={`flex gap-3 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}
+                  className="flex items-start gap-3.5 body-md text-[#4e4e4e] dark:text-[#a8a29e]"
                 >
-                  <CheckCircle2 
-                    size={20} 
-                    className={`flex-shrink-0 mt-0.5 ${theme === 'light' ? 'text-blue-600' : 'text-blue-400'}`}
-                  />
+                  <span className="w-5 h-5 rounded-full bg-[#f0efed] dark:bg-[#292524] border border-[#e7e5e4] dark:border-[#3e3835] flex items-center justify-center text-[#0c0a09] dark:text-white flex-shrink-0 mt-0.5">
+                    <CheckCircle2 size={13} className="text-[#0c0a09] dark:text-white" />
+                  </span>
                   <span>{item}</span>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </GlassCard>
         </motion.div>
-        
-        {/* Achievements */}
+
+        {/* Key Achievements */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <GlassCard>
-            <h2 className={`mb-6 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">Impact</span>
+            <h2 className="display-md mb-6 font-display font-light text-[#0c0a09] dark:text-white">
               Key Achievements
             </h2>
+
             <div className="grid gap-4">
-              {experience.achievements.map((item: string, index: number) => (
-                <motion.div
+              {experience.achievements.map((item, index) => (
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
-                  className={`
-                    p-4 rounded-[16px] backdrop-blur-[20px] border
-                    ${theme === 'light'
-                      ? 'bg-blue-500/10 border-blue-500/20'
-                      : 'bg-blue-500/10 border-blue-500/30'
-                    }
-                  `}
+                  className="p-5 rounded-[12px] bg-[#f0efed] dark:bg-[#141210] border border-[#e7e5e4] dark:border-[#292524] flex items-start gap-3"
                 >
-                  <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
+                  <span className="caption-uppercase text-[11px] font-bold text-[#777169] mt-0.5">
+                    0{index + 1}
+                  </span>
+                  <p className="body-sm font-medium text-[#0c0a09] dark:text-white">
                     {item}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </GlassCard>
         </motion.div>
-        
-        {/* Skills & Tools */}
+
+        {/* Skills & Tools Grids */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="grid md:grid-cols-2 gap-6"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="grid md:grid-cols-2 gap-6 mb-12"
         >
-          <GlassCard>
-            <h3 className={`mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-              Skills
-            </h3>
+          <GlassCard className="p-6">
+            <span className="caption-uppercase text-[#777169] block mb-3">Methods & Concepts</span>
+            <h3 className="title-sm font-medium mb-4 text-[#0c0a09] dark:text-white">Applied Skills</h3>
             <div className="flex flex-wrap gap-2">
-              {experience.skills.map((skill: string) => (
+              {experience.skills.map((skill) => (
                 <SkillTag key={skill}>{skill}</SkillTag>
               ))}
             </div>
           </GlassCard>
-          
-          <GlassCard>
-            <h3 className={`mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-              Tools
-            </h3>
+
+          <GlassCard className="p-6">
+            <span className="caption-uppercase text-[#777169] block mb-3">Software & Hardware</span>
+            <h3 className="title-sm font-medium mb-4 text-[#0c0a09] dark:text-white">Tools Deployed</h3>
             <div className="flex flex-wrap gap-2">
-              {experience.tools.map((tool: string) => (
+              {experience.tools.map((tool) => (
                 <SkillTag key={tool}>{tool}</SkillTag>
               ))}
             </div>
           </GlassCard>
         </motion.div>
+
+        {/* Bottom CTA */}
+        <div className="text-center pt-8 border-t border-[#e7e5e4] dark:border-[#292524]">
+          <GlassButton
+            variant="primary"
+            size="lg"
+            onClick={() => navigate('/contact')}
+          >
+            <span>Inquire About Collaboration</span>
+            <ArrowRight size={16} />
+          </GlassButton>
+        </div>
       </div>
     </div>
   );

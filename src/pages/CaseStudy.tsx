@@ -1,9 +1,10 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ArrowLeft, Calendar, Tag } from 'lucide-react';
+import { ArrowLeft, Calendar, Tag, ArrowRight, Check } from 'lucide-react';
 import { GlassCard } from '../components/GlassCard';
 import { GlassButton } from '../components/GlassButton';
+import { AtmosphericOrb } from '../components/AtmosphericOrb';
 import { useTheme } from '../contexts/ThemeContext';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
@@ -12,223 +13,217 @@ export function CaseStudy() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const project = location.state?.project;
-  
+  const isLight = theme === 'light';
+
   if (!project) {
     return (
-      <div className="min-h-screen pt-32 px-6 flex items-center justify-center">
-        <GlassCard>
-          <h2 className={theme === 'light' ? 'text-gray-900' : 'text-white'}>
-            Project not found
+      <div className="min-h-[70vh] flex items-center justify-center px-6">
+        <GlassCard className="max-w-md text-center p-8">
+          <h2 className="display-sm mb-3 font-display font-light">
+            Project not located
           </h2>
-          <GlassButton 
+          <p className="body-sm text-[#777169] mb-6">
+            The requested project study could not be retrieved from history.
+          </p>
+          <GlassButton
+            variant="primary"
             onClick={() => navigate('/portfolio')}
-            className="mt-4"
           >
-            Back to Portfolio
+            Return to Portfolio
           </GlassButton>
         </GlassCard>
       </div>
     );
   }
-  
+
   return (
-    <div className="min-h-screen pt-16 pb-16 px-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Back Button */}
+    <div className="relative min-h-screen pt-12 pb-24 px-6 overflow-hidden">
+      {/* Background Atmospheric Orbs */}
+      <div className="absolute inset-0 pointer-events-none flex justify-between">
+        <AtmosphericOrb
+          color="mint"
+          size={500}
+          className="top-10 -right-20 opacity-35 dark:opacity-15"
+        />
+        <AtmosphericOrb
+          color="peach"
+          size={550}
+          className="top-[600px] -left-20 opacity-30 dark:opacity-15"
+        />
+      </div>
+
+      <div className="max-w-[960px] mx-auto relative z-10">
+        {/* Back Button as subtle outline pill */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mb-8"
+        >
+          <GlassButton
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/portfolio')}
+          >
+            <ArrowLeft size={14} />
+            <span>Return to Works</span>
+          </GlassButton>
+        </motion.div>
+
+        {/* Project Header Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <button
-            onClick={() => navigate('/portfolio')}
-            className={`
-              flex items-center gap-2 px-4 py-2 rounded-[12px]
-              backdrop-blur-[20px] border transition-all duration-300
-              ${theme === 'light'
-                ? 'bg-white/60 border-white/40 text-gray-800 hover:bg-white/80'
-                : 'bg-white/10 border-white/20 text-white hover:bg-white/15'
-              }
-            `}
-          >
-            <ArrowLeft size={18} />
-            Back to Portfolio
-          </button>
-        </motion.div>
-        
-        {/* Project Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          <GlassCard className="mb-8">
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h1 className={`mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-                  {project.title}
-                </h1>
-                <p className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'}>
-                  {project.description}
-                </p>
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">
+              Case Study • {project.category}
+            </span>
+            <h1 className="display-xl mb-4 font-display font-light text-[#0c0a09] dark:text-white">
+              {project.title}
+            </h1>
+            <p className="body-md text-[#4e4e4e] dark:text-[#a8a29e] mb-6 max-w-2xl">
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-[#e7e5e4] dark:border-[#292524]">
+              <div className="flex items-center gap-2 text-sm text-[#777169]">
+                <Calendar size={15} />
+                <span>2024 Release</span>
               </div>
-            </div>
-            
-            <div className="flex flex-wrap gap-4 mb-6">
-              <div className="flex items-center gap-2">
-                <Calendar size={18} className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'} />
-                <span className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
-                  2024
-                </span>
+              <div className="flex items-center gap-2 text-sm text-[#777169]">
+                <Tag size={15} />
+                <span>{project.category}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Tag size={18} className={theme === 'light' ? 'text-gray-600' : 'text-gray-400'} />
-                <span className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
-                  {project.category}
-                </span>
+              <div className="flex flex-wrap gap-1.5 ml-auto">
+                {project.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-[#f0efed] dark:bg-[#292524] text-[#0c0a09] dark:text-white border border-[#e7e5e4] dark:border-[#3e3835]"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
-            </div>
-            
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag: string) => (
-                <span
-                  key={tag}
-                  className={`
-                    px-3 py-1 rounded-[8px] backdrop-blur-[20px] border
-                    ${theme === 'light'
-                      ? 'bg-white/60 border-white/40 text-gray-700'
-                      : 'bg-white/10 border-white/20 text-gray-300'
-                    }
-                  `}
-                >
-                  {tag}
-                </span>
-              ))}
             </div>
           </GlassCard>
         </motion.div>
-        
-        {/* Hero Image */}
+
+        {/* Hero Visual Banner */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-8"
         >
-          <GlassCard className="p-0 overflow-hidden">
+          <div className="rounded-[16px] overflow-hidden border border-[#e7e5e4] dark:border-[#292524] bg-[#f0efed] dark:bg-[#1c1917] shadow-sm">
             <ImageWithFallback
               src={project.image}
               alt={project.title}
-              className="w-full h-96 object-cover"
+              className="w-full h-[400px] md:h-[480px] object-cover"
             />
-          </GlassCard>
+          </div>
         </motion.div>
-        
-        {/* Overview */}
+
+        {/* Project Overview */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <GlassCard>
-            <h2 className={`mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-              Overview
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">Intent</span>
+            <h2 className="display-md mb-4 font-display font-light text-[#0c0a09] dark:text-white">
+              Project Overview
             </h2>
-            <p className={`mb-4 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
-              This project showcases a comprehensive approach to {project.category.toLowerCase()} 
-              that combines modern design principles with user-centered methodologies. 
-              The goal was to create an experience that is both aesthetically pleasing and 
-              highly functional.
-            </p>
-            <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
-              Through careful research, iterative design, and continuous refinement, 
-              we achieved a solution that not only meets but exceeds user expectations 
-              while maintaining brand consistency and accessibility standards.
-            </p>
-          </GlassCard>
-        </motion.div>
-        
-        {/* Problem */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-8"
-        >
-          <GlassCard>
-            <h2 className={`mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-              Problem Statement
-            </h2>
-            <p className={`mb-4 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
-              Users were facing challenges with existing solutions that lacked intuitive 
-              navigation and modern design patterns. The interface needed to be reimagined 
-              to provide a seamless experience across all touchpoints.
-            </p>
-            <div className={`p-4 rounded-[12px] border ${
-              theme === 'light'
-                ? 'bg-blue-50/50 border-blue-200/50'
-                : 'bg-blue-500/10 border-blue-500/20'
-            }`}>
-              <p className={`italic ${theme === 'light' ? 'text-gray-800' : 'text-gray-200'}`}>
-                "How might we create a solution that balances simplicity with powerful 
-                functionality while maintaining visual appeal?"
+            <div className="space-y-4 body-md text-[#4e4e4e] dark:text-[#a8a29e]">
+              <p>
+                This project documents an intentional approach to {project.category.toLowerCase()} where visual restraint and rigorous functionality coexist harmoniously. The core intent was to craft an experience devoid of unnecessary decorative friction, favoring typographical hierarchy and tactile responsiveness.
+              </p>
+              <p>
+                Through user interviews, prototyping cycles, and careful component architecture, the final implementation establishes a calm, cohesive environment tailored to real daily workflows.
               </p>
             </div>
           </GlassCard>
         </motion.div>
-        
-        {/* Process */}
+
+        {/* Problem Statement */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <GlassCard>
-            <h2 className={`mb-6 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-              Design Process
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">The Challenge</span>
+            <h2 className="display-md mb-4 font-display font-light text-[#0c0a09] dark:text-white">
+              Problem Definition
             </h2>
-            
+            <p className="body-md text-[#4e4e4e] dark:text-[#a8a29e] mb-6">
+              Contemporary digital tools frequently overwhelm users with high-saturation accent colors, uncalibrated animations, and congested layouts. The challenge was to deliver complex information architectures without cognitive fatigue.
+            </p>
+
+            {/* Editorial quote block in surface-strong (#f0efed) */}
+            <div className="p-6 rounded-[12px] bg-[#f0efed] dark:bg-[#141210] border border-[#e7e5e4] dark:border-[#292524]">
+              <p className="font-display italic text-lg text-[#0c0a09] dark:text-white leading-relaxed">
+                "How might we design a voice that speaks with quiet authority — prioritizing content legibility and functional speed over visual bravado?"
+              </p>
+            </div>
+          </GlassCard>
+        </motion.div>
+
+        {/* Design & Engineering Process */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">Methodology</span>
+            <h2 className="display-md mb-6 font-display font-light text-[#0c0a09] dark:text-white">
+              Execution Sequence
+            </h2>
+
             <div className="space-y-6">
               {[
                 {
                   step: '01',
-                  title: 'Research & Discovery',
-                  description: 'Conducted user interviews, competitive analysis, and market research to understand pain points and opportunities.'
+                  title: 'Research & Typographic Discovery',
+                  description: 'Analyzed editorial print journals, evaluated reader scan patterns, and set the strict 300-weight display hierarchy.'
                 },
                 {
                   step: '02',
-                  title: 'Ideation & Sketching',
-                  description: 'Explored multiple design directions through rapid sketching and low-fidelity wireframes.'
+                  title: 'Component Modularization',
+                  description: 'Constructed reusable UI components around 8px/16px geometric grids with hairline border dividers.'
                 },
                 {
                   step: '03',
-                  title: 'Prototyping',
-                  description: 'Created interactive prototypes to test user flows and validate design decisions.'
+                  title: 'React & Motion Integration',
+                  description: 'Implemented smooth layout transitions and responsive fluid breakpoints with zero rendering jank.'
                 },
                 {
                   step: '04',
-                  title: 'Testing & Refinement',
-                  description: 'Conducted usability testing sessions and iterated based on user feedback.'
+                  title: 'Accessibility & Contrast Review',
+                  description: 'Validated WCAG AA/AAA targets across all touch points and verified dark mode token fidelity.'
                 }
-              ].map((item, index) => (
-                <div key={index} className="flex gap-4">
-                  <div className={`
-                    w-12 h-12 rounded-[12px] flex items-center justify-center flex-shrink-0
-                    ${theme === 'light'
-                      ? 'bg-blue-500/20 text-blue-600'
-                      : 'bg-blue-500/20 text-blue-400'
-                    }
-                  `}>
-                    <span>{item.step}</span>
+              ].map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  {/* Circular step badge in surface-strong */}
+                  <div className="w-10 h-10 rounded-full bg-[#f0efed] dark:bg-[#292524] border border-[#e7e5e4] dark:border-[#3e3835] flex items-center justify-center flex-shrink-0 text-sm font-semibold text-[#0c0a09] dark:text-white">
+                    {item.step}
                   </div>
                   <div>
-                    <h4 className={`mb-2 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
+                    <h4 className="title-sm font-medium text-[#0c0a09] dark:text-white mb-1">
                       {item.title}
                     </h4>
-                    <p className={theme === 'light' ? 'text-gray-700' : 'text-gray-300'}>
+                    <p className="body-sm text-[#4e4e4e] dark:text-[#a8a29e]">
                       {item.description}
                     </p>
                   </div>
@@ -237,62 +232,64 @@ export function CaseStudy() {
             </div>
           </GlassCard>
         </motion.div>
-        
-        {/* Solution */}
+
+        {/* Deliverables / Solution Points */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mb-8"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
         >
-          <GlassCard>
-            <h2 className={`mb-4 ${theme === 'light' ? 'text-gray-900' : 'text-white'}`}>
-              Final Solution
+          <GlassCard className="p-8 md:p-10">
+            <span className="caption-uppercase text-[#777169] block mb-2">Resolution</span>
+            <h2 className="display-md mb-6 font-display font-light text-[#0c0a09] dark:text-white">
+              Key Artifacts Delivered
             </h2>
-            <p className={`mb-6 ${theme === 'light' ? 'text-gray-700' : 'text-gray-300'}`}>
-              The final solution delivers a polished, intuitive experience that aligns with 
-              user needs and business objectives. Key features include:
-            </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                'Intuitive Navigation',
-                'Responsive Design',
-                'Accessibility First',
-                'Performance Optimized',
-                'Modern Aesthetics',
-                'Scalable Architecture'
+                'Strict 300-Weight Editorial Typography',
+                'Pastel Atmospheric Gradient Blooms',
+                'Pill-Geometry Button System',
+                'Responsive 12-Column Grid Architecture',
+                'Accessible High-Contrast Near-Black Ink',
+                'Lightweight Performant Bundle Footprint'
               ].map((feature) => (
                 <div
                   key={feature}
-                  className={`
-                    p-4 rounded-[12px] backdrop-blur-[20px] border
-                    ${theme === 'light'
-                      ? 'bg-white/60 border-white/40'
-                      : 'bg-white/10 border-white/20'
-                    }
-                  `}
+                  className="p-4 rounded-[12px] bg-[#f0efed] dark:bg-[#141210] border border-[#e7e5e4] dark:border-[#292524] flex items-center gap-3"
                 >
-                  <span className={theme === 'light' ? 'text-gray-800' : 'text-gray-200'}>
-                    ✓ {feature}
+                  <span className="w-6 h-6 rounded-full bg-white dark:bg-[#292524] border border-[#e7e5e4] dark:border-[#3e3835] flex items-center justify-center text-[#16a34a] flex-shrink-0">
+                    <Check size={13} />
+                  </span>
+                  <span className="body-sm font-medium text-[#0c0a09] dark:text-white">
+                    {feature}
                   </span>
                 </div>
               ))}
             </div>
           </GlassCard>
         </motion.div>
-        
-        {/* CTA */}
+
+        {/* Pre-footer CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-          className="text-center"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center pt-8 border-t border-[#e7e5e4] dark:border-[#292524]"
         >
+          <h3 className="display-sm mb-4 font-display font-light text-[#0c0a09] dark:text-white">
+            Interested in exploring similar work together?
+          </h3>
           <GlassButton
+            variant="primary"
+            size="lg"
             onClick={() => navigate('/contact')}
           >
-            Discuss Your Project
+            <span>Inquire About Collaboration</span>
+            <ArrowRight size={16} />
           </GlassButton>
         </motion.div>
       </div>
