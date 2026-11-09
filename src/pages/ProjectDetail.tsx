@@ -5,6 +5,7 @@ import { projectsContent } from '../data/projects';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { GithubIcon } from '../components/ui/Icons';
+import { ProjectMockupPreview } from '../components/ProjectMockupPreview';
 
 export function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -96,18 +97,31 @@ export function ProjectDetail() {
         </div>
       </header>
 
-      {/* Visual Editorial Spread Header (gradient-orb-card: rounded.xxl = 24px) */}
-      <div className="relative overflow-hidden rounded-[24px] border border-[#e7e5e4] bg-[#fafafa] p-8 sm:p-14 mb-16 shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
+      {/* Visual Editorial Spread Header with Interactive UI Mockup */}
+      <div className="relative overflow-hidden rounded-[24px] border border-[#e7e5e4] bg-[#fafafa] p-6 sm:p-10 mb-16 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
         <div
           className={`absolute -top-24 -right-24 w-96 h-96 rounded-full blur-3xl opacity-45 pointer-events-none ${
             orbColorMap[project.accentOrb] || 'bg-[#c8b8e0]'
           }`}
         />
-        <div className="relative z-10 max-w-2xl">
-          <span className="caption-uppercase text-[#777169] block mb-3">Executive Summary</span>
-          <p className="display-md font-light text-[#0c0a09]">
-            "{project.summary}"
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div className="lg:col-span-6 space-y-3">
+            <span className="caption-uppercase text-[#777169] block">Executive Summary</span>
+            <blockquote className="font-serif italic text-[20px] sm:text-[24px] text-[#0c0a09] leading-relaxed">
+              "{project.summary}"
+            </blockquote>
+            <div className="pt-2 text-[12px] font-mono text-[#777169]">
+              Verified Architecture • Production Artifact
+            </div>
+          </div>
+          <div className="lg:col-span-6">
+            <ProjectMockupPreview
+              slug={project.slug}
+              title={project.title}
+              category={project.category}
+              accentOrb={project.accentOrb}
+            />
+          </div>
         </div>
       </div>
 

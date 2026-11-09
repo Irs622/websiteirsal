@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
   Mail,
   MapPin,
-  FileText
+  FileText,
+  Award,
+  GraduationCap,
+  Sparkles,
+  BookOpen
 } from 'lucide-react';
 import { personalInfo } from '../data/personal';
 import { aboutContent } from '../data/about';
@@ -26,6 +30,8 @@ import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 import portraitImg from '../assets/irsal-portrait.png';
 
 export function Home() {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -33,6 +39,18 @@ export function Home() {
       history.pushState(null, '', `#${id}`);
     }
   };
+
+  const projectCategories = [
+    { id: 'all', label: 'All Works', count: projectsContent.projects.length },
+    { id: 'Accessible Tech', label: 'Accessible Tech', count: projectsContent.projects.filter(p => p.category === 'Accessible Tech').length },
+    { id: 'Full-Stack Systems', label: 'Full-Stack Systems', count: projectsContent.projects.filter(p => p.category === 'Full-Stack Systems').length },
+    { id: 'AI & Web', label: 'AI & Web', count: projectsContent.projects.filter(p => p.category === 'AI & Web').length },
+    { id: 'Applied Research', label: 'Applied Research', count: projectsContent.projects.filter(p => p.category === 'Applied Research').length },
+  ];
+
+  const filteredProjects = selectedCategory === 'all'
+    ? projectsContent.projects
+    : projectsContent.projects.filter(p => p.category === selectedCategory);
 
   return (
     <div className="relative overflow-hidden selection:bg-[#e7e5e4] selection:text-[#0c0a09]">
@@ -42,124 +60,177 @@ export function Home() {
       <section
         id="hero"
         aria-label="Introduction"
-        className="relative min-h-[85vh] sm:min-h-[88vh] flex flex-col justify-center pt-10 pb-24 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#f5f5f5]"
+        className="relative min-h-[90vh] flex flex-col justify-center pt-24 pb-20 sm:pb-28 px-6 sm:px-8 border-b border-[#e7e5e4] bg-[#f5f5f5]"
       >
         {/* Soft Pastel Atmospheric Gradient Orbs drifting behind hero */}
         <AtmosphericGlow
           color="mint"
-          size={520}
+          size={580}
           className="-top-24 -left-20 opacity-40"
           animation="drift-1"
         />
         <AtmosphericGlow
           color="lavender"
-          size={560}
+          size={600}
           className="top-1/4 -right-28 opacity-45"
           animation="drift-2"
         />
         <AtmosphericGlow
           color="peach"
-          size={420}
+          size={460}
           className="bottom-6 left-1/3 opacity-35"
           animation="drift-1"
         />
 
-        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
-          {/* Eyebrow: Location & Academic Fellowship */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-[#777169]">
-            <span className="caption-uppercase text-[#0c0a09]">
-              Editorial Identity
-            </span>
-            <span className="text-[#d6d3d1]">•</span>
-            <span className="inline-flex items-center gap-1.5 body-sm text-[#777169]">
-              <MapPin size={13} className="text-[#0c0a09]" />
-              {personalInfo.location}
-            </span>
-            <span className="text-[#d6d3d1] hidden sm:inline">•</span>
-            <span className="body-sm text-[#777169] hidden sm:inline">
-              LPDP Scholar
-            </span>
-          </div>
+        <div className="relative z-10 max-w-[1240px] mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+            {/* Left Column (7 cols): Editorial Typography & Direct CTAs */}
+            <div className="lg:col-span-7 space-y-7">
+              {/* Eyebrow: Location & Academic Fellowship */}
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 text-[#777169]">
+                <span className="caption-uppercase text-[#0c0a09] font-medium tracking-[0.2em]">
+                  EDITORIAL IDENTITY
+                </span>
+                <span className="text-[#d6d3d1]">•</span>
+                <span className="inline-flex items-center gap-1.5 body-sm text-[#777169]">
+                  <MapPin size={13} className="text-[#0c0a09]" />
+                  {personalInfo.location}
+                </span>
+                <span className="text-[#d6d3d1]">•</span>
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase bg-[#16a34a]/10 text-[#16a34a] px-2.5 py-0.5 rounded-full border border-[#16a34a]/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] animate-pulse" />
+                  Available for 2026 Roles
+                </span>
+              </div>
 
-          {/* Master Headline: Waldenburg Light 300 (display-mega: 64px / 300 / -1.92px) */}
-          <div className="max-w-4xl space-y-4 mb-8">
-            <h1 className="display-mega text-[#0c0a09]">
-              {personalInfo.heroHeadline}
-            </h1>
-            <p className="display-xl text-[#292524] font-light max-w-3xl leading-[1.12]">
-              {personalInfo.heroSubheadline}
-            </p>
-          </div>
+              {/* Master Headline: Waldenburg Light 300 (Newsreader Light) */}
+              <div className="space-y-4">
+                <h1 className="display-mega text-[#0c0a09] tracking-[-1.8px] leading-[1.04]">
+                  {personalInfo.heroHeadline}
+                </h1>
+                <p className="display-lg text-[#292524] font-light max-w-2xl leading-[1.14]">
+                  {personalInfo.heroSubheadline}
+                </p>
+              </div>
 
-          {/* Concise Editorial Introduction (body-md: 16px / 400 / 0.16px) */}
-          <p className="body-md text-[#4e4e4e] max-w-2xl leading-relaxed mb-10 text-[16px] sm:text-[18px]">
-            {personalInfo.heroIntro}
-          </p>
+              {/* Concise Editorial Introduction */}
+              <p className="body-md text-[#4e4e4e] max-w-xl leading-relaxed text-[17px]">
+                {personalInfo.heroIntro}
+              </p>
 
-          {/* Identity & Social Badges */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-12 text-[14px]">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 sm:pr-6 sm:border-r border-[#e7e5e4]">
-              <span className="title-sm text-[#0c0a09]">{personalInfo.name}</span>
-              <span className="text-[#d6d3d1] hidden sm:inline">—</span>
-              <span className="body-md text-[#4e4e4e]">{personalInfo.professionalTitle}</span>
+              {/* Quick Index Credentials Bar */}
+              <div className="p-4 rounded-[16px] bg-[#ffffff] border border-[#e7e5e4] shadow-[0_2px_12px_rgba(0,0,0,0.02)] max-w-xl text-[13px] space-y-1.5">
+                <div className="flex items-center justify-between text-[#777169] text-[11px] font-mono uppercase border-b border-[#e7e5e4] pb-1.5">
+                  <span>LM. Irsal Shydiq</span>
+                  <span className="text-[#0c0a09] font-semibold">LPDP Scholar RI</span>
+                </div>
+                <div className="flex flex-wrap items-center justify-between pt-0.5 text-[#292524]">
+                  <span>Software Engineer Intern @ PT Inpartner Optima Integra</span>
+                  <span className="font-mono text-[11px] text-[#777169]">Bandung, ID</span>
+                </div>
+              </div>
+
+              {/* CTAs: Ink Pill & Outline Pill */}
+              <div className="flex flex-wrap items-center gap-4 pt-1">
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={() => scrollToSection('projects')}
+                  icon={<ArrowDown size={15} />}
+                >
+                  Explore Selected Works
+                </Button>
+
+                <a
+                  href={`mailto:${personalInfo.email}?subject=CV%20Request%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
+                  className="inline-block"
+                >
+                  <Button
+                    variant="outline"
+                    size="md"
+                    icon={<FileText size={15} />}
+                  >
+                    Download CV
+                  </Button>
+                </a>
+              </div>
+
+              {/* Social Channels */}
+              <div className="flex flex-wrap items-center gap-5 pt-1 text-[13px] text-[#777169]">
+                <a
+                  href={personalInfo.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 hover:text-[#0c0a09] transition-colors"
+                >
+                  <GithubIcon size={14} />
+                  <span>GitHub</span>
+                  <ArrowUpRight size={12} className="opacity-50" />
+                </a>
+                <span className="text-[#e7e5e4]">•</span>
+                <a
+                  href={personalInfo.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 hover:text-[#0c0a09] transition-colors"
+                >
+                  <LinkedinIcon size={14} />
+                  <span>LinkedIn</span>
+                  <ArrowUpRight size={12} className="opacity-50" />
+                </a>
+                <span className="text-[#e7e5e4]">•</span>
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  className="inline-flex items-center gap-1.5 hover:text-[#0c0a09] transition-colors"
+                >
+                  <Mail size={14} />
+                  <span>{personalInfo.email}</span>
+                </a>
+              </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 body-sm text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
-              >
-                <GithubIcon size={15} />
-                <span>GitHub</span>
-                <ArrowUpRight size={13} className="opacity-50" />
-              </a>
+            {/* Right Column (5 cols): Editorial Portrait & System Plate */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative overflow-hidden rounded-[24px] border border-[#e7e5e4] bg-[#ffffff] p-3.5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] group transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)]">
+                {/* Soft Pastel Radial Glow behind photo */}
+                <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-[#a7e5d3]/40 blur-2xl pointer-events-none" />
+                <div className="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-[#c8b8e0]/40 blur-2xl pointer-events-none" />
 
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 body-sm text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
-              >
-                <LinkedinIcon size={15} />
-                <span>LinkedIn</span>
-                <ArrowUpRight size={13} className="opacity-50" />
-              </a>
+                {/* Portrait Crop */}
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[18px] bg-[#f5f5f5]">
+                  <img
+                    src={portraitImg}
+                    alt="LM. Irsal Shydiq — Software Engineer and LPDP Scholar in Bandung, Indonesia"
+                    className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700 object-top"
+                    loading="eager"
+                  />
+                  {/* Subtle live tag on image */}
+                  <div className="absolute bottom-3 left-3 bg-[#0c0a09]/80 backdrop-blur-md text-white text-[10px] font-mono px-2.5 py-1 rounded-full border border-white/20">
+                    Bandung, Indonesia (UTC+7)
+                  </div>
+                </div>
 
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="inline-flex items-center gap-1.5 body-sm text-[#4e4e4e] hover:text-[#0c0a09] transition-colors"
-              >
-                <Mail size={15} />
-                <span>{personalInfo.email}</span>
-              </a>
+                {/* Editorial Caption Bar */}
+                <div className="pt-3 px-1 flex items-center justify-between text-[12px]">
+                  <div>
+                    <span className="font-mono text-[11px] text-[#777169] block">
+                      Fig. 00 — Portrait
+                    </span>
+                    <span className="font-medium text-[#0c0a09]">
+                      LM. Irsal Shydiq
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[11px] text-[#777169] block">
+                      Class of 2027
+                    </span>
+                    <span className="text-[11px] font-mono text-[#0c0a09] font-medium">
+                      Informatics Eng.
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* CTAs: Ink Pill (button-primary) & Outline Pill (button-outline) */}
-          <div className="flex flex-wrap items-center gap-4">
-            <Button
-              variant="primary"
-              size="md"
-              onClick={() => scrollToSection('projects')}
-              icon={<ArrowDown size={15} />}
-            >
-              Explore My Work
-            </Button>
-
-            <a
-              href={`mailto:${personalInfo.email}?subject=CV%20Request%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
-              className="inline-block"
-            >
-              <Button
-                variant="outline"
-                size="md"
-                icon={<FileText size={15} />}
-              >
-                Download CV
-              </Button>
-            </a>
           </div>
         </div>
       </section>
@@ -180,7 +251,7 @@ export function Home() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left: Editorial Narrative & Snapshot (7 cols) */}
+            {/* Left: Editorial Narrative & Core Philosophy (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
               {aboutContent.narrative.map((paragraph, idx) => (
                 <p
@@ -206,27 +277,52 @@ export function Home() {
               </div>
             </div>
 
-            {/* Right: Portrait & Compact Professional Snapshot (5 cols) */}
-            <div className="lg:col-span-5 space-y-8">
-              {/* Portrait Composition with 24px radius & soft drop */}
-              <div className="relative overflow-hidden rounded-[24px] border border-[#e7e5e4] bg-[#ffffff] p-3 shadow-[0_4px_16px_rgba(0,0,0,0.04)]">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-[18px] bg-[#f5f5f5]">
-                  <img
-                    src={portraitImg}
-                    alt="LM. Irsal Shydiq — Software Engineer and LPDP Scholar in Bandung, Indonesia"
-                    className="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500"
-                    loading="lazy"
-                  />
+            {/* Right: Editorial Credentials & Honors Dossier (5 cols) */}
+            <div className="lg:col-span-5 space-y-4">
+              {/* Dossier Card 1: Academic & LPDP Honors */}
+              <div className="bg-[#ffffff] border border-[#e7e5e4] rounded-[20px] p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] space-y-4">
+                <div className="flex items-center justify-between border-b border-[#e7e5e4] pb-3">
+                  <div className="flex items-center gap-2">
+                    <GraduationCap size={16} className="text-[#0c0a09]" />
+                    <span className="caption-uppercase text-[#0c0a09] font-medium">
+                      Academic Foundation
+                    </span>
+                  </div>
+                  <span className="font-mono text-[11px] text-[#777169]">Class of 2027</span>
                 </div>
-                <div className="p-3 pt-4 flex items-center justify-between caption">
-                  <span className="font-mono text-[12px]">Fig 1.0 — Portrait</span>
-                  <span className="text-[12px]">Bandung, Indonesia</span>
+                <div>
+                  <h4 className="title-md text-[#0c0a09]">Informatics Engineering</h4>
+                  <p className="body-sm text-[#777169] mt-0.5">UIN Sunan Gunung Djati Bandung</p>
+                </div>
+                <div className="p-3 bg-[#fafafa] rounded-xl border border-[#e7e5e4] flex items-start gap-2.5">
+                  <Award size={16} className="text-[#16a34a] shrink-0 mt-0.5" />
+                  <div className="text-[12px]">
+                    <span className="font-semibold text-[#0c0a09] block">LPDP Scholarship Awardee</span>
+                    <span className="text-[#777169]">Ministry of Religious Affairs Indonesia</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Snapshot Cards (rounded.xl = 16px) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {aboutContent.snapshot.map((item) => (
+              {/* Dossier Card 2: Current Focus & Engineering Philosophy */}
+              <div className="bg-[#ffffff] border border-[#e7e5e4] rounded-[20px] p-6 shadow-[0_2px_12px_rgba(0,0,0,0.02)] space-y-3">
+                <div className="flex items-center gap-2 border-b border-[#e7e5e4] pb-3">
+                  <Sparkles size={15} className="text-[#0c0a09]" />
+                  <span className="caption-uppercase text-[#0c0a09] font-medium">
+                    Engineering Creed
+                  </span>
+                </div>
+                <blockquote className="font-serif italic text-[16px] text-[#292524] leading-relaxed">
+                  "Engineering is at its best when it solves tangible human problems with quiet elegance, solid systems thinking, and intentional craft."
+                </blockquote>
+                <div className="pt-2 text-[11px] font-mono text-[#777169] flex items-center justify-between">
+                  <span>WCAG 2.2 AAA Focused</span>
+                  <span>Full-Stack &amp; AI Systems</span>
+                </div>
+              </div>
+
+              {/* Quick Stat Tiles */}
+              <div className="grid grid-cols-2 gap-3">
+                {aboutContent.snapshot.slice(0, 2).map((item) => (
                   <div
                     key={item.label}
                     className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-4 space-y-1 shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
@@ -234,11 +330,11 @@ export function Home() {
                     <span className="caption-uppercase text-[#777169] text-[10px] block">
                       {item.label}
                     </span>
-                    <h4 className="title-sm text-[#0c0a09]">
+                    <h5 className="title-sm text-[#0c0a09]">
                       {item.value}
-                    </h4>
+                    </h5>
                     {item.detail && (
-                      <p className="caption text-[#777169] text-[12px]">{item.detail}</p>
+                      <p className="caption text-[#777169] text-[11px]">{item.detail}</p>
                     )}
                   </div>
                 ))}
@@ -394,8 +490,34 @@ export function Home() {
             subheadline={projectsContent.subheadline}
           />
 
+          {/* Editorial Category Filter Pills */}
+          <div className="flex flex-wrap items-center gap-2 mb-10 pt-2">
+            {projectCategories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`text-[13px] px-4 py-1.5 rounded-full transition-all duration-200 flex items-center gap-2 cursor-pointer ${
+                  selectedCategory === cat.id
+                    ? 'bg-[#0c0a09] text-white shadow-sm font-medium'
+                    : 'bg-[#ffffff] text-[#4e4e4e] border border-[#e7e5e4] hover:border-[#d6d3d1] hover:text-[#0c0a09]'
+                }`}
+              >
+                <span>{cat.label}</span>
+                <span
+                  className={`text-[11px] font-mono px-1.5 py-0.5 rounded-full ${
+                    selectedCategory === cat.id
+                      ? 'bg-white/20 text-white'
+                      : 'bg-[#f0efed] text-[#777169]'
+                  }`}
+                >
+                  {cat.count}
+                </span>
+              </button>
+            ))}
+          </div>
+
           <div className="space-y-4">
-            {projectsContent.projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <ProjectShowcase
                 key={project.id}
                 project={project}

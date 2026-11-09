@@ -5,6 +5,7 @@ import { ProjectItem } from '../data/projects';
 import { Badge } from './ui/Badge';
 import { Button } from './ui/Button';
 import { GithubIcon } from './ui/Icons';
+import { ProjectMockupPreview } from './ProjectMockupPreview';
 
 interface ProjectShowcaseProps {
   project: ProjectItem;
@@ -33,55 +34,57 @@ export function ProjectShowcase({ project, index }: ProjectShowcaseProps) {
           isEven ? '' : 'lg:grid-flow-dense'
         }`}
       >
-        {/* Visual Editorial Spread (5 columns) - Gradient Orb Card */}
+        {/* Visual Editorial Spread (5 columns) - Interactive UI Preview Card */}
         <div
           className={`lg:col-span-5 relative ${
             isEven ? 'lg:order-1' : 'lg:col-start-8 lg:order-2'
           }`}
         >
-          <div className="relative overflow-hidden rounded-[24px] border border-[#e7e5e4] bg-[#fafafa] p-8 sm:p-10 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between shadow-[0_4px_16px_rgba(0,0,0,0.04)] group transition-all duration-300 hover:border-[#d6d3d1]">
-            {/* Soft Pastel Radial Gradient Orb */}
+          <div className="relative overflow-hidden rounded-[24px] border border-[#e7e5e4] bg-[#fafafa] p-4 sm:p-6 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.04)] group transition-all duration-300 hover:border-[#d6d3d1] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+            {/* Soft Pastel Radial Gradient Orb drifting behind */}
             <div
-              className={`absolute -top-16 -right-16 w-64 h-64 rounded-full blur-3xl opacity-50 transition-transform duration-500 group-hover:scale-110 pointer-events-none ${
+              className={`absolute -top-16 -right-16 w-64 h-64 rounded-full blur-3xl opacity-40 transition-transform duration-500 group-hover:scale-110 pointer-events-none ${
                 orbColorMap[project.accentOrb] || 'bg-[#c8b8e0]'
               }`}
             />
 
-            {/* Header: Project Index & Category */}
-            <div className="relative z-10 flex items-center justify-between">
-              <span className="caption-uppercase text-[#777169]">
-                0{index + 1} • {project.year}
-              </span>
+            {/* Window Dots & Category Badge */}
+            <div className="relative z-10 flex items-center justify-between pb-3 border-b border-[#e7e5e4]/70">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#d6d3d1]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#e7e5e4]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#e7e5e4]" />
+                <span className="caption-uppercase text-[#777169] ml-2 text-[10px]">
+                  0{index + 1} • {project.year}
+                </span>
+              </div>
               <Badge variant="default" size="sm">
                 {project.category}
               </Badge>
             </div>
 
-            {/* Center Typographic Editorial Identity (Waldenburg 300) */}
-            <div className="relative z-10 my-8">
-              <div className="caption-uppercase text-[#777169] mb-2">
-                Case Study Overview
-              </div>
-              <h3 className="display-md text-[#0c0a09] group-hover:text-[#292524] transition-colors">
-                {project.title}
-              </h3>
-              <p className="body-sm text-[#777169] mt-2 line-clamp-2">
-                {project.subtitle}
-              </p>
+            {/* Center: Bespoke Interactive UI Mockup */}
+            <div className="relative z-10 my-3">
+              <ProjectMockupPreview
+                slug={project.slug}
+                title={project.title}
+                category={project.category}
+                accentOrb={project.accentOrb}
+              />
             </div>
 
-            {/* Bottom Meta & Visual Indicator */}
-            <div className="relative z-10 pt-4 border-t border-[#e7e5e4] flex items-center justify-between">
-              <span className="text-[13px] font-medium text-[#0c0a09]">
-                Role: {project.role}
+            {/* Editorial Figure Caption & Case Study Action */}
+            <div className="relative z-10 pt-3 border-t border-[#e7e5e4] flex items-center justify-between text-[12px]">
+              <span className="text-[#777169] italic">
+                Fig. 0{index + 1} — UI Architecture Preview
               </span>
               <Link
                 to={`/projects/${project.slug}`}
-                className="inline-flex items-center gap-1 text-[13px] font-medium text-[#0c0a09] hover:underline"
+                className="inline-flex items-center gap-1 font-medium text-[#0c0a09] hover:text-[#292524] hover:underline"
                 aria-label={`Read full case study for ${project.title}`}
               >
                 <span>Read Story</span>
-                <ArrowUpRight size={14} />
+                <ArrowUpRight size={13} />
               </Link>
             </div>
           </div>

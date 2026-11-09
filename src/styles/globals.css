@@ -39,7 +39,7 @@
   --colors-semantic-error: #dc2626;
 
   /* Fonts */
-  --font-display: 'Waldenburg Light', 'EB Garamond', 'Newsreader', 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-display: 'Newsreader', 'Cormorant Garamond', 'EB Garamond', serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Radius tokens */
