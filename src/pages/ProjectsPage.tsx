@@ -27,44 +27,43 @@ export function ProjectsPage() {
       : projectsContent.projects.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="py-16 sm:py-24 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
+    <div className="py-12 sm:py-20 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
       <div className="mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 body-sm text-[#777169] hover:text-[#0c0a09] transition-colors py-1.5 px-3 -ml-3 rounded-full hover:bg-black/[0.03]"
+          className="inline-flex items-center gap-2 font-mono text-[13px] text-[#6e6b65] hover:text-[#141413] transition-colors py-1 px-2 -ml-2 rounded-sm hover:bg-[#f5f4f0]"
         >
-          <ArrowLeft size={16} />
-          <span>Back to Home</span>
+          <ArrowLeft size={14} />
+          <span>Return to Overview</span>
         </Link>
       </div>
 
-      <header className="mb-14 space-y-4 max-w-3xl">
-        <div className="flex items-center gap-3">
-          <span className="caption-uppercase text-[#777169]">
-            {projectsContent.sectionNumber} / {projectsContent.sectionTitle}
-          </span>
-          <div className="h-[1px] w-12 bg-[#e7e5e4]" />
+      <header className="mb-12 space-y-4 max-w-3xl">
+        <div className="flex items-center gap-2 font-mono text-[12px] text-[#6e6b65]">
+          <span>№ 04</span>
+          <span>&bull;</span>
+          <span>SELECTED WORK &amp; CASE STUDIES</span>
         </div>
 
-        <h1 className="display-mega text-[#0c0a09]">
+        <h1 className="display-mega text-[#141413]">
           {projectsContent.headline}
         </h1>
 
-        <p className="body-md text-[18px] text-[#777169] leading-relaxed">
+        <p className="body-md text-[17px] text-[#6e6b65] leading-relaxed">
           {projectsContent.subheadline}
         </p>
       </header>
 
-      {/* Category Filter Pills */}
-      <div className="flex flex-wrap gap-2 pb-10 border-b border-[#e7e5e4] mb-8">
+      {/* Category Filter Tabs */}
+      <div className="flex flex-wrap gap-1.5 pb-8 border-b border-[#e5e2dc] mb-8">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`button-text px-4 py-2 rounded-full border transition-all cursor-pointer ${
+            className={`font-mono text-[12px] px-3.5 py-1.5 rounded-sm transition-colors cursor-pointer border ${
               selectedCategory === cat
-                ? 'bg-[#292524] text-[#ffffff] border-[#292524]'
-                : 'bg-[#ffffff] text-[#4e4e4e] border-[#e7e5e4] hover:border-[#d6d3d1]'
+                ? 'bg-[#141413] text-[#ffffff] border-[#141413]'
+                : 'bg-[#ffffff] text-[#6e6b65] border-[#e5e2dc] hover:text-[#141413] hover:border-[#d0ccc3]'
             }`}
           >
             {cat}

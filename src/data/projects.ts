@@ -1,3 +1,10 @@
+export interface ProjectTechnicalSpecs {
+  platform: string;
+  architecture: string;
+  keyMechanism: string;
+  verification: string;
+}
+
 export interface ProjectItem {
   id: string;
   slug: string;
@@ -14,7 +21,8 @@ export interface ProjectItem {
   achievement?: string;
   githubUrl?: string;
   liveUrl?: string;
-  accentOrb: 'mint' | 'peach' | 'lavender' | 'sky' | 'rose';
+  accentOrb?: 'mint' | 'peach' | 'lavender' | 'sky' | 'rose';
+  specs?: ProjectTechnicalSpecs;
 }
 
 export interface ProjectsContent {
@@ -28,155 +36,165 @@ export interface ProjectsContent {
 export const projectsContent: ProjectsContent = {
   sectionNumber: '04',
   sectionTitle: 'SELECTED WORK',
-  headline: "Some things I've built.",
-  subheadline: 'Selected engineering projects spanning accessible technology, intelligent interfaces, distributed web architecture, and native systems.',
+  headline: 'Selected engineering projects and case studies.',
+  subheadline: 'Architectural case studies across accessible computing, applied machine learning, native mobile systems, and full-stack services.',
   projects: [
     {
       id: 'dengarbain',
       slug: 'dengarbain',
       title: 'DengarBain',
-      subtitle: 'Accessible Hadith Learning Progressive Web App',
+      subtitle: 'Accessible Audio-First Hadith Learning Progressive Web App',
       year: '2026',
-      role: 'Web Developer & UI/UX Designer',
+      role: 'Frontend Engineer & a11y Lead',
       category: 'Accessible Tech',
-      summary: "An accessible Progressive Web App engineered for Hadith Arba'in study, featuring audio-first navigation, high-contrast typography, and full screen-reader compatibility.",
-      problem: 'Classical religious learning materials are predominantly formatted in visual print or dense digital PDFs that present significant usability barriers to visually impaired users and elderly readers.',
-      solution: 'Architected an audio-first Progressive Web App with tactile keyboard navigability, clear ARIA labeling, synchronized narration playback, and offline caching via Service Workers.',
+      summary: "An audio-first Progressive Web App engineered for Hadith Arba'in study, featuring dual-language synchronized audio narration, high-contrast typography, and full screen-reader compliance.",
+      problem: 'Religious literature and traditional pedagogical texts are predominantly formatted in intricate typography or static PDFs that present severe usability barriers to visually impaired individuals, screen-reader users, and elderly readers.',
+      solution: 'Engineered an audio-first Progressive Web App with tactile keyboard navigation, synchronized dual-language narration, high-contrast typography, and Service Worker offline caching.',
       technicalContribution: [
-        'Engineered responsive audio playback state synchronization using the HTML5 Audio & Web Audio API.',
-        'Designed high-contrast, WCAG 2.2 AAA compliant typography hierarchy with fluid font scaling.',
-        'Configured Service Worker cache strategies for offline audio playback on low-bandwidth networks.',
-        'Conducted user accessibility testing with screen-reader emulators (NVDA and TalkBack).'
+        'Implemented HTML5 Audio and Web Audio API playback synchronization with deterministic timecode scrubbing.',
+        'Engineered WCAG 2.2 AAA compliant high-contrast color scheme, minimum 48px touch targets, and visible focus rings.',
+        'Configured Cache-First Service Worker caching strategies to enable instant offline playback on constrained network connections.',
+        'Conducted comprehensive accessibility audits using NVDA and TalkBack screen-reader software to ensure semantic DOM landmarks.'
       ],
       techStack: ['React.js', 'TypeScript', 'Web Audio API', 'Tailwind CSS', 'PWA / Service Workers'],
       githubUrl: 'https://github.com/irs622',
-      accentOrb: 'mint'
+      specs: {
+        platform: 'Progressive Web App (PWA)',
+        architecture: 'Client-Side SPA + Service Worker Cache',
+        keyMechanism: 'Web Audio API synchronization & ARIA live regions',
+        verification: 'WCAG 2.2 AAA manual & screen-reader audit (NVDA / TalkBack)'
+      }
     },
     {
       id: 'ar-hijaiyah',
       slug: 'ar-hijaiyah',
       title: 'AR Hijaiyah',
-      subtitle: 'Voice-Guided Augmented Reality Literacy App',
+      subtitle: 'Voice-Guided 3D Augmented Reality Literacy Platform',
       year: '2026',
-      role: 'Full Stack Developer & UI/UX Designer',
+      role: 'Full-Stack Developer & Lead Researcher',
       category: 'AI & Web',
-      summary: 'An interactive web application combining augmented reality 3D geometry with real-time voice guidance for intuitive early-stage Hijaiyah letter recognition.',
-      achievement: 'Related research accepted for publication in Artificial: Jurnal Informatika dan Sistem Informasi (2026).',
-      problem: 'Conventional alphabet flashcards lack tactile spatial feedback and cannot validate speech pronunciation during independent study.',
-      solution: 'Constructed a WebGL and Three.js 3D character pipeline coupled with browser-based speech recognition to provide immediate multi-sensory pronunciation feedback.',
+      summary: 'An interactive web application combining browser-based 3D typography with real-time speech recognition for independent early-stage phonetic literacy.',
+      achievement: 'Accepted for publication in Artificial: Jurnal Informatika dan Sistem Informasi (JISI, 2026).',
+      problem: 'Conventional alphabet flashcards lack tactile spatial models and cannot validate pronunciation accuracy during independent study.',
+      solution: 'Constructed a browser-based WebGL/Three.js 3D character pipeline coupled with real-time Web Speech API analysis to provide immediate multi-sensory pronunciation feedback.',
       technicalContribution: [
-        'Rendered low-poly 3D Arabic typographic models optimized for smooth 60 FPS mobile WebGL rendering.',
-        'Implemented Web Speech API speech-to-intent analysis for automated pronunciation validation.',
-        'Designed spatial interaction patterns and intuitive touch gesture controls for young learners.',
-        'Co-authored research paper detailing latency and engagement metrics, accepted in Artificial: JISI.'
+        'Optimized low-poly 3D Arabic character meshes to sustain 60 FPS rendering on budget mobile browsers.',
+        'Integrated browser Web Speech API for real-time speech-to-intent phonetic evaluation.',
+        'Designed responsive touch manipulation controls for 360-degree typographic inspection.',
+        'Co-authored academic paper documenting performance metrics, latency benchmarks, and pedagogical outcomes.'
       ],
       techStack: ['Three.js', 'WebGL', 'Web Speech API', 'React.js', 'Node.js'],
       githubUrl: 'https://github.com/irs622',
-      accentOrb: 'lavender'
+      specs: {
+        platform: 'Mobile & Desktop Web (WebGL)',
+        architecture: 'Three.js Canvas + Web Speech API + Node.js Service',
+        keyMechanism: 'Phonetic confidence thresholding & low-poly glTF asset pipeline',
+        verification: 'Peer-reviewed and accepted in Artificial: JISI (2026)'
+      }
     },
     {
       id: 'fatayat-nu-management',
       slug: 'fatayat-nu-management',
-      title: 'Fatayat NU Management System',
-      subtitle: 'Centralized Multi-Tier Organizational Platform',
+      title: 'Fatayat NU Central Registry',
+      subtitle: 'Centralized Multi-Tier Organizational Administration System',
       year: '2026',
-      role: 'Project Manager & System Designer',
+      role: 'Technical Lead & System Architect',
       category: 'Full-Stack Systems',
-      summary: 'A centralized organizational membership and administrative management platform designed to unify records and reporting across 47 district branches.',
-      problem: 'Administrative personnel struggled with fragmented offline spreadsheets, uncoordinated membership verification, and slow reporting cycles across regional branches.',
-      solution: 'Engineered a scalable full-stack web portal featuring role-based access control, normalized relational database schemas, batch CSV member imports, and automated verification workflows.',
+      summary: 'A centralized organizational membership and administrative management platform designed to unify records, reporting, and credential issuance across 47 district branches.',
+      problem: 'Regional administrative personnel relied on uncoordinated offline spreadsheets, causing data silos, delayed reporting cycles, and duplicated member records across 47 district branches.',
+      solution: 'Architected a centralized web platform featuring role-based access control (RBAC), normalized relational schema, batch data processing, and automated verification workflows.',
       technicalContribution: [
-        'Architected relational database schema in MySQL supporting hierarchical regional organizational tiers.',
-        'Designed RESTful API endpoints in Laravel with token authentication and rigorous validation layers.',
-        'Built modern React.js administrative dashboard with responsive tables, query filters, and data export.',
-        'Spearheaded user research and managed the technical implementation sprints with developer peers.'
+        'Designed a 3NF normalized MySQL database schema supporting hierarchical regional organizational tiers.',
+        'Engineered RESTful API endpoints in Laravel with Sanctum token authentication and server-side validation.',
+        'Built a responsive React administrative dashboard with parameterized query filters and CSV data ingestion.',
+        'Organized sprint delivery schedules and coordinated technical reviews with developer peers.'
       ],
       techStack: ['React.js', 'Laravel', 'RESTful API', 'MySQL', 'Tailwind CSS', 'Figma'],
-      accentOrb: 'peach'
+      specs: {
+        platform: 'Enterprise Web Application',
+        architecture: 'Decoupled React.js SPA + Laravel RESTful API Services',
+        keyMechanism: 'Role-Based Access Control (RBAC) & batch database transactions',
+        verification: 'Deployed across 47 district administrative branches'
+      }
     },
     {
       id: 'hadith-arbain-mobile',
       slug: 'hadith-arbain-mobile',
-      title: "Hadith Arba'in Mobile App",
-      subtitle: 'Native Android Audio-First Educational Application',
+      title: "Hadith Arba'in Native Android",
+      subtitle: 'Audio-First Educational Application with Offline SQLite Persistence',
       year: '2025',
-      role: 'Product Lead & Developer',
+      role: 'Mobile Application Engineer',
       category: 'Mobile & Native',
-      summary: 'A native Android application utilizing Text-to-Speech synthesis and tactile audio navigation for seamless, hands-free study.',
-      problem: 'Mobile users in transit or with partial vision impairments need reliable audio reading without relying on high-bandwidth video streams.',
-      solution: 'Developed a lightweight native Kotlin Android application with integrated Android Text-to-Speech (TTS) engine, granular rate controls, and local SQLite caching.',
+      summary: 'A native Kotlin Android application utilizing the Android Text-to-Speech synthesis engine and Room SQLite persistence for offline, hands-free study.',
+      problem: 'Commuters and users with partial vision impairments need consistent audio playback without continuous cellular data usage or third-party streaming dependencies.',
+      solution: 'Developed a native Kotlin Android application with an integrated Android Text-to-Speech (TTS) engine, Room SQLite offline database, and foreground audio service.',
       technicalContribution: [
-        'Integrated Android TTS engine with multi-lingual voice package switching (Arabic and Indonesian).',
-        'Implemented SQLite database schema via Room ORM for instant offline queries and bookmark persistence.',
-        'Applied Android Material 3 design guidelines with accessible touch targets and dark/light adaptive theme.',
-        'Optimized background audio playback service to maintain playback across Android app lifecycle changes.'
+        'Integrated the Android TTS engine with dynamic bilingual voice switching (Arabic text and Indonesian translation).',
+        'Structured local SQLite persistence with Room ORM for zero-latency queries and bookmark state preservation.',
+        'Implemented Android Material 3 design system adhering to accessible touch targets and system dark mode.',
+        'Managed Android foreground audio service to prevent audio drops across operating system lifecycle transitions.'
       ],
       techStack: ['Kotlin', 'Android SDK', 'Text-to-Speech (TTS)', 'Room SQLite', 'Material 3'],
       githubUrl: 'https://github.com/irs622',
-      accentOrb: 'sky'
-    },
-    {
-      id: 'bahara',
-      slug: 'bahara',
-      title: 'BAHARA',
-      subtitle: 'Voice-Guided Arabic Learning Mobile Platform',
-      year: '2025',
-      role: 'Product Lead & Developer',
-      category: 'Mobile & Native',
-      summary: 'A cross-platform mobile application providing step-by-step Arabic vocal training with intelligent voice input evaluation.',
-      problem: 'Acquiring Arabic phonetics requires iterative vocal repetition and immediate feedback, which traditional self-study books cannot deliver.',
-      solution: 'Designed an interactive mobile curriculum in Flutter incorporating voice recognition modules that match learner spoken input against phonetic benchmarks.',
-      technicalContribution: [
-        'Built interactive Flutter mobile screens with fluid state management and minimal render overhead.',
-        'Connected audio recording streams with speech recognition APIs for vocal pattern verification.',
-        'Structured modular lesson milestones with progress tracking and gamified retention mechanics.',
-        'Conducted user testing with novice learners to refine acoustic sensitivity thresholds.'
-      ],
-      techStack: ['Flutter', 'Dart', 'Speech Recognition', 'RESTful APIs', 'Figma'],
-      githubUrl: 'https://github.com/irs622',
-      accentOrb: 'rose'
+      specs: {
+        platform: 'Native Android (Kotlin)',
+        architecture: 'MVVM Pattern + Room ORM + Foreground Media Service',
+        keyMechanism: 'Android Text-to-Speech (TTS) engine & Room SQLite cache',
+        verification: 'Validated across Android API levels 24 through 34'
+      }
     },
     {
       id: 'kamus-cerdas-indo-sunda',
       slug: 'kamus-cerdas-indo-sunda',
       title: 'Kamus Cerdas Indo-Sunda',
-      subtitle: 'Regional Lexicon API & Mobile Distribution',
+      subtitle: 'Regional Lexicon REST API & Automated CI/CD Pipeline',
       year: '2025',
-      role: 'Backend Developer & DevOps Engineer',
+      role: 'Backend Engineer & DevOps',
       category: 'Full-Stack Systems',
-      summary: 'High-performance bilingual dictionary backend and automated CI/CD distribution pipeline published to the Google Play Store.',
-      problem: 'Regional language preservation tools frequently suffer from unmaintained APIs, slow lookup latency, and cumbersome manual deployment procedures.',
-      solution: 'Architected a low-latency REST API using FastAPI and Docker, backed by automated GitHub Actions workflows for continuous testing and automated Play Store deployment.',
+      summary: 'High-performance bilingual regional lexicon backend and automated CI/CD distribution pipeline published to the Google Play Store.',
+      problem: 'Regional language preservation tools frequently suffer from unmaintained APIs, slow lookup latency, and fragile manual server update procedures.',
+      solution: 'Architected a low-latency REST API with FastAPI and Docker, backed by automated GitHub Actions CI/CD workflows and published distribution via Google Play Console.',
       technicalContribution: [
-        'Designed indexing algorithm for fuzzy morphological search across Indonesian and Sundanese vocabularies.',
-        'Containerized the application with Docker and configured automated Nginx reverse proxy deployment on Linux VPS.',
-        'Constructed automated CI/CD pipeline using GitHub Actions for automated unit testing and artifact release.',
-        'Managed Google Play Console compliance, app signing, and production release distribution.'
+        'Implemented bi-directional morphological search indexing across Indonesian and Sundanese vocabulary sets.',
+        'Containerized backend services with Docker and configured Nginx reverse proxy routing on a Linux VPS.',
+        'Constructed continuous integration and automated testing workflows utilizing GitHub Actions.',
+        'Administered Google Play Console release management, app signing, and compliance documentation.'
       ],
       techStack: ['Python', 'FastAPI', 'Docker', 'GitHub Actions', 'Linux VPS', 'Google Play Console'],
       githubUrl: 'https://github.com/irs622',
-      accentOrb: 'mint'
+      specs: {
+        platform: 'REST API & Mobile Client',
+        architecture: 'FastAPI Microservice + Docker Container + Nginx Reverse Proxy',
+        keyMechanism: 'Fuzzy morphological search & automated GitHub Actions deployment',
+        verification: 'Published on Google Play Console; verified uptime on Linux VPS'
+      }
     },
     {
       id: 'library-of-focus',
       slug: 'library-of-focus',
       title: 'Library of Focus',
-      subtitle: 'Cognitive Science Interactive Training Tool',
+      subtitle: 'Cognitive Science Experimental Telemetry Environment',
       year: '2024',
       role: 'Independent Game Developer',
       category: 'Applied Research',
-      summary: 'A maze-based cognitive experiment application presented at the Cognitive Exhibition by the Faculty of Psychology, UIN Sunan Gunung Djati Bandung.',
-      problem: 'Psychology researchers required calibrated digital testing environments to measure spatial orientation, decision latencies, and focus retention under distractions.',
-      solution: 'Engineered an interactive maze environment tracking user movement paths, decision timeframes, and error frequencies with real-time metric capture.',
+      summary: 'A 2D maze-based cognitive experiment application presented at the Cognitive Exhibition by the Faculty of Psychology, UIN Sunan Gunung Djati Bandung.',
+      achievement: 'Exhibited at the Cognitive Exhibition, Faculty of Psychology, UIN SGD Bandung.',
+      problem: 'Psychology researchers required an instrumented digital testing environment to measure spatial orientation, reaction latencies, and decision consistency under controlled distractions.',
+      solution: 'Engineered an interactive 2D canvas maze application logging millisecond-precision movement vectors, error frequencies, and task completion metrics.',
       technicalContribution: [
-        'Implemented custom canvas-based maze rendering and collision detection algorithms.',
-        'Programmed deterministic timing logic to capture micro-second interaction latencies accurately.',
-        'Constructed telemetry export modules allowing researchers to download structured session logs.',
-        'Exhibited and demonstrated the software live to students and faculty researchers at the academic exhibition.'
+        'Implemented custom 2D canvas maze rendering and deterministic collision detection algorithms.',
+        'Programmed micro-timestamp event logging to capture user decision latencies without garbage collection pauses.',
+        'Constructed telemetry export routines allowing researchers to download structured session datasets.',
+        'Demonstrated software live to students and psychology researchers at the academic exhibition.'
       ],
       techStack: ['React Native', 'TypeScript', 'Canvas API', 'State Machine', 'Analytical Telemetry'],
       githubUrl: 'https://github.com/irs622',
-      accentOrb: 'lavender'
+      specs: {
+        platform: 'Interactive Web & Mobile Canvas',
+        architecture: 'HTML5 Canvas Engine + Finite State Machine + Telemetry Logger',
+        keyMechanism: 'Microsecond-precision event timing & deterministic collision checking',
+        verification: 'Live experimental demonstration at the Faculty of Psychology Exhibition'
+      }
     }
   ]
 };

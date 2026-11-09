@@ -25,56 +25,46 @@ export interface ResearchContent {
 export const researchContent: ResearchContent = {
   sectionNumber: '05',
   sectionTitle: 'RESEARCH',
-  headline: 'Exploring what comes next.',
-  subheadline: 'Investigating emerging intersections in cloud infrastructure security, machine intelligence, and accessible computing.',
+  headline: 'Applied research and technical inquiries.',
+  subheadline: 'Empirical evaluations in cloud security, Web Application Firewall efficacy, and multi-modal accessibility interfaces.',
   featuredDirection: {
     title: 'Evaluating the Effectiveness of Web Application Firewalls in Detecting and Mitigating Attacks Against Web Applications',
-    status: 'Ongoing Technical Investigation',
-    description: 'An ongoing experimental evaluation analyzing the detection efficacy, false-positive overhead, and latency implications of modern Web Application Firewalls (WAFs) under adversarial attack vectors targeting distributed cloud workloads.',
-    methodology: 'Deploying controlled benchmark environments comparing open-source rulesets (such as OWASP ModSecurity Core Rule Set) and managed cloud WAFs against SQL injection, cross-site scripting (XSS), and zero-day payload evasions in containerized clusters.',
-    anticipatedOutcomes: 'Establishing reproducible empirical metrics on latency trade-offs, evasion vulnerabilities, and automated rule tuning strategies for resource-constrained engineering teams.',
+    status: 'Active Technical Investigation',
+    description: 'An empirical investigation measuring detection efficacy, false-positive latency overhead, and rule resilience across modern Web Application Firewalls (WAFs) under adversarial attack vectors targeting distributed cloud workloads.',
+    methodology: 'Deploying controlled benchmark environments comparing open-source rulesets (OWASP ModSecurity Core Rule Set) against managed cloud WAF configurations under SQL injection, cross-site scripting (XSS), and automated encoding evasion payloads in containerized clusters.',
+    anticipatedOutcomes: 'Establishing reproducible empirical metrics on latency trade-offs, payload evasion vulnerabilities, and automated rule tuning strategies for resource-constrained engineering teams.',
     keywords: ['Web Application Firewalls', 'Cloud Security', 'OWASP Top 10', 'Evasion Analysis', 'Benchmarking']
   },
   interests: [
     {
-      topic: 'Artificial Intelligence',
-      category: 'Applied Intelligence',
-      description: 'Designing robust inference pipelines, LLM agent tool-calling patterns, and verifiable reasoning guardrails.'
-    },
-    {
-      topic: 'Distributed Systems',
-      category: 'Architecture',
-      description: 'Fault-tolerant consensus protocols, event streaming topologies, and high-throughput data processing across nodes.'
-    },
-    {
-      topic: 'Kubernetes & Containers',
-      category: 'Infrastructure',
-      description: 'Declarative cluster orchestration, service mesh routing, automated autoscaling, and immutable container runtimes.'
-    },
-    {
-      topic: 'Deep Reinforcement Learning',
-      category: 'Machine Learning',
-      description: 'Agent decision optimization in dynamic environments, policy gradients, and algorithmic state-space exploration.'
-    },
-    {
-      topic: 'Cybersecurity',
-      category: 'Security Engineering',
-      description: 'Threat modeling, web application defense against OWASP Top 10 vulnerabilities, and automated security scanning.'
-    },
-    {
-      topic: 'Zero Trust Security',
-      category: 'Network & Identity',
-      description: 'Identity-driven microsegmentation, least-privilege service-to-service authentication, and continuous verification architectures.'
-    },
-    {
-      topic: 'Cloud Cost Optimization',
-      category: 'Systems & FinOps',
-      description: 'Resource rightsizing, cold-start mitigation in serverless compute, and architectural efficiency metrics.'
-    },
-    {
       topic: 'Accessibility Engineering',
-      category: 'Human-Centered Tech',
-      description: 'Empirical WCAG compliance audits, assistive multi-modal feedback loops, and semantic DOM resilience for non-visual computing.'
+      category: 'Human-Centered Systems',
+      description: 'Empirical WCAG 2.2 AAA compliance audits, semantic DOM resilience, and assistive multi-modal feedback loops for screen-reader users.'
+    },
+    {
+      topic: 'Cloud Infrastructure Security',
+      category: 'Security Engineering',
+      description: 'Threat modeling, web application defense against OWASP Top 10 vectors, and automated vulnerability scanning in containerized environments.'
+    },
+    {
+      topic: 'Distributed Systems & Microservices',
+      category: 'System Architecture',
+      description: 'Fault-tolerant consensus protocols, asynchronous messaging topologies, and high-throughput data processing across decentralized nodes.'
+    },
+    {
+      topic: 'Applied Machine Learning & LLMs',
+      category: 'Intelligent Systems',
+      description: 'Structured tool-calling pipelines, LLM agent guardrails, and deterministic evaluation workflows for production conversational interfaces.'
+    },
+    {
+      topic: 'Container Orchestration & Linux',
+      category: 'Infrastructure',
+      description: 'Immutable container runtimes, declarative cluster configurations, Nginx reverse proxy tuning, and automated CI/CD deployment routines.'
+    },
+    {
+      topic: 'Zero Trust Network Architecture',
+      category: 'Network & Identity',
+      description: 'Least-privilege service-to-service authentication, identity-driven microsegmentation, and continuous verification mechanisms.'
     }
   ]
 };

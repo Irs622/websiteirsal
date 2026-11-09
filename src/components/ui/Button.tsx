@@ -19,23 +19,23 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseClasses =
-    'inline-flex items-center justify-center button-text transition-all duration-150 cursor-pointer rounded-full select-none disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-[#0c0a09] focus-visible:outline-offset-2';
+    'inline-flex items-center justify-center button-text transition-colors duration-150 cursor-pointer rounded-sm select-none disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-1.5 focus-visible:outline-[#141413] focus-visible:outline-offset-2';
 
   const sizeClasses = {
-    sm: 'text-[13px] h-8 px-3.5 gap-1.5',
-    md: 'text-[15px] h-10 px-5 gap-2',
-    lg: 'text-[15px] h-11 px-6 gap-2.5'
+    sm: 'text-[13px] h-8 px-3 gap-1.5',
+    md: 'text-[14px] h-9 px-4 gap-2',
+    lg: 'text-[15px] h-11 px-5 gap-2.5'
   };
 
   const variantClasses = {
     primary:
-      'bg-[#292524] text-[#ffffff] hover:bg-[#0c0a09] active:bg-[#0c0a09] border border-[#292524]',
+      'bg-[#141413] text-[#ffffff] hover:bg-[#242321] active:bg-[#000000] border border-[#141413]',
     outline:
-      'bg-transparent text-[#0c0a09] border border-[#d6d3d1] hover:border-[#0c0a09] hover:bg-[#ffffff]',
+      'bg-transparent text-[#141413] border border-[#141413] hover:bg-[#141413] hover:text-[#ffffff]',
     secondary:
-      'bg-[#ffffff] text-[#0c0a09] border border-[#e7e5e4] hover:bg-[#fafafa] hover:border-[#d6d3d1]',
+      'bg-[#f5f4f0] text-[#141413] border border-[#e5e2dc] hover:bg-[#eeebe6] hover:border-[#d0ccc3]',
     ghost:
-      'bg-transparent text-[#4e4e4e] hover:text-[#0c0a09] hover:bg-black/[0.03]'
+      'bg-transparent text-[#44423e] hover:text-[#141413] hover:bg-[#f5f4f0]'
   };
 
   return (

@@ -4,87 +4,87 @@ import { ArrowLeft } from 'lucide-react';
 import { experienceContent } from '../data/experience';
 import { leadershipContent } from '../data/leadership';
 import { Badge } from '../components/ui/Badge';
-import { Surface } from '../components/ui/Surface';
 
 export function ExperiencePage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.title = 'Professional Experience | LM. Irsal Shydiq';
+    document.title = 'Professional Experience & Leadership | LM. Irsal Shydiq';
   }, []);
 
   return (
-    <div className="py-16 sm:py-24 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
+    <div className="py-12 sm:py-20 px-6 sm:px-8 max-w-[1200px] mx-auto min-h-screen">
       <div className="mb-8">
         <Link
           to="/"
-          className="inline-flex items-center gap-2 body-sm text-[#777169] hover:text-[#0c0a09] transition-colors py-1.5 px-3 -ml-3 rounded-full hover:bg-black/[0.03]"
+          className="inline-flex items-center gap-2 font-mono text-[13px] text-[#6e6b65] hover:text-[#141413] transition-colors py-1 px-2 -ml-2 rounded-sm hover:bg-[#f5f4f0]"
         >
-          <ArrowLeft size={16} />
-          <span>Back to Home</span>
+          <ArrowLeft size={14} />
+          <span>Return to Overview</span>
         </Link>
       </div>
 
-      <header className="mb-14 space-y-4 max-w-3xl">
-        <div className="flex items-center gap-3">
-          <span className="caption-uppercase text-[#777169]">
-            {experienceContent.sectionNumber} / {experienceContent.sectionTitle}
-          </span>
-          <div className="h-[1px] w-12 bg-[#e7e5e4]" />
+      <header className="mb-12 space-y-4 max-w-3xl">
+        <div className="flex items-center gap-2 font-mono text-[12px] text-[#6e6b65]">
+          <span>№ 03</span>
+          <span>&bull;</span>
+          <span>WORK HISTORY &amp; LEADERSHIP</span>
         </div>
 
-        <h1 className="display-mega text-[#0c0a09]">
+        <h1 className="display-mega text-[#141413]">
           {experienceContent.headline}
         </h1>
 
-        <p className="body-md text-[18px] text-[#777169] leading-relaxed">
+        <p className="body-md text-[17px] text-[#6e6b65] leading-relaxed">
           {experienceContent.subheadline}
         </p>
       </header>
 
-      {/* Experience Chronological List */}
-      <div className="space-y-6 mb-20">
+      {/* Experience Chronological Ledger */}
+      <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#e5e2dc] mb-16">
         {experienceContent.items.map((item, index) => (
           <div
             key={item.id}
-            className="bg-[#ffffff] border border-[#e7e5e4] rounded-[16px] p-6 sm:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.04)]"
+            className="p-6 sm:p-8"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
               <div className="lg:col-span-4 space-y-1">
-                <span className="caption-uppercase text-[#777169] block mb-1">
-                  0{index + 1} • {item.type}
+                <span className="caption-uppercase text-[#6e6b65] block mb-1">
+                  LOG-0{index + 1} &bull; {item.type}
                 </span>
-                <h3 className="display-sm text-[#0c0a09]">
+                <h3 className="display-sm text-[#141413]">
                   {item.company}
                 </h3>
-                <p className="body-strong text-[#292524] mt-1">
+                <p className="body-strong text-[#242321] mt-1 text-[15px]">
                   {item.role}
                 </p>
-                <div className="pt-2 body-sm text-[#777169] flex flex-col gap-0.5">
-                  <span>{item.period}</span>
-                  <span>{item.location}</span>
+                <div className="pt-2 font-mono text-[12px] text-[#6e6b65] space-y-0.5">
+                  <div>{item.period}</div>
+                  <div>{item.location}</div>
                 </div>
               </div>
 
               <div className="lg:col-span-8 space-y-4">
-                <span className="caption-uppercase text-[#777169] block">
+                <span className="caption-uppercase text-[#6e6b65] block">
                   Core Responsibilities &amp; Impact
                 </span>
-                <ul className="space-y-2.5">
+                <ul className="space-y-2">
                   {item.responsibilities.map((resp, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-3 body-sm leading-relaxed text-[#4e4e4e]"
+                      className="flex items-start gap-2.5 body-sm leading-relaxed text-[#44423e]"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a09] mt-2 shrink-0" />
+                      <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
+                        &bull;
+                      </span>
                       <span>{resp}</span>
                     </li>
                   ))}
                 </ul>
 
                 {item.techStack && (
-                  <div className="pt-3 flex flex-wrap gap-1.5">
+                  <div className="pt-3 border-t border-[#eeebe6] flex flex-wrap gap-1.5">
                     {item.techStack.map((tech) => (
-                      <Badge key={tech} variant="default" size="sm">
+                      <Badge key={tech} variant="mono" size="sm">
                         {tech}
                       </Badge>
                     ))}
@@ -97,43 +97,68 @@ export function ExperiencePage() {
       </div>
 
       {/* Leadership Section */}
-      <section className="pt-12 border-t border-[#e7e5e4] space-y-8">
+      <section className="pt-10 border-t border-[#e5e2dc] space-y-8">
         <div>
-          <span className="caption-uppercase text-[#777169] block mb-2">
-            06 / LEADERSHIP &amp; COMMUNITY
+          <span className="caption-uppercase text-[#6e6b65] block mb-2">
+            № 07 &bull; INSTITUTIONAL LEADERSHIP &amp; COMMUNITY
           </span>
-          <h2 className="display-lg text-[#0c0a09]">
+          <h2 className="display-lg text-[#141413]">
             {leadershipContent.headline}
           </h2>
+          <p className="body-md text-[#6e6b65] mt-1 max-w-2xl">
+            {leadershipContent.subheadline}
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {leadershipContent.roles.map((role, idx) => (
-            <Surface key={role.organization} variant="card" padding="lg" className="space-y-6">
+            <div
+              key={role.organization}
+              className="bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 space-y-4"
+            >
               <div>
-                <span className="caption-uppercase text-[#777169] block mb-1">
-                  0{idx + 1} • {role.period}
-                </span>
-                <h3 className="display-sm text-[#0c0a09]">
+                <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65] mb-2">
+                  <span>LEAD-0{idx + 1}</span>
+                  <span>{role.period}</span>
+                </div>
+                <h3 className="display-sm text-[#141413]">
                   {role.organization}
                 </h3>
-                <p className="body-strong text-[#292524] mt-1">
+                <p className="body-strong text-[#242321] mt-0.5">
                   {role.role}
                 </p>
-                <p className="caption text-[#777169] mt-0.5">
+                <p className="caption text-[#6e6b65] text-[12px] mt-0.5">
                   {role.scope}
                 </p>
               </div>
 
-              <ul className="space-y-2 pt-2 border-t border-[#e7e5e4]">
-                {role.contributions.map((c, i) => (
-                  <li key={i} className="flex items-start gap-2.5 body-sm text-[#4e4e4e]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#0c0a09] mt-2 shrink-0" />
-                    <span>{c}</span>
-                  </li>
+              <div className="pt-2 border-t border-[#eeebe6] space-y-1.5">
+                <span className="caption-uppercase block text-[#9c9890] text-[10px]">
+                  Key Initiatives &amp; Responsibilities
+                </span>
+                <ul className="space-y-1.5">
+                  {role.contributions.map((c, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 body-sm leading-relaxed text-[#44423e]"
+                    >
+                      <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
+                        &bull;
+                      </span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-2 flex flex-wrap gap-1.5">
+                {role.tags.map((tag) => (
+                  <Badge key={tag} variant="mono" size="sm">
+                    {tag}
+                  </Badge>
                 ))}
-              </ul>
-            </Surface>
+              </div>
+            </div>
           ))}
         </div>
       </section>

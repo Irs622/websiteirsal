@@ -35,7 +35,7 @@ export default function App() {
   return (
     <Router>
       <ScrollHandler />
-      <div className="relative min-h-screen flex flex-col bg-[#F5F5F5] text-[#4E4E4E]">
+      <div className="relative min-h-screen flex flex-col bg-[#FBFBF9] text-[#44423E]">
         <Navigation />
         <main className="flex-1">
           <Routes>

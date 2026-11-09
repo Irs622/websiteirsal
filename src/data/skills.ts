@@ -16,38 +16,32 @@ export interface ExpertiseContent {
 export const expertiseContent: ExpertiseContent = {
   sectionNumber: '02',
   sectionTitle: 'EXPERTISE',
-  headline: 'Where engineering meets ideas.',
-  subheadline: 'Organized across core software systems, interface craftsmanship, applied intelligence, and reliable infrastructure.',
+  headline: 'Technical domains and toolchain.',
+  subheadline: 'Core competencies across backend services, reactive web interfaces, native mobile runtimes, and Linux infrastructure.',
   categories: [
     {
-      id: 'software-engineering',
-      name: 'Software Engineering',
-      tagline: 'System logic, object-oriented design, algorithms, and relational data modeling.',
-      skills: ['Kotlin', 'Python', 'PHP', 'JavaScript', 'SQL']
+      id: 'languages-core',
+      name: 'Languages & Core Systems',
+      tagline: 'Object-oriented programming, data structures, relational modeling, and algorithmic logic.',
+      skills: ['Kotlin', 'Python', 'PHP', 'TypeScript', 'JavaScript', 'SQL']
     },
     {
       id: 'web-mobile',
-      name: 'Web & Mobile',
-      tagline: 'Modern reactive component architectures, progressive web applications, and native mobile runtimes.',
-      skills: ['React.js', 'Next.js', 'Laravel', 'Flutter', 'Android SDK']
+      name: 'Web & Mobile Frameworks',
+      tagline: 'Reactive component lifecycles, service workers, offline state caching, and native Android runtimes.',
+      skills: ['React.js', 'Next.js', 'Laravel', 'Flutter', 'Android SDK', 'Tailwind CSS']
     },
     {
-      id: 'artificial-intelligence',
-      name: 'Artificial Intelligence',
-      tagline: 'Applied ML model pipelines, generative LLM integrations, conversational agents, and evaluation workflows.',
-      skills: ['Machine Learning', 'AI Integration', 'Prompt Engineering', 'OpenAI API', 'Hugging Face']
+      id: 'assistive-ai',
+      name: 'Assistive Tech & Applied AI',
+      tagline: 'Audio-first interfaces, speech synthesis, 3D WebGL rendering, and structured LLM API integration.',
+      skills: ['Web Audio API', 'Web Speech API', 'Three.js / WebGL', 'WCAG 2.2 AAA', 'OpenAI API', 'Hugging Face']
     },
     {
-      id: 'cloud-infrastructure',
-      name: 'Cloud & Infrastructure',
-      tagline: 'Containerized deployment pipelines, Linux server administration, automation, and continuous delivery.',
-      skills: ['Docker', 'CI/CD', 'Linux', 'Cloud Infrastructure', 'Automated Testing']
-    },
-    {
-      id: 'product-design',
-      name: 'Product & Design',
-      tagline: 'Design systems, WCAG 2.2 accessibility compliance, iterative prototyping, and cross-functional leadership.',
-      skills: ['Figma', 'UI/UX Design', 'Product Development', 'Accessibility', 'Agile', 'Project Management']
+      id: 'infrastructure-devops',
+      name: 'Infrastructure & Operations',
+      tagline: 'Containerized deployments, Linux VPS administration, reverse proxies, and continuous delivery pipelines.',
+      skills: ['Docker', 'Linux (Ubuntu/Debian)', 'Nginx', 'GitHub Actions', 'RESTful APIs', 'Google Play Console']
     }
   ]
 };

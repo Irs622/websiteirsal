@@ -20,24 +20,24 @@ export interface ExperienceContent {
 export const experienceContent: ExperienceContent = {
   sectionNumber: '03',
   sectionTitle: 'EXPERIENCE',
-  headline: 'Building, collaborating, and delivering.',
-  subheadline: 'A chronological overview of production engineering roles, software internships, and technical initiatives.',
+  headline: 'Work history and engineering roles.',
+  subheadline: 'A chronological record of software engineering internships, system leadership, and production client deliveries.',
   items: [
     {
       id: 'inpartner-optima-integra',
-      role: 'Software Engineer / Web Developer Intern',
+      role: 'Software Engineer Intern',
       company: 'PT Inpartner Optima Integra',
       period: 'September 2026 — Present',
-      location: 'Jakarta, Indonesia',
+      location: 'Jakarta, Indonesia (Hybrid)',
       type: 'Internship',
       responsibilities: [
-        'Develop and maintain high-performance web applications serving production client workloads.',
-        'Improve technical website performance, Core Web Vitals, and organic search indexing (SEO).',
-        'Contribute to Generative Engine Optimization (GEO) strategies to improve brand authority in AI-driven answer engines.',
-        'Integrate and fine-tune AI-powered chatbot conversational interfaces with contextual fallback mechanisms.',
-        'Collaborate closely with senior software engineers on code reviews, continuous integration, and production systems.'
+        'Develop and maintain high-performance web applications handling production client workloads.',
+        'Optimize Core Web Vitals, page rendering performance, and technical search engine indexing (SEO).',
+        'Contribute to Generative Engine Optimization (GEO) strategies to improve brand citation in AI search engines.',
+        'Integrate AI-driven conversational interfaces with contextual fallback and prompt guardrails.',
+        'Participate in team code reviews, CI/CD pipeline automation, and production staging deployments.'
       ],
-      techStack: ['React', 'Next.js', 'TypeScript', 'AI APIs', 'Performance Tuning', 'SEO/GEO']
+      techStack: ['React', 'Next.js', 'TypeScript', 'AI APIs', 'Performance Tuning', 'SEO / GEO']
     },
     {
       id: 'walhi-jawa-barat',
@@ -47,42 +47,42 @@ export const experienceContent: ExperienceContent = {
       location: 'Bandung, Indonesia',
       type: 'Internship',
       responsibilities: [
-        'Architected sustainable Laravel and MySQL web infrastructure for advocacy reports and publications.',
-        'Led comprehensive UI/UX redesign implementation with responsive design and improved editorial hierarchy.',
+        'Architected sustainable Laravel and MySQL web infrastructure for environmental advocacy reports and publications.',
+        'Implemented a responsive, accessible interface with improved typographic hierarchy and document reading layout.',
         'Diagnosed and resolved critical web server deployment issues on production Linux VPS environments.',
-        'Implemented Docker containerization for uniform local staging and reliable zero-downtime server deployments.'
+        'Implemented Docker containerization for local development parity and reliable zero-downtime server deployments.'
       ],
-      techStack: ['Laravel', 'PHP', 'MySQL', 'Docker', 'Linux VPS', 'Nginx', 'UI/UX']
+      techStack: ['Laravel', 'PHP', 'MySQL', 'Docker', 'Linux VPS', 'Nginx']
     },
     {
       id: 'pc-fatayat-nu-sukabumi',
-      role: 'Project Manager & UI/UX Designer',
+      role: 'Technical Lead & System Architect',
       company: 'PC Fatayat NU Kabupaten Sukabumi',
       period: '2026',
       location: 'Sukabumi, Indonesia',
-      type: 'Leadership & Engineering',
+      type: 'Technical Leadership',
       responsibilities: [
-        'Led end-to-end technical development and sprint planning of a centralized organizational management platform.',
-        'Designed modular full-stack system architecture integrating React.js frontend with robust Laravel backend services.',
-        'Engineered secure RESTful APIs and optimized normalized SQL database schemas for multi-tiered regional members.',
-        'Facilitated stakeholder feedback sessions across 47 district branches to validate operational workflows.'
+        'Led end-to-end technical development and architecture planning for a centralized organizational membership platform.',
+        'Designed modular full-stack architecture coupling a React administrative dashboard with Laravel REST services.',
+        'Engineered secure RESTful APIs with token authentication and normalized SQL schemas for 47 district branches.',
+        'Facilitated stakeholder requirements gathering and user testing sessions with regional administrative coordinators.'
       ],
       techStack: ['React.js', 'Laravel', 'RESTful API', 'MySQL', 'Figma', 'System Architecture']
     },
     {
       id: 'freelance-software-engineer',
-      role: 'Web & Mobile Developer',
+      role: 'Independent Web & Mobile Developer',
       company: 'Freelance Practice',
       period: '2024 — Present',
       location: 'Remote',
       type: 'Independent Practice',
       responsibilities: [
         'Developed and deployed bespoke web and mobile applications tailored to client specifications and usability goals.',
-        'Managed the full software development lifecycle from initial discovery and wireframing through to staging and production.',
-        'Configured and maintained production cloud infrastructure, Linux servers, domain routing, and automated backups.',
-        'Provided technical advisory on web performance, accessibility compliance, and progressive enhancement.'
+        'Managed the complete software development lifecycle from architecture and schema design to production launch.',
+        'Configured cloud infrastructure, Linux servers, DNS routing, and automated database backup routines.',
+        'Provided technical guidance on web performance, accessibility compliance, and progressive enhancement.'
       ],
-      techStack: ['TypeScript', 'React', 'Flutter', 'Python', 'Tailwind CSS', 'Cloud Hosting']
+      techStack: ['TypeScript', 'React', 'Flutter', 'Python', 'Tailwind CSS', 'Cloud Infrastructure']
     }
   ]
 };

@@ -26,10 +26,10 @@ export interface EducationContent {
 }
 
 export const educationContent: EducationContent = {
-  sectionNumber: '',
-  sectionTitle: 'EDUCATION & CERTIFICATIONS',
-  headline: 'Foundations and continuous learning.',
-  subheadline: 'Formal academic background and verified technical credentials in artificial intelligence, networking, database systems, and infrastructure.',
+  sectionNumber: '06',
+  sectionTitle: 'EDUCATION & CREDENTIALS',
+  headline: 'Academic foundations and verified credentials.',
+  subheadline: 'Formal degree program in Informatics Engineering and industry certifications spanning AI development, networking, databases, and infrastructure.',
   education: {
     institution: 'UIN Sunan Gunung Djati Bandung',
     degree: 'Bachelor of Informatics Engineering',
@@ -38,7 +38,7 @@ export const educationContent: EducationContent = {
     status: 'Expected Graduation: 2027',
     gpa: '3.30 / 4.00',
     scholarship: 'LPDP Scholarship — Ministry of Religious Affairs Indonesia',
-    notes: 'Focusing on distributed systems, applied artificial intelligence, human-computer interaction, and software reliability.'
+    notes: 'Coursework and research focused on distributed systems, applied artificial intelligence, human-computer interaction, and software reliability.'
   },
   certifications: [
     {
@@ -55,7 +55,7 @@ export const educationContent: EducationContent = {
     },
     {
       name: 'Dasar Keamanan AI',
-      issuer: 'Kementerian Komunikasi dan Digital (Komdigi)',
+      issuer: 'Kementerian Komunikasi dan Digital (Komdigi RI)',
       year: '2026',
       credentialFocus: 'AI Model Safety, Threat Vectors & Governance'
     },

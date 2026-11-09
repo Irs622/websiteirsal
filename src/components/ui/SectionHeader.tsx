@@ -18,23 +18,19 @@ export function SectionHeader({
   className = ''
 }: SectionHeaderProps) {
   return (
-    <div className={`mb-12 sm:mb-16 ${align === 'center' ? 'text-center max-w-3xl mx-auto' : 'max-w-3xl'} ${className}`}>
-      {/* Editorial Number & Label */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="caption-uppercase text-[#777169]">
-          {number ? `${number} / ${label}` : label}
+    <div className={`mb-10 sm:mb-14 ${align === 'center' ? 'text-center max-w-3xl mx-auto' : 'max-w-3xl'} ${className}`}>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="caption-uppercase">
+          {number ? `№ ${number} — ${label}` : label}
         </span>
-        <div className="h-[1px] w-12 bg-[#e7e5e4]" />
       </div>
 
-      {/* Main Display Headline (EB Garamond Light 300) */}
-      <h2 className="display-lg mb-4 text-[#0c0a09]">
+      <h2 className="display-lg text-[#141413] tracking-[-0.01em]">
         {headline}
       </h2>
 
-      {/* Optional Subheadline */}
       {subheadline && (
-        <p className="body-md text-[#777169] text-[16px] sm:text-[17px] leading-relaxed">
+        <p className="body-md text-[#6e6b65] mt-2 max-w-2xl text-[15px] sm:text-[16px] leading-relaxed">
           {subheadline}
         </p>
       )}

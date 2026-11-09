@@ -16,14 +16,14 @@ export interface PersonalInfo {
 export const personalInfo: PersonalInfo = {
   name: 'LM. Irsal Shydiq',
   brandMark: 'LM. IRSAL SHYDIQ',
-  professionalTitle: 'Software Engineer | AI & Mobile Development | Web Developer',
-  tagline: 'Software Engineer & AI Developer',
+  professionalTitle: 'Software Engineer & LPDP Scholar',
+  tagline: 'Software Engineer • Full-Stack Web & Mobile Systems',
   location: 'Bandung, Indonesia',
   email: 'ichalprov@gmail.com',
   github: 'https://github.com/irs622',
   linkedin: 'https://linkedin.com/in/irsalshydiq',
-  brandStatement: 'I build meaningful digital products through software engineering, artificial intelligence, and human-centered technology.',
-  heroHeadline: 'Building technology with purpose.',
-  heroSubheadline: 'Engineering thoughtful digital experiences across software, AI, and accessible technology.',
-  heroIntro: "I'm Irsal, a software engineer interested in building useful digital products through software engineering, artificial intelligence, and human-centered design."
+  brandStatement: 'Software engineer building resilient web systems, native applications, and accessible computing interfaces.',
+  heroHeadline: 'Software engineering, accessible interfaces, and applied AI.',
+  heroSubheadline: 'Informatics Engineering student at UIN Sunan Gunung Djati Bandung and LPDP Scholar. Building full-stack web platforms, assistive software, and production applications.',
+  heroIntro: 'Currently working as a Software Engineer Intern at PT Inpartner Optima Integra. Focused on reliable web architecture, assistive audio systems, and pragmatic software engineering.'
 };
