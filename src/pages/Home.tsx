@@ -37,10 +37,11 @@ export function Home() {
   };
 
   const projectCategories = [
-    { id: 'all', label: 'All Projects', count: projectsContent.projects.length },
+    { id: 'all', label: 'All Work', count: projectsContent.projects.length },
     { id: 'Accessible Tech', label: 'Accessible Tech', count: projectsContent.projects.filter(p => p.category === 'Accessible Tech').length },
     { id: 'Full-Stack Systems', label: 'Full-Stack Systems', count: projectsContent.projects.filter(p => p.category === 'Full-Stack Systems').length },
     { id: 'AI & Web', label: 'AI & Web', count: projectsContent.projects.filter(p => p.category === 'AI & Web').length },
+    { id: 'Mobile & Native', label: 'Mobile & Native', count: projectsContent.projects.filter(p => p.category === 'Mobile & Native').length },
     { id: 'Applied Research', label: 'Applied Research', count: projectsContent.projects.filter(p => p.category === 'Applied Research').length },
   ];
 
@@ -51,56 +52,59 @@ export function Home() {
   return (
     <div className="relative">
       {/* ======================================================== */}
-      {/* SECTION 1: HERO                                          */}
+      {/* SECTION 1: HERO (ART-DIRECTED EDITORIAL MASTHEAD)        */}
       {/* ======================================================== */}
       <section
         id="hero"
         aria-label="Introduction"
-        className="relative pt-16 sm:pt-24 pb-16 sm:pb-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
+        className="relative pt-12 sm:pt-20 pb-16 sm:pb-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
       >
         <div className="max-w-[1200px] mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left Column (7 cols): Editorial Typography & Direct CTAs */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Running Folio */}
-              <div className="flex flex-wrap items-center gap-2.5 text-[#6e6b65] text-[12px] font-mono tracking-wider uppercase">
-                <span className="text-[#141413] font-medium">LM. IRSAL SHYDIQ</span>
-                <span className="text-[#d0ccc3]">&bull;</span>
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin size={11} className="text-[#141413]" />
-                  {personalInfo.location}
-                </span>
-                <span className="text-[#d0ccc3]">&bull;</span>
-                <span className="text-[#1e3a2b] bg-[#1e3a2b]/5 px-2 py-0.5 rounded-sm border border-[#1e3a2b]/20 text-[11px]">
-                  Available 2026
-                </span>
-              </div>
+          {/* Top Running Masthead Folio */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-6 sm:pb-8 mb-8 sm:mb-12 border-b border-[#eeebe6] text-[11px] font-mono text-[#6e6b65] uppercase tracking-wider">
+            <div className="flex items-center gap-2">
+              <span className="text-[#141413] font-medium">LM. IRSAL SHYDIQ</span>
+              <span className="text-[#d0ccc3]">&bull;</span>
+              <span className="inline-flex items-center gap-1">
+                <MapPin size={11} className="text-[#141413]" />
+                Bandung, Indonesia (UTC+7)
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#1e3a2b]" />
+              <span className="text-[#1e3a2b]">Available for engineering roles &bull; 2026</span>
+            </div>
+          </div>
 
-              {/* Master Headline: EB Garamond Light Display */}
-              <div className="space-y-3">
-                <h1 className="display-mega text-[#141413]">
-                  {personalInfo.heroHeadline}
-                </h1>
-                <p className="display-md text-[#44423e] max-w-xl">
-                  {personalInfo.heroSubheadline}
-                </p>
-              </div>
+          {/* Main Asymmetric Hero Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            {/* Left Column (8 cols): Large Monumental Headline & Narrative */}
+            <div className="lg:col-span-8 space-y-6">
+              {/* Master Headline: EB Garamond with controlled line breaks */}
+              <h1 className="display-mega text-[#141413] tracking-[-0.025em]">
+                Building technology<br className="hidden sm:inline" /> with purpose.
+              </h1>
 
-              {/* Grounded Editorial Introduction */}
-              <p className="body-md text-[#44423e] max-w-xl text-[16px] leading-relaxed">
-                {personalInfo.heroIntro}
+              {/* Supporting Editorial Statement */}
+              <p className="text-[19px] sm:text-[22px] font-display italic text-[#242321] max-w-2xl leading-snug">
+                Software engineer working across web architectures, native systems, and accessible computing interfaces.
               </p>
 
-              {/* Clean Typographic Meta Strip (No clumsy floating boxes) */}
-              <div className="pt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[12px] text-[#6e6b65]">
-                <span className="text-[#141413]">UIN Sunan Gunung Djati Bandung '27</span>
+              {/* Human-Crafted Context Paragraph */}
+              <p className="text-[15px] sm:text-[16px] text-[#44423e] max-w-xl leading-relaxed">
+                Informatics Engineering student at UIN Sunan Gunung Djati Bandung and LPDP Scholar. Currently interning as a Software Engineer at PT Inpartner Optima Integra, focusing on resilient web applications and assistive technology.
+              </p>
+
+              {/* Typographic Metadata Coordinates (Open, no clunky boxes) */}
+              <div className="pt-2 border-t border-[#eeebe6] flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-[12px] text-[#6e6b65]">
+                <span className="text-[#141413] font-medium">UIN Sunan Gunung Djati Bandung '27</span>
                 <span className="text-[#d0ccc3]">&bull;</span>
                 <span>LPDP Scholar Kemenag RI</span>
                 <span className="text-[#d0ccc3]">&bull;</span>
                 <span>Software Engineer Intern @ Inpartner</span>
               </div>
 
-              {/* Actions & Channels */}
+              {/* Direct Actions & Channels */}
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <Button
                   variant="primary"
@@ -108,11 +112,11 @@ export function Home() {
                   onClick={() => scrollToSection('projects')}
                   icon={<ArrowDown size={14} />}
                 >
-                  Selected Work
+                  Explore Selected Work
                 </Button>
 
                 <a
-                  href={`mailto:${personalInfo.email}?subject=CV%20Request%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
+                  href={`mailto:${personalInfo.email}?subject=Collaboration%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
                   className="inline-block"
                 >
                   <Button
@@ -125,7 +129,7 @@ export function Home() {
                 </a>
               </div>
 
-              {/* Direct Channels */}
+              {/* Direct Channel Coordinates */}
               <div className="flex flex-wrap items-center gap-4 pt-1 text-[13px] font-mono text-[#6e6b65]">
                 <a
                   href={personalInfo.github}
@@ -159,20 +163,20 @@ export function Home() {
               </div>
             </div>
 
-            {/* Right Column (5 cols): Editorial Portrait */}
-            <div className="lg:col-span-5">
-              <div className="border border-[#e5e2dc] bg-[#ffffff] p-2 rounded-sm">
-                <div className="aspect-[4/5] overflow-hidden bg-[#f5f4f0] rounded-xs">
+            {/* Right Column (4 cols): Art-Directed Monochrome Editorial Portrait */}
+            <div className="lg:col-span-4 pt-2">
+              <div className="border border-[#e5e2dc] bg-[#ffffff] p-2.5 rounded-sm max-w-sm">
+                <div className="aspect-[3/4] overflow-hidden bg-[#eeebe6] rounded-xs">
                   <img
                     src={portraitImg}
                     alt="LM. Irsal Shydiq — Software Engineer and LPDP Scholar in Bandung, Indonesia"
-                    className="w-full h-full object-cover object-top filter grayscale-[10%]"
+                    className="w-full h-full object-cover object-top filter grayscale contrast-[1.08] brightness-[0.98]"
                     loading="eager"
                   />
                 </div>
                 <div className="pt-2.5 px-1 flex items-center justify-between text-[11px] font-mono text-[#6e6b65] border-t border-[#eeebe6] mt-2">
-                  <span className="text-[#141413]">LM. Irsal Shydiq</span>
-                  <span>Bandung, West Java &bull; Class of 2027</span>
+                  <span className="text-[#141413] font-medium">LM. Irsal Shydiq</span>
+                  <span>Bandung, West Java &bull; '27</span>
                 </div>
               </div>
             </div>
@@ -181,7 +185,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 2: ABOUT                                         */}
+      {/* SECTION 2: ABOUT (EDITORIAL BIOGRAPHY & ACADEMIC DOSSIER) */}
       {/* ======================================================== */}
       <section
         id="about"
@@ -196,26 +200,26 @@ export function Home() {
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left: Editorial Narrative (7 cols) */}
-            <div className="lg:col-span-7 space-y-5">
-              {aboutContent.narrative.map((paragraph, idx) => (
-                <p
-                  key={idx}
-                  className="body-md text-[16px] leading-relaxed text-[#44423e]"
-                >
-                  {paragraph}
-                </p>
-              ))}
+            {/* Left: Editorial Narrative & Guiding Thesis (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              <blockquote className="display-md italic text-[#141413] border-l-2 border-[#141413] pl-5 py-1 leading-snug">
+                "{personalInfo.brandStatement}"
+              </blockquote>
 
-              <div className="pt-4 border-t border-[#e5e2dc]">
-                <blockquote className="display-sm italic text-[#141413] pl-4 border-l border-[#141413] py-1">
-                  "{personalInfo.brandStatement}"
-                </blockquote>
+              <div className="space-y-4 pt-2">
+                {aboutContent.narrative.map((paragraph, idx) => (
+                  <p
+                    key={idx}
+                    className="text-[16px] leading-[1.75] text-[#44423e]"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
               </div>
 
               {/* Research & Technical Interests */}
-              <div className="pt-4">
-                <span className="caption-uppercase block mb-2.5">
+              <div className="pt-4 border-t border-[#eeebe6]">
+                <span className="caption-uppercase block mb-2.5 text-[#141413]">
                   Core Engineering &amp; Research Focus
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -228,10 +232,10 @@ export function Home() {
               </div>
             </div>
 
-            {/* Right: Consolidated Academic & Engineering Dossier Ledger (Single clean card) */}
-            <div className="lg:col-span-5">
-              <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
-                <div className="p-5 space-y-2">
+            {/* Right: Open Academic & Professional Dossier Margin (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
+                <div className="py-4 space-y-1">
                   <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65]">
                     <span className="text-[#141413] font-medium flex items-center gap-1.5">
                       <GraduationCap size={14} />
@@ -245,7 +249,7 @@ export function Home() {
                   </p>
                 </div>
 
-                <div className="p-5 space-y-1">
+                <div className="py-4 space-y-1">
                   <span className="caption-uppercase text-[10px] text-[#9c9890] block">Fellowship</span>
                   <div className="flex items-center gap-2 text-[13px] font-medium text-[#1e3a2b]">
                     <Award size={15} />
@@ -254,14 +258,20 @@ export function Home() {
                   <p className="caption text-[#6e6b65] text-[12px]">Ministry of Religious Affairs (Kemenag RI)</p>
                 </div>
 
-                <div className="p-5 space-y-1">
-                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Current Production Engagement</span>
+                <div className="py-4 space-y-1">
+                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Current Production Role</span>
                   <span className="font-medium text-[#141413] text-[14px] block">Software Engineer Intern</span>
                   <span className="caption text-[#6e6b65] text-[12px] block">PT Inpartner Optima Integra &bull; Jakarta / Hybrid</span>
                 </div>
 
-                <div className="p-5 space-y-1">
-                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Engineering Practice</span>
+                <div className="py-4 space-y-1">
+                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Prior Production Role</span>
+                  <span className="font-medium text-[#141413] text-[14px] block">Full Stack Developer Intern</span>
+                  <span className="caption text-[#6e6b65] text-[12px] block">WALHI Jawa Barat &bull; Laravel, Docker, Linux VPS</span>
+                </div>
+
+                <div className="py-4 space-y-1">
+                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Engineering Focus</span>
                   <span className="text-[13px] text-[#44423e] block">Full-Stack Web, Native Android, Accessible Systems (WCAG 2.2 AAA)</span>
                   <span className="caption text-[#6e6b65] text-[11px] font-mono block">Bandung, West Java, Indonesia &bull; UTC+7</span>
                 </div>
@@ -272,7 +282,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 3: EXPERTISE                                     */}
+      {/* SECTION 3: EXPERTISE (STRUCTURED TYPOGRAPHIC LIST)       */}
       {/* ======================================================== */}
       <section
         id="expertise"
@@ -287,27 +297,34 @@ export function Home() {
             subheadline={expertiseContent.subheadline}
           />
 
-          {/* Open Editorial Technical Ledger (No robotic DOM-01 cards) */}
-          <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
-            {expertiseContent.categories.map((category) => (
+          {/* Open Editorial Technical Ledger (Structured Typographic List) */}
+          <div className="border-t border-[#e5e2dc] divide-y divide-[#e5e2dc]">
+            {expertiseContent.categories.map((category, idx) => (
               <div
                 key={category.id}
-                className="p-6 sm:p-7 grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline"
+                className="py-8 sm:py-9 grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline"
               >
-                <div className="lg:col-span-4 space-y-1">
-                  <h3 className="title-md text-[#141413]">
+                <div className="md:col-span-1 font-mono text-[12px] text-[#9c9890]">
+                  0{idx + 1}
+                </div>
+
+                <div className="md:col-span-4 space-y-1">
+                  <h3 className="font-display text-[22px] sm:text-[24px] text-[#141413] leading-snug">
                     {category.name}
                   </h3>
-                  <p className="body-sm text-[#6e6b65] text-[13px] leading-relaxed">
+                  <p className="text-[13px] text-[#6e6b65] leading-relaxed max-w-sm">
                     {category.tagline}
                   </p>
                 </div>
 
-                <div className="lg:col-span-8 flex flex-wrap gap-1.5">
+                <div className="md:col-span-7 flex flex-wrap gap-2 pt-1 md:pt-0">
                   {category.skills.map((skill) => (
-                    <Badge key={skill} variant="mono" size="md">
+                    <span
+                      key={skill}
+                      className="font-mono text-[12px] px-2.5 py-1 bg-[#ffffff] border border-[#e5e2dc] rounded-xs text-[#242321]"
+                    >
                       {skill}
-                    </Badge>
+                    </span>
                   ))}
                 </div>
               </div>
@@ -317,7 +334,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 4: EXPERIENCE                                    */}
+      {/* SECTION 4: EXPERIENCE (REFINED CHRONOLOGICAL LAYOUT)     */}
       {/* ======================================================== */}
       <section
         id="experience"
@@ -332,57 +349,63 @@ export function Home() {
             subheadline={experienceContent.subheadline}
           />
 
-          {/* Clean Chronological Engineering Ledger (No robotic LOG-01) */}
-          <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#e5e2dc]">
+          {/* Open Chronological Engineering Timeline */}
+          <div className="border-t border-[#e5e2dc] divide-y divide-[#e5e2dc]">
             {experienceContent.items.map((item) => (
               <div
                 key={item.id}
-                className="p-6 sm:p-8"
+                className="py-10 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-                  {/* Left Column: Organization & Timeline (4 cols) */}
-                  <div className="lg:col-span-4 space-y-1">
-                    <span className="caption-uppercase text-[#6e6b65] block mb-1">
-                      {item.type}
-                    </span>
-                    <h3 className="display-sm text-[#141413]">
+                {/* Left Column: Timeline & Location (3 cols) */}
+                <div className="md:col-span-3 space-y-1">
+                  <div className="font-mono text-[12px] text-[#141413] font-medium">
+                    {item.period}
+                  </div>
+                  <div className="font-mono text-[11px] text-[#6e6b65]">
+                    {item.location}
+                  </div>
+                  <div className="pt-2 text-[11px] font-mono uppercase tracking-wider text-[#1e3a2b]">
+                    {item.type}
+                  </div>
+                </div>
+
+                {/* Right Column: Organization, Role & Impact (9 cols) */}
+                <div className="md:col-span-9 space-y-4">
+                  <div>
+                    <h3 className="font-display text-[24px] sm:text-[28px] text-[#141413] leading-snug">
                       {item.company}
                     </h3>
-                    <p className="body-strong text-[#242321] mt-1 text-[15px]">
+                    <div className="text-[15px] font-medium text-[#44423e] mt-0.5">
                       {item.role}
-                    </p>
-                    <div className="pt-2 font-mono text-[12px] text-[#6e6b65] space-y-0.5">
-                      <div>{item.period}</div>
-                      <div>{item.location}</div>
                     </div>
                   </div>
 
-                  {/* Right Column: Responsibilities & Impact (8 cols) */}
-                  <div className="lg:col-span-8 space-y-4">
-                    <ul className="space-y-2">
-                      {item.responsibilities.map((resp, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-2.5 body-sm leading-relaxed text-[#44423e]"
-                        >
-                          <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
-                            &bull;
-                          </span>
-                          <span>{resp}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <ul className="space-y-2 max-w-3xl">
+                    {item.responsibilities.map((resp, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-3 text-[15px] leading-relaxed text-[#44423e]"
+                      >
+                        <span className="font-mono text-[11px] text-[#9c9890] select-none mt-1">
+                          —
+                        </span>
+                        <span>{resp}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                    {item.techStack && (
-                      <div className="pt-3 border-t border-[#eeebe6] flex flex-wrap gap-1.5">
-                        {item.techStack.map((tech) => (
-                          <Badge key={tech} variant="mono" size="sm">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  {item.techStack && (
+                    <div className="pt-3 flex flex-wrap gap-1.5 border-t border-[#eeebe6]">
+                      {item.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="font-mono text-[11px] px-2 py-0.5 bg-[#f5f4f0] text-[#6e6b65] border border-[#e5e2dc] rounded-xs"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -391,7 +414,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 5: SELECTED WORK                                 */}
+      {/* SECTION 5: SELECTED WORK (CURATED BODY OF WORK)           */}
       {/* ======================================================== */}
       <section
         id="projects"
@@ -407,20 +430,20 @@ export function Home() {
           />
 
           {/* Editorial Category Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 mb-10 pb-4 border-b border-[#e5e2dc]">
+          <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-[#e5e2dc]">
             {projectCategories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`text-[12px] font-mono px-3 py-1.5 rounded-sm transition-colors cursor-pointer flex items-center gap-2 ${
+                className={`text-[12px] font-mono px-3 py-1.5 rounded-xs transition-colors cursor-pointer flex items-center gap-2 ${
                   selectedCategory === cat.id
                     ? 'bg-[#141413] text-white font-medium'
-                    : 'bg-transparent text-[#6e6b65] hover:text-[#141413] hover:bg-[#f5f4f0]'
+                    : 'bg-[#ffffff] text-[#6e6b65] border border-[#e5e2dc] hover:text-[#141413]'
                 }`}
               >
                 <span>{cat.label}</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-xs ${
+                  className={`text-[10px] px-1 rounded-xs ${
                     selectedCategory === cat.id
                       ? 'bg-white/20 text-white'
                       : 'bg-[#eeebe6] text-[#6e6b65]'
@@ -436,11 +459,11 @@ export function Home() {
             {filteredProjects.map((project, index) => (
               <React.Fragment key={project.id}>
                 {selectedCategory === 'all' && index === 3 && (
-                  <div className="pt-10 pb-2 flex items-center gap-3">
-                    <span className="caption-uppercase text-[#9c9890]">
+                  <div className="pt-12 pb-4 flex items-center gap-4">
+                    <span className="caption-uppercase text-[#9c9890] tracking-wider">
                       TECHNICAL ARCHIVE &bull; PRODUCTION RELEASES (2024 — 2025)
                     </span>
-                    <div className="h-[1px] flex-1 bg-[#eeebe6]" />
+                    <div className="h-[1px] flex-1 bg-[#e5e2dc]" />
                   </div>
                 )}
                 <ProjectShowcase
@@ -454,7 +477,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 6: RESEARCH                                      */}
+      {/* SECTION 6: RESEARCH (ACADEMIC MONOGRAPH LAYOUT)           */}
       {/* ======================================================== */}
       <section
         id="research"
@@ -469,45 +492,45 @@ export function Home() {
             subheadline={researchContent.subheadline}
           />
 
-          {/* Featured Research Direction Plate */}
-          <div className="mb-12 bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 sm:p-8">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-3 border-b border-[#eeebe6] font-mono text-[11px]">
+          {/* Featured Academic Pre-Print Plate */}
+          <div className="mb-14 border border-[#e5e2dc] bg-[#ffffff] p-6 sm:p-10 rounded-sm space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#eeebe6] font-mono text-[11px]">
               <span className="caption-uppercase text-[#6e6b65]">
-                Active Research Investigation
+                Active Research Investigation &bull; Monograph Abstract
               </span>
               <span className="text-[#1e3a2b] bg-[#1e3a2b]/5 px-2 py-0.5 rounded-sm border border-[#1e3a2b]/20">
                 {researchContent.featuredDirection.status}
               </span>
             </div>
 
-            <h3 className="display-md text-[#141413] leading-snug mb-3">
+            <h3 className="display-md text-[#141413] leading-snug">
               "{researchContent.featuredDirection.title}"
             </h3>
 
-            <p className="body-md text-[#44423e] leading-relaxed mb-6 max-w-4xl">
+            <p className="text-[16px] text-[#44423e] leading-relaxed max-w-4xl">
               {researchContent.featuredDirection.description}
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-[#eeebe6]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-[#eeebe6]">
               <div>
                 <span className="caption-uppercase block mb-1 text-[#141413]">
-                  Methodology
+                  Empirical Methodology
                 </span>
-                <p className="body-sm text-[#44423e] leading-relaxed">
+                <p className="text-[14px] text-[#44423e] leading-relaxed">
                   {researchContent.featuredDirection.methodology}
                 </p>
               </div>
               <div>
                 <span className="caption-uppercase block mb-1 text-[#141413]">
-                  Target Empirical Outcomes
+                  Target Findings &amp; Outcomes
                 </span>
-                <p className="body-sm text-[#44423e] leading-relaxed">
+                <p className="text-[14px] text-[#44423e] leading-relaxed">
                   {researchContent.featuredDirection.anticipatedOutcomes}
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 mt-4 border-t border-[#eeebe6] flex flex-wrap gap-1.5">
+            <div className="pt-4 border-t border-[#eeebe6] flex flex-wrap gap-1.5">
               {researchContent.featuredDirection.keywords.map((kw) => (
                 <Badge key={kw} variant="mono" size="sm">
                   {kw}
@@ -516,12 +539,12 @@ export function Home() {
             </div>
           </div>
 
-          {/* Areas of Intellectual Inquiry (Clean 2-column typographic ledger) */}
-          <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
+          {/* Secondary Areas of Inquiry */}
+          <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
             {researchContent.interests.map((item) => (
               <div
                 key={item.topic}
-                className="p-5 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
+                className="py-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
               >
                 <div className="md:col-span-4 space-y-0.5">
                   <h4 className="title-sm text-[#141413]">
@@ -532,7 +555,7 @@ export function Home() {
                   </span>
                 </div>
                 <div className="md:col-span-8">
-                  <p className="body-sm text-[#44423e] leading-relaxed">
+                  <p className="text-[14px] text-[#44423e] leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -543,7 +566,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 7: EDUCATION & CERTIFICATIONS                    */}
+      {/* SECTION 7: EDUCATION & CREDENTIALS                       */}
       {/* ======================================================== */}
       <section
         id="education"
@@ -641,7 +664,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 8: LEADERSHIP                                    */}
+      {/* SECTION 8: LEADERSHIP (COMPACT EDITORIAL ENTRIES)        */}
       {/* ======================================================== */}
       <section
         id="leadership"
@@ -656,13 +679,13 @@ export function Home() {
             subheadline={leadershipContent.subheadline}
           />
 
-          <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
+          <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
             {leadershipContent.roles.map((role) => (
               <div
                 key={role.organization}
-                className="p-6 sm:p-8 space-y-4"
+                className="py-8 space-y-3"
               >
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#eeebe6] pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                   <div>
                     <h3 className="display-sm text-[#141413]">
                       {role.organization}
@@ -679,21 +702,19 @@ export function Home() {
                   </span>
                 </div>
 
-                <div className="space-y-1.5">
-                  <ul className="space-y-1.5">
-                    {role.contributions.map((c, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2.5 body-sm leading-relaxed text-[#44423e]"
-                      >
-                        <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
-                          &bull;
-                        </span>
-                        <span>{c}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="space-y-1.5 max-w-3xl pt-1">
+                  {role.contributions.map((c, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#44423e]"
+                    >
+                      <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
+                        &bull;
+                      </span>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
 
                 <div className="pt-2 flex flex-wrap gap-1.5">
                   {role.tags.map((tag) => (
@@ -709,68 +730,60 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* SECTION 9: CONTACT                                       */}
+      {/* SECTION 9: CONTACT (STRONG CLOSING COMPOSITION)          */}
       {/* ======================================================== */}
       <section
         id="contact"
         aria-label="Contact and Collaboration"
-        className="py-20 sm:py-24 px-6 sm:px-8"
+        className="py-24 sm:py-32 px-6 sm:px-8"
       >
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-7 space-y-4">
-              <span className="caption-uppercase text-[#6e6b65] block">
-                08 &bull; INQUIRIES &amp; DISPATCH
-              </span>
+          <div className="max-w-4xl space-y-6">
+            <span className="caption-uppercase text-[#6e6b65] block">
+              08 &bull; INQUIRIES &amp; DISPATCH
+            </span>
 
-              <h2 className="display-mega text-[#141413]">
-                Initiate dialogue or engineering inquiry.
-              </h2>
+            <h2 className="display-mega text-[#141413] tracking-[-0.025em]">
+              Initiate dialogue or engineering inquiry.
+            </h2>
 
-              <p className="body-md text-[16px] text-[#44423e] max-w-xl leading-relaxed">
-                I am currently open to software engineering internships, technical collaborations, and research inquiries across full-stack systems and accessible technology.
-              </p>
+            <p className="text-[18px] sm:text-[20px] text-[#44423e] max-w-2xl leading-relaxed">
+              I am currently open to software engineering internships, technical collaborations, and research inquiries across full-stack systems and accessible technology.
+            </p>
 
-              <div className="pt-2 flex flex-wrap items-center gap-3">
-                <a
-                  href={`mailto:${personalInfo.email}?subject=Project%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
-                  className="inline-block"
+            <div className="pt-4 flex flex-wrap items-center gap-4">
+              <a
+                href={`mailto:${personalInfo.email}?subject=Project%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
+                className="inline-block"
+              >
+                <Button
+                  variant="primary"
+                  size="md"
+                  icon={<ArrowUpRight size={14} />}
                 >
-                  <Button
-                    variant="primary"
-                    size="md"
-                    icon={<ArrowUpRight size={14} />}
-                  >
-                    Send Direct Email
-                  </Button>
-                </a>
+                  Send Direct Email
+                </Button>
+              </a>
 
-                <a
-                  href={personalInfo.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block"
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <Button
+                  variant="outline"
+                  size="md"
+                  icon={<LinkedinIcon size={14} />}
                 >
-                  <Button
-                    variant="outline"
-                    size="md"
-                    icon={<LinkedinIcon size={14} />}
-                  >
-                    LinkedIn Profile
-                  </Button>
-                </a>
-              </div>
-            </div>
+                  LinkedIn Profile
+                </Button>
+              </a>
 
-            <div className="lg:col-span-5 bg-[#ffffff] border border-[#e5e2dc] p-6 rounded-sm space-y-3 font-mono text-[12px]">
-              <span className="caption-uppercase text-[#9c9890] block text-[10px]">Direct Coordinates</span>
-              <div className="text-[#141413] text-[13px] font-medium break-all pb-2 border-b border-[#eeebe6]">
-                {personalInfo.email}
-              </div>
-              <div className="space-y-1 text-[#6e6b65] pt-1">
-                <div>Location: Bandung, West Java, Indonesia (UTC+7)</div>
-                <div>Status: Available for 2026 Technical Roles</div>
-                <div>Availability: Remote &bull; Hybrid</div>
+              <div className="pl-0 sm:pl-4 font-mono text-[13px] text-[#6e6b65]">
+                <span>{personalInfo.email}</span>
+                <span className="mx-2 text-[#d0ccc3]">&bull;</span>
+                <span>Bandung, Indonesia (UTC+7)</span>
               </div>
             </div>
           </div>

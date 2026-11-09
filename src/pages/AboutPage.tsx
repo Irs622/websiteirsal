@@ -73,23 +73,23 @@ export function AboutPage() {
         </div>
 
         <div className="lg:col-span-5 space-y-6">
-          <div className="border border-[#e5e2dc] bg-[#ffffff] p-2 rounded-sm">
-            <div className="aspect-[3/4] overflow-hidden bg-[#f5f4f0] rounded-xs">
+          <div className="border border-[#e5e2dc] bg-[#ffffff] p-2.5 rounded-sm max-w-sm">
+            <div className="aspect-[3/4] overflow-hidden bg-[#eeebe6] rounded-xs">
               <img
                 src={portraitImg}
                 alt="LM. Irsal Shydiq"
-                className="w-full h-full object-cover filter grayscale-[10%]"
+                className="w-full h-full object-cover object-top filter grayscale contrast-[1.08] brightness-[0.98]"
               />
             </div>
             <div className="pt-2.5 px-1 flex items-center justify-between font-mono text-[11px] text-[#6e6b65] border-t border-[#eeebe6] mt-2">
-              <span className="text-[#141413]">LM. Irsal Shydiq</span>
-              <span>Bandung, Indonesia</span>
+              <span className="text-[#141413] font-medium">LM. Irsal Shydiq</span>
+              <span>Bandung, Indonesia &bull; '27</span>
             </div>
           </div>
 
-          {/* Consolidated Academic Dossier Ledger (Single clean card) */}
-          <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
-            <div className="p-5 space-y-2">
+          {/* Consolidated Academic Dossier Ledger (Open, unboxed) */}
+          <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
+            <div className="py-4 space-y-1">
               <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65]">
                 <span className="text-[#141413] font-medium flex items-center gap-1.5">
                   <GraduationCap size={14} />
@@ -103,7 +103,7 @@ export function AboutPage() {
               </p>
             </div>
 
-            <div className="p-5 space-y-1">
+            <div className="py-4 space-y-1">
               <span className="caption-uppercase text-[10px] text-[#9c9890] block">Fellowship</span>
               <div className="flex items-center gap-2 text-[13px] font-medium text-[#1e3a2b]">
                 <Award size={15} />
@@ -112,13 +112,13 @@ export function AboutPage() {
               <p className="caption text-[#6e6b65] text-[12px]">Ministry of Religious Affairs (Kemenag RI)</p>
             </div>
 
-            <div className="p-5 space-y-1">
-              <span className="caption-uppercase text-[10px] text-[#9c9890] block">Current Production Engagement</span>
+            <div className="py-4 space-y-1">
+              <span className="caption-uppercase text-[10px] text-[#9c9890] block">Current Production Role</span>
               <span className="font-medium text-[#141413] text-[14px] block">Software Engineer Intern</span>
               <span className="caption text-[#6e6b65] text-[12px] block">PT Inpartner Optima Integra &bull; Jakarta / Hybrid</span>
             </div>
 
-            <div className="p-5 space-y-1">
+            <div className="py-4 space-y-1">
               <span className="caption-uppercase text-[10px] text-[#9c9890] block">Engineering Practice</span>
               <span className="text-[13px] text-[#44423e] block">Full-Stack Web, Native Android, Accessible Systems (WCAG 2.2 AAA)</span>
               <span className="caption text-[#6e6b65] text-[11px] font-mono block">Bandung, West Java, Indonesia &bull; UTC+7</span>

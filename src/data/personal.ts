@@ -23,7 +23,7 @@ export const personalInfo: PersonalInfo = {
   github: 'https://github.com/irs622',
   linkedin: 'https://linkedin.com/in/irsalshydiq',
   brandStatement: 'Software engineer building resilient web systems, native applications, and accessible computing interfaces.',
-  heroHeadline: 'Software engineering, accessible interfaces, and applied AI.',
-  heroSubheadline: 'Informatics Engineering student at UIN Sunan Gunung Djati Bandung and LPDP Scholar. Building full-stack web platforms, assistive software, and production applications.',
-  heroIntro: 'Currently working as a Software Engineer Intern at PT Inpartner Optima Integra. Focused on reliable web architecture, assistive audio systems, and pragmatic software engineering.'
+  heroHeadline: 'Building technology with purpose.',
+  heroSubheadline: 'Software engineer working across web architectures, native systems, and accessible computing interfaces.',
+  heroIntro: 'Informatics Engineering student at UIN Sunan Gunung Djati Bandung and LPDP Scholar. Currently working as a Software Engineer Intern at PT Inpartner Optima Integra, building full-stack web platforms, assistive audio interfaces, and production software.'
 };

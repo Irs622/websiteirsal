@@ -39,61 +39,67 @@ export function ExperiencePage() {
         </p>
       </header>
 
-      {/* Experience Chronological Ledger (No robotic LOG-01) */}
-      <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#e5e2dc] mb-16">
+      {/* Experience Chronological Ledger (Open, unboxed) */}
+      <div className="border-t border-[#e5e2dc] divide-y divide-[#e5e2dc] mb-16">
         {experienceContent.items.map((item) => (
           <div
             key={item.id}
-            className="p-6 sm:p-8"
+            className="py-10 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-              <div className="lg:col-span-4 space-y-1">
-                <span className="caption-uppercase text-[#6e6b65] block mb-1">
-                  {item.type}
-                </span>
-                <h3 className="display-sm text-[#141413]">
+            <div className="md:col-span-3 space-y-1">
+              <div className="font-mono text-[12px] text-[#141413] font-medium">
+                {item.period}
+              </div>
+              <div className="font-mono text-[11px] text-[#6e6b65]">
+                {item.location}
+              </div>
+              <div className="pt-2 text-[11px] font-mono uppercase tracking-wider text-[#1e3a2b]">
+                {item.type}
+              </div>
+            </div>
+
+            <div className="md:col-span-9 space-y-4">
+              <div>
+                <h3 className="font-display text-[24px] sm:text-[28px] text-[#141413] leading-snug">
                   {item.company}
                 </h3>
-                <p className="body-strong text-[#242321] mt-1 text-[15px]">
+                <div className="text-[15px] font-medium text-[#44423e] mt-0.5">
                   {item.role}
-                </p>
-                <div className="pt-2 font-mono text-[12px] text-[#6e6b65] space-y-0.5">
-                  <div>{item.period}</div>
-                  <div>{item.location}</div>
                 </div>
               </div>
 
-              <div className="lg:col-span-8 space-y-4">
-                <ul className="space-y-2">
-                  {item.responsibilities.map((resp, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2.5 body-sm leading-relaxed text-[#44423e]"
-                    >
-                      <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
-                        &bull;
-                      </span>
-                      <span>{resp}</span>
-                    </li>
-                  ))}
-                </ul>
+              <ul className="space-y-2 max-w-3xl">
+                {item.responsibilities.map((resp, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 text-[15px] leading-relaxed text-[#44423e]"
+                  >
+                    <span className="font-mono text-[11px] text-[#9c9890] select-none mt-1">
+                      —
+                    </span>
+                    <span>{resp}</span>
+                  </li>
+                ))}
+              </ul>
 
-                {item.techStack && (
-                  <div className="pt-3 border-t border-[#eeebe6] flex flex-wrap gap-1.5">
-                    {item.techStack.map((tech) => (
-                      <Badge key={tech} variant="mono" size="sm">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
+              {item.techStack && (
+                <div className="pt-3 flex flex-wrap gap-1.5 border-t border-[#eeebe6]">
+                  {item.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="font-mono text-[11px] px-2 py-0.5 bg-[#f5f4f0] text-[#6e6b65] border border-[#e5e2dc] rounded-xs"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Leadership Section */}
+      {/* Leadership Section (Open, unboxed) */}
       <section className="pt-10 border-t border-[#e5e2dc] space-y-8">
         <div>
           <span className="caption-uppercase text-[#6e6b65] block mb-2">
@@ -107,13 +113,13 @@ export function ExperiencePage() {
           </p>
         </div>
 
-        <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
+        <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
           {leadershipContent.roles.map((role) => (
             <div
               key={role.organization}
-              className="p-6 sm:p-8 space-y-4"
+              className="py-8 space-y-3"
             >
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[#eeebe6] pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                 <div>
                   <h3 className="display-sm text-[#141413]">
                     {role.organization}
@@ -130,21 +136,19 @@ export function ExperiencePage() {
                 </span>
               </div>
 
-              <div className="space-y-1.5">
-                <ul className="space-y-1.5">
-                  {role.contributions.map((c, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2.5 body-sm leading-relaxed text-[#44423e]"
-                    >
-                      <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
-                        &bull;
-                      </span>
-                      <span>{c}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul className="space-y-1.5 max-w-3xl pt-1">
+                {role.contributions.map((c, i) => (
+                  <li
+                    key={i}
+                    className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#44423e]"
+                  >
+                    <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
+                      &bull;
+                    </span>
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
 
               <div className="pt-2 flex flex-wrap gap-1.5">
                 {role.tags.map((tag) => (

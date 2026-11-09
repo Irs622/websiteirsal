@@ -85,12 +85,12 @@ export function ResearchPage() {
         </div>
       </div>
 
-      {/* Areas of Intellectual Inquiry (Clean ledger, no robotic RES-01) */}
-      <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
+      {/* Areas of Intellectual Inquiry (Open ledger) */}
+      <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
         {researchContent.interests.map((item) => (
           <div
             key={item.topic}
-            className="p-5 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
+            className="py-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
           >
             <div className="md:col-span-4 space-y-0.5">
               <h3 className="title-sm text-[#141413]">

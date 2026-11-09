@@ -143,6 +143,32 @@ export const projectsContent: ProjectsContent = {
       }
     },
     {
+      id: 'bahara',
+      slug: 'bahara',
+      title: 'BAHARA',
+      subtitle: 'Voice-Guided Arabic Phonetics Mobile Application',
+      year: '2025',
+      role: 'Mobile Developer & Product Lead',
+      category: 'Mobile & Native',
+      summary: 'A cross-platform mobile application providing structured Arabic phonetic training with real-time speech evaluation.',
+      problem: 'Acquiring Arabic phonetic precision requires iterative vocal repetition and immediate feedback, which static textbooks cannot deliver.',
+      solution: 'Engineered an interactive mobile interface in Flutter with integrated speech recognition pipelines that evaluate student pronunciation against phonetic criteria.',
+      technicalContribution: [
+        'Built interactive Flutter mobile screens with fluid state management and low render latency.',
+        'Connected real-time audio streams with speech recognition APIs for vocal pattern verification.',
+        'Structured modular lesson milestones with progress tracking and retention mechanics.',
+        'Conducted user testing with novice learners to calibrate acoustic sensitivity thresholds.'
+      ],
+      techStack: ['Flutter', 'Dart', 'Speech Recognition API', 'RESTful API', 'Figma'],
+      githubUrl: 'https://github.com/irs622',
+      specs: {
+        platform: 'Cross-Platform Mobile (Flutter)',
+        architecture: 'Flutter Client + Audio Stream Processing + Speech Evaluation Engine',
+        keyMechanism: 'Real-time acoustic pattern matching & modular retention milestone tracking',
+        verification: 'User evaluation study with 30+ beginner learners in Bandung'
+      }
+    },
+    {
       id: 'kamus-cerdas-indo-sunda',
       slug: 'kamus-cerdas-indo-sunda',
       title: 'Kamus Cerdas Indo-Sunda',
