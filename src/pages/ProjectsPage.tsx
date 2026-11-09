@@ -74,11 +74,20 @@ export function ProjectsPage() {
       {/* Projects List */}
       <div className="space-y-4">
         {filteredProjects.map((project, index) => (
-          <ProjectShowcase
-            key={project.id}
-            project={project}
-            index={index}
-          />
+          <React.Fragment key={project.id}>
+            {selectedCategory === 'All' && index === 3 && (
+              <div className="pt-10 pb-2 flex items-center gap-3">
+                <span className="caption-uppercase text-[#9c9890]">
+                  TECHNICAL ARCHIVE &bull; PRODUCTION RELEASES (2024 — 2025)
+                </span>
+                <div className="h-[1px] flex-1 bg-[#eeebe6]" />
+              </div>
+            )}
+            <ProjectShowcase
+              project={project}
+              index={index}
+            />
+          </React.Fragment>
         ))}
       </div>
     </div>

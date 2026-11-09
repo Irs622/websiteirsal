@@ -419,7 +419,7 @@ export function Home() {
       <section
         id="projects"
         aria-label="Selected Engineering Projects"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc] bg-[#f5f4f0]"
+        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc] bg-[#fbfbf9]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -438,7 +438,7 @@ export function Home() {
                 className={`text-[12px] font-mono px-3 py-1.5 rounded-sm transition-colors cursor-pointer flex items-center gap-2 ${
                   selectedCategory === cat.id
                     ? 'bg-[#141413] text-white font-medium'
-                    : 'bg-transparent text-[#6e6b65] hover:text-[#141413] hover:bg-[#eeebe6]'
+                    : 'bg-transparent text-[#6e6b65] hover:text-[#141413] hover:bg-[#f5f4f0]'
                 }`}
               >
                 <span>{cat.label}</span>
@@ -457,11 +457,20 @@ export function Home() {
 
           <div className="space-y-4">
             {filteredProjects.map((project, index) => (
-              <ProjectShowcase
-                key={project.id}
-                project={project}
-                index={index}
-              />
+              <React.Fragment key={project.id}>
+                {selectedCategory === 'all' && index === 3 && (
+                  <div className="pt-10 pb-2 flex items-center gap-3">
+                    <span className="caption-uppercase text-[#9c9890]">
+                      TECHNICAL ARCHIVE &bull; PRODUCTION RELEASES (2024 — 2025)
+                    </span>
+                    <div className="h-[1px] flex-1 bg-[#eeebe6]" />
+                  </div>
+                )}
+                <ProjectShowcase
+                  project={project}
+                  index={index}
+                />
+              </React.Fragment>
             ))}
           </div>
         </div>

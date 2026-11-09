@@ -5,7 +5,6 @@ import { projectsContent } from '../data/projects';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { GithubIcon } from '../components/ui/Icons';
-import { ProjectMockupPreview } from '../components/ProjectMockupPreview';
 
 export function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -85,35 +84,41 @@ export function ProjectDetail() {
             <span className="text-[#141413]">{project.category}</span>
           </div>
           <div>
-            <span className="caption-uppercase block text-[#9c9890] text-[10px] mb-0.5">Status</span>
-            <span className="text-[#1e3a2b] font-medium">Completed &amp; Verified</span>
+            <span className="caption-uppercase block text-[#9c9890] text-[10px] mb-0.5">Verification</span>
+            <span className="text-[#1e3a2b] font-medium">Verified &amp; Deployed</span>
           </div>
         </div>
       </header>
 
-      {/* Architectural Specification Plate */}
-      <div className="border border-[#e5e2dc] bg-[#ffffff] p-4 sm:p-6 rounded-sm mb-14">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-6 space-y-3">
-            <span className="caption-uppercase text-[#6e6b65] block">Executive Summary</span>
-            <blockquote className="display-sm italic text-[#141413] leading-snug">
-              "{project.summary}"
-            </blockquote>
-            {project.specs && (
-              <div className="pt-2 font-mono text-[11px] text-[#6e6b65] space-y-1">
-                <div>Architecture: <span className="text-[#141413]">{project.specs.architecture}</span></div>
-                <div>Mechanism: <span className="text-[#141413]">{project.specs.keyMechanism}</span></div>
-              </div>
-            )}
-          </div>
-          <div className="lg:col-span-6">
-            <ProjectMockupPreview
-              slug={project.slug}
-              title={project.title}
-              category={project.category}
-            />
-          </div>
+      {/* Architectural Dossier Plate */}
+      <div className="border border-[#e5e2dc] bg-[#ffffff] p-6 sm:p-8 rounded-sm mb-14 space-y-6">
+        <div>
+          <span className="caption-uppercase text-[#6e6b65] block mb-2">Executive Summary &amp; Thesis</span>
+          <blockquote className="display-sm italic text-[#141413] leading-snug">
+            "{project.summary}"
+          </blockquote>
         </div>
+
+        {project.specs && (
+          <div className="pt-4 border-t border-[#eeebe6] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-[12px]">
+            <div>
+              <span className="caption-uppercase block text-[#9c9890] text-[10px] mb-0.5">Platform</span>
+              <span className="text-[#141413] font-medium">{project.specs.platform}</span>
+            </div>
+            <div>
+              <span className="caption-uppercase block text-[#9c9890] text-[10px] mb-0.5">Architecture</span>
+              <span className="text-[#141413] font-medium">{project.specs.architecture}</span>
+            </div>
+            <div>
+              <span className="caption-uppercase block text-[#9c9890] text-[10px] mb-0.5">Core Mechanism</span>
+              <span className="text-[#141413] font-medium">{project.specs.keyMechanism}</span>
+            </div>
+            <div>
+              <span className="caption-uppercase block text-[#9c9890] text-[10px] mb-0.5">Standard / Audit</span>
+              <span className="text-[#1e3a2b] font-medium">{project.specs.verification}</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Main Narrative Content */}
@@ -195,7 +200,7 @@ export function ProjectDetail() {
                 </a>
               )}
               <a
-                href={`mailto:${projectsContent.projects[0] ? 'ichalprov@gmail.com' : ''}?subject=Technical%20Inquiry%20regarding%20${encodeURIComponent(project.title)}`}
+                href={`mailto:ichalprov@gmail.com?subject=Technical%20Inquiry%20regarding%20${encodeURIComponent(project.title)}`}
                 className="w-full"
               >
                 <Button variant="ghost" size="sm" className="w-full justify-center">
