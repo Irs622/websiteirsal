@@ -8,6 +8,7 @@ import { SkillTag } from '../components/SkillTag';
 import { AtmosphericOrb } from '../components/AtmosphericOrb';
 import { AudioWaveformCard } from '../components/AudioWaveformCard';
 import { TestimonialCard } from '../components/TestimonialCard';
+import { PricingTierCard } from '../components/PricingTierCard';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import liveEventImage from 'figma:asset/5879bf3215834319cdadf80da5a00755d2ab9eb0.png';
 
@@ -94,6 +95,52 @@ export function Home() {
     }
   ];
 
+  const engagementTiers = [
+    {
+      name: "Design Audit & Advisory",
+      tagline: "Comprehensive architectural and typographic teardown for existing web products.",
+      price: "$1,200",
+      cadence: "per sprint",
+      features: [
+        "Complete design system & UI audit",
+        "Typographic hierarchy & spacing review",
+        "Accessibility & contrast audit (WCAG AA)",
+        "Component refactoring recommendations",
+        "Executive summary & implementation guide"
+      ],
+      ctaText: "Inquire about audit"
+    },
+    {
+      name: "Full Product MVP",
+      tagline: "End-to-end design & React engineering from zero to production launch.",
+      price: "$4,500",
+      cadence: "per project",
+      features: [
+        "Full tokenized design library in Figma",
+        "React 18/19 & TypeScript web client",
+        "High-performance Tailwind CSS architecture",
+        "Responsive 12-column fluid grid",
+        "Turnkey production deployment"
+      ],
+      ctaText: "Start sprint engagement",
+      featured: true
+    },
+    {
+      name: "Embedded Creative Lead",
+      tagline: "Dedicated creative direction, continuous frontend architecture and feature iteration.",
+      price: "$6,800",
+      cadence: "per month",
+      features: [
+        "Weekly feature sprint design & coding",
+        "Design tokens & component governance",
+        "Frontend PR reviews & architecture",
+        "Editorial photography & visual assets",
+        "Direct async Slack & GitHub access"
+      ],
+      ctaText: "Check availability"
+    }
+  ];
+
   return (
     <div className="relative overflow-hidden">
       {/* ========================================================
@@ -133,7 +180,7 @@ export function Home() {
           >
             <SkillTag size="md">
               <Sparkles size={13} className="text-[#a8a29e]" />
-              <span className="caption-uppercase">Open for creative engineering roles</span>
+              <span>Open for creative engineering roles</span>
             </SkillTag>
           </motion.div>
 
@@ -197,7 +244,7 @@ export function Home() {
       {/* ========================================================
           DISCIPLINE STACK (Feature Cards & Atmospheric Cards)
          ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-20 relative z-10">
+      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#e7e5e4] dark:border-[#292524]">
           <div>
             <span className="caption-uppercase text-[#777169] block mb-2">Practice & Focus</span>
@@ -257,7 +304,7 @@ export function Home() {
       {/* ========================================================
           SELECTED WORKS SECTION (2-up & 3-up Editorial Grid)
          ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-20 relative z-10">
+      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#e7e5e4] dark:border-[#292524]">
           <div>
             <span className="caption-uppercase text-[#777169] block mb-2">Curated Folio</span>
@@ -333,7 +380,7 @@ export function Home() {
       {/* ========================================================
           AUDIO / WAVEFORM SIGNATURE (ElevenLabs Audio Card)
          ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-16 relative z-10">
+      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
         <div className="mb-8 pb-4 border-b border-[#e7e5e4] dark:border-[#292524]">
           <span className="caption-uppercase text-[#777169] block mb-1">Interactive Voice Note</span>
           <h2 className="display-lg">Creative Direction & Sound Sample</h2>
@@ -350,9 +397,47 @@ export function Home() {
       </section>
 
       {/* ========================================================
+          PRICING & ENGAGEMENT TIERS (Featured Inverted Tier)
+         ======================================================== */}
+      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#e7e5e4] dark:border-[#292524]">
+          <div>
+            <span className="caption-uppercase text-[#777169] block mb-2">Engagements</span>
+            <h2 className="display-lg">Services & Collaboration Tiers</h2>
+          </div>
+          <p className="body-sm text-[#777169] max-w-sm mt-3 md:mt-0">
+            Predictable engagement models tailored to ambitious founders and high-craft engineering teams.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {engagementTiers.map((tier, index) => (
+            <motion.div
+              key={tier.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <PricingTierCard
+                name={tier.name}
+                tagline={tier.tagline}
+                price={tier.price}
+                cadence={tier.cadence}
+                features={tier.features}
+                ctaText={tier.ctaText}
+                featured={tier.featured}
+                onSelect={() => navigate('/contact')}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========================================================
           TESTIMONIALS SECTION (Editorial Quotes)
          ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-16 relative z-10">
+      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
         <div className="mb-8 pb-4 border-b border-[#e7e5e4] dark:border-[#292524]">
           <span className="caption-uppercase text-[#777169] block mb-1">Endorsements</span>
           <h2 className="display-lg">Collaborator Reflections</h2>
@@ -381,7 +466,7 @@ export function Home() {
       {/* ========================================================
           EDITORIAL CTA BAND (Pre-footer 96px rhythm)
          ======================================================== */}
-      <section className="relative px-6 py-28 md:py-36 text-center overflow-hidden border-t border-[#e7e5e4] dark:border-[#292524]">
+      <section className="relative px-6 py-24 md:py-32 text-center overflow-hidden border-t border-[#e7e5e4] dark:border-[#292524]">
         {/* Soft pastel atmospheric bloom behind CTA */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
           <AtmosphericOrb

@@ -12,20 +12,18 @@ export function SkillTag({ children, icon, className = '', size = 'md' }: SkillT
   const { theme } = useTheme();
   const isLight = theme === 'light';
 
-  // Badge pill geometry: rounded.pill (9999px), background surface-strong (#f0efed), text ink (#0c0a09)
-  const sizeClasses = size === 'sm' 
-    ? 'px-2.5 py-1 text-[11px] tracking-[0.8px]' 
-    : 'px-3.5 py-1.5 text-[12px] tracking-[0.96px]';
+  // ElevenLabs badge-pill: background surface-strong (#f0efed), text ink (#0c0a09),
+  // type caption-uppercase (12px / 600 / 0.96px), rounded.pill (9999px), padding 4px × 10px.
+  const paddingClass = size === 'sm' ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-[12px]';
 
   return (
     <span
       className={`
         inline-flex items-center gap-1.5
-        rounded-full
-        font-medium
-        border
-        transition-colors duration-150
-        ${sizeClasses}
+        rounded-full font-semibold
+        tracking-[0.96px] uppercase
+        border transition-colors duration-150 select-none
+        ${paddingClass}
         ${isLight 
           ? 'bg-[#f0efed] border-[#e7e5e4] text-[#0c0a09]' 
           : 'bg-[#292524] border-[#3e3835] text-[#f5f5f5]'

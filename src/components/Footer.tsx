@@ -9,10 +9,10 @@ export function Footer() {
   const isLight = theme === 'light';
 
   const socialLinks = [
-    { icon: <Github size={16} />, href: 'https://github.com/irsalshydiq', label: 'GitHub', username: '@irsalshydiq' },
-    { icon: <Linkedin size={16} />, href: 'https://linkedin.com/in/LmIrsalshydiq', label: 'LinkedIn', username: 'LmIrsalshydiq' },
-    { icon: <Instagram size={16} />, href: 'https://instagram.com/irsalshydiq', label: 'Instagram', username: '@irsalshydiq' },
-    { icon: <Mail size={16} />, href: 'mailto:Irsalshydiq@gmail.com', label: 'Email', username: 'Irsalshydiq@gmail.com' }
+    { icon: <Github size={15} />, href: 'https://github.com/irsalshydiq', label: 'GitHub' },
+    { icon: <Linkedin size={15} />, href: 'https://linkedin.com/in/LmIrsalshydiq', label: 'LinkedIn' },
+    { icon: <Instagram size={15} />, href: 'https://instagram.com/irsalshydiq', label: 'Instagram' },
+    { icon: <Mail size={15} />, href: 'mailto:Irsalshydiq@gmail.com', label: 'Email' }
   ];
 
   return (
@@ -25,31 +25,32 @@ export function Footer() {
         }
       `}
     >
-      <div className="max-w-[1200px] mx-auto px-6 py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 mb-16">
+      <div className="max-w-[1200px] mx-auto px-6 py-20 md:py-24">
+        {/* 5-Column Grid at Desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-6 mb-16">
           {/* Column 1: Editorial Identity */}
-          <div className="md:col-span-5 space-y-4">
+          <div className="sm:col-span-2 md:col-span-1 space-y-3">
             <Link to="/" className="inline-block">
-              <span className={`font-display text-[26px] tracking-[-0.5px] font-light ${
+              <span className={`font-display text-[24px] tracking-[-0.4px] font-light ${
                 isLight ? 'text-[#0c0a09]' : 'text-white'
               }`}>
                 Irsal Shydiq
               </span>
             </Link>
-            <p className="body-sm max-w-sm">
-              Multidisciplinary designer and React developer. Crafting thoughtful editorial web experiences, design systems, and digital products.
+            <p className="body-sm text-[14px] leading-relaxed text-[#777169] dark:text-[#a8a29e]">
+              Multidisciplinary design and React engineering with editorial calm.
             </p>
-            <div className="pt-2">
+            <div className="pt-1">
               <SkillTag size="sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1" />
-                Available for Q1–Q2 2025 projects
+                Available 2025
               </SkillTag>
             </div>
           </div>
 
-          {/* Column 2: Navigation */}
-          <div className="md:col-span-2 space-y-3">
-            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169] dark:text-[#777169]">
+          {/* Column 2: Navigation Index */}
+          <div className="space-y-3">
+            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
               Index
             </h4>
             <ul className="space-y-2">
@@ -57,12 +58,12 @@ export function Footer() {
                 { label: 'Overview', to: '/' },
                 { label: 'Selected Works', to: '/portfolio' },
                 { label: 'About & Career', to: '/about' },
-                { label: 'Contact', to: '/contact' }
+                { label: 'Direct Dispatch', to: '/contact' }
               ].map((item) => (
                 <li key={item.to}>
                   <Link
                     to={item.to}
-                    className={`body-sm hover:underline transition-colors ${
+                    className={`body-sm text-[14px] hover:underline transition-colors ${
                       isLight ? 'hover:text-[#0c0a09]' : 'hover:text-white'
                     }`}
                   >
@@ -73,23 +74,37 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Disciplines */}
-          <div className="md:col-span-2 space-y-3">
-            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169] dark:text-[#777169]">
-              Disciplines
+          {/* Column 3: Design Disciplines */}
+          <div className="space-y-3">
+            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
+              Design
             </h4>
-            <ul className="space-y-2 body-sm text-[#777169] dark:text-[#a8a29e]">
-              <li>UI/UX Design</li>
-              <li>React Architecture</li>
+            <ul className="space-y-2 body-sm text-[14px] text-[#777169] dark:text-[#a8a29e]">
               <li>Design Systems</li>
-              <li>Event Photography</li>
-              <li>Visual Editorial</li>
+              <li>Typographic Order</li>
+              <li>UI/UX Ergonomics</li>
+              <li>Figma Tokens</li>
+              <li>User Research</li>
             </ul>
           </div>
 
-          {/* Column 4: Connect */}
-          <div className="md:col-span-3 space-y-3">
-            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169] dark:text-[#777169]">
+          {/* Column 4: Engineering & Media */}
+          <div className="space-y-3">
+            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
+              Engineering
+            </h4>
+            <ul className="space-y-2 body-sm text-[14px] text-[#777169] dark:text-[#a8a29e]">
+              <li>React 18/19</li>
+              <li>TypeScript</li>
+              <li>Tailwind CSS</li>
+              <li>Motion Ergonomics</li>
+              <li>Audio & Video Edit</li>
+            </ul>
+          </div>
+
+          {/* Column 5: Connect */}
+          <div className="space-y-3">
+            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
               Connect
             </h4>
             <ul className="space-y-2">
@@ -99,7 +114,7 @@ export function Footer() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`body-sm inline-flex items-center gap-1.5 transition-colors ${
+                    className={`body-sm text-[14px] inline-flex items-center gap-1.5 transition-colors ${
                       isLight ? 'hover:text-[#0c0a09]' : 'hover:text-white'
                     }`}
                   >
@@ -117,7 +132,7 @@ export function Footer() {
         <div className={`pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ${
           isLight ? 'border-[#e7e5e4] text-[#777169]' : 'border-[#292524] text-[#777169]'
         }`}>
-          <p>© {new Date().getFullYear()} Irsal Shydiq. Designed with editorial simplicity.</p>
+          <p>© {new Date().getFullYear()} Irsal Shydiq. Editorial magazine format.</p>
           <div className="flex items-center gap-4">
             <span className="font-display italic text-[14px]">Waldenburg 300 / Inter</span>
             <span>•</span>

@@ -120,7 +120,7 @@ export function ExperienceDetail() {
   }
 
   return (
-    <div className="relative min-h-screen pt-12 pb-24 px-6 overflow-hidden">
+    <div className="relative min-h-screen pt-12 md:pt-16 pb-24 px-6 overflow-hidden">
       {/* Background Atmospheric Orbs */}
       <div className="absolute inset-0 pointer-events-none flex justify-between">
         <AtmosphericOrb

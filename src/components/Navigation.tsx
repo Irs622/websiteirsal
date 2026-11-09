@@ -44,6 +44,7 @@ export function Navigation() {
         className={`
           fixed top-0 left-0 right-0 z-50 h-16
           transition-all duration-200
+          ${isScrolled ? 'shadow-sm' : ''}
           ${isLight
             ? 'bg-[#f5f5f5]/90 backdrop-blur-md border-b border-[#e7e5e4]'
             : 'bg-[#0c0a09]/90 backdrop-blur-md border-b border-[#292524]'
