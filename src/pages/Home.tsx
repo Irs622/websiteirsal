@@ -21,12 +21,24 @@ import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { ProjectShowcase } from '../components/ProjectShowcase';
+import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 
 import portraitImg from '../assets/irsal-portrait.png';
 
 export function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCertCohort, setSelectedCertCohort] = useState<'2026' | '2025'>('2026');
+  const [activeCertName, setActiveCertName] = useState<string>(
+    educationContent.certifications[0]?.name || ''
+  );
+
+  const displayedCertifications = educationContent.certifications.filter(
+    (c) => c.year === selectedCertCohort
+  );
+  const activeCert =
+    displayedCertifications.find((c) => c.name === activeCertName) ||
+    displayedCertifications[0];
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -216,20 +228,6 @@ export function Home() {
                   </p>
                 ))}
               </div>
-
-              {/* Research & Technical Interests */}
-              <div className="pt-4 border-t border-[#eeebe6]">
-                <span className="caption-uppercase block mb-2.5 text-[#141413]">
-                  Core Engineering &amp; Research Focus
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {aboutContent.coreInterests.map((interest) => (
-                    <Badge key={interest} variant="mono" size="md">
-                      {interest}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Right: Open Academic & Professional Dossier Margin (5 cols) */}
@@ -349,67 +347,8 @@ export function Home() {
             subheadline={experienceContent.subheadline}
           />
 
-          {/* Open Chronological Engineering Timeline */}
-          <div className="border-t border-[#e5e2dc] divide-y divide-[#e5e2dc]">
-            {experienceContent.items.map((item) => (
-              <div
-                key={item.id}
-                className="py-10 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10"
-              >
-                {/* Left Column: Timeline & Location (3 cols) */}
-                <div className="md:col-span-3 space-y-1">
-                  <div className="font-mono text-[12px] text-[#141413] font-medium">
-                    {item.period}
-                  </div>
-                  <div className="font-mono text-[11px] text-[#6e6b65]">
-                    {item.location}
-                  </div>
-                  <div className="pt-2 text-[11px] font-mono uppercase tracking-wider text-[#1e3a2b]">
-                    {item.type}
-                  </div>
-                </div>
-
-                {/* Right Column: Organization, Role & Impact (9 cols) */}
-                <div className="md:col-span-9 space-y-4">
-                  <div>
-                    <h3 className="font-display text-[24px] sm:text-[28px] text-[#141413] leading-snug">
-                      {item.company}
-                    </h3>
-                    <div className="text-[15px] font-medium text-[#44423e] mt-0.5">
-                      {item.role}
-                    </div>
-                  </div>
-
-                  <ul className="space-y-2 max-w-3xl">
-                    {item.responsibilities.map((resp, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-3 text-[15px] leading-relaxed text-[#44423e]"
-                      >
-                        <span className="font-mono text-[11px] text-[#9c9890] select-none mt-1">
-                          —
-                        </span>
-                        <span>{resp}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {item.techStack && (
-                    <div className="pt-3 flex flex-wrap gap-1.5 border-t border-[#eeebe6]">
-                      {item.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="font-mono text-[11px] px-2 py-0.5 bg-[#f5f4f0] text-[#6e6b65] border border-[#e5e2dc] rounded-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Interactive Scroll-Driven Chronological Engineering Timeline */}
+          <ExperienceTimeline items={experienceContent.items} />
         </div>
       </section>
 
@@ -581,14 +520,19 @@ export function Home() {
             subheadline={educationContent.subheadline}
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            {/* University Education (5 cols) */}
-            <div className="lg:col-span-5 space-y-3">
-              <span className="caption-uppercase block text-[#6e6b65]">
-                University Education
-              </span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+            {/* Left Rectangle: University Education (6 cols, stretched to match right) */}
+            <div className="lg:col-span-6 flex flex-col">
+              <div className="h-7 flex items-center justify-between mb-3">
+                <span className="caption-uppercase text-[#6e6b65]">
+                  University Education
+                </span>
+                <span className="font-mono text-[11px] text-[#9c9890]">
+                  {educationContent.education.period}
+                </span>
+              </div>
 
-              <div className="bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 space-y-4">
+              <div className="flex-1 bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 sm:p-7 flex flex-col justify-between gap-5">
                 <div>
                   <h3 className="display-sm text-[#141413]">
                     {educationContent.education.institution}
@@ -601,7 +545,7 @@ export function Home() {
                   </p>
                 </div>
 
-                <div className="py-3 border-t border-b border-[#eeebe6] grid grid-cols-2 gap-4 text-[13px] font-mono">
+                <div className="py-3.5 border-t border-b border-[#eeebe6] grid grid-cols-2 gap-4 text-[13px] font-mono">
                   <div>
                     <span className="caption-uppercase block text-[#9c9890] text-[10px]">Timeline</span>
                     <span className="text-[#141413]">
@@ -616,47 +560,136 @@ export function Home() {
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <span className="caption-uppercase block text-[#9c9890] text-[10px]">Fellowship</span>
-                  <p className="text-[12px] text-[#1e3a2b] bg-[#1e3a2b]/5 border border-[#1e3a2b]/20 rounded-sm p-2 font-mono">
-                    {educationContent.education.scholarship}
-                  </p>
-                </div>
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <span className="caption-uppercase block text-[#9c9890] text-[10px]">Fellowship</span>
+                    <p className="text-[12px] text-[#1e3a2b] bg-[#1e3a2b]/5 border border-[#1e3a2b]/20 rounded-sm p-2.5 font-mono">
+                      {educationContent.education.scholarship}
+                    </p>
+                  </div>
 
-                {educationContent.education.notes && (
-                  <p className="caption text-[#6e6b65] leading-relaxed text-[12px]">
-                    {educationContent.education.notes}
-                  </p>
-                )}
+                  {educationContent.education.notes && (
+                    <p className="caption text-[#6e6b65] leading-relaxed text-[12px]">
+                      {educationContent.education.notes}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
-            {/* Verified Certifications Catalog (7 cols) */}
-            <div className="lg:col-span-7 space-y-3">
-              <span className="caption-uppercase block text-[#6e6b65]">
-                Verified Technical Credentials (2025 – 2026)
-              </span>
+            {/* Right Rectangle: Interactive Verified Credentials Catalog (6 cols, identical height) */}
+            <div className="lg:col-span-6 flex flex-col">
+              <div className="h-7 flex items-center justify-between gap-2 mb-3">
+                <span className="caption-uppercase text-[#6e6b65]">
+                  Verified Technical Credentials
+                </span>
 
-              <div className="border border-[#e5e2dc] bg-[#ffffff] rounded-sm divide-y divide-[#eeebe6]">
-                {educationContent.certifications.map((cert) => (
-                  <div
-                    key={cert.name}
-                    className="p-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 hover:bg-[#fbfbf9] transition-colors"
-                  >
-                    <div>
-                      <h4 className="title-sm text-[#141413] text-[15px]">
-                        {cert.name}
-                      </h4>
-                      <p className="caption text-[12px] text-[#6e6b65]">
-                        {cert.credentialFocus}
+                {/* Interactive Cohort Switcher (3 items per cohort) */}
+                <div className="flex items-center gap-1 font-mono text-[11px]">
+                  {(['2026', '2025'] as const).map((yr) => {
+                    const isSelected = selectedCertCohort === yr;
+                    return (
+                      <button
+                        key={yr}
+                        type="button"
+                        onClick={() => {
+                          setSelectedCertCohort(yr);
+                          const firstInYear = educationContent.certifications.find(
+                            (c) => c.year === yr
+                          );
+                          if (firstInYear) setActiveCertName(firstInYear.name);
+                        }}
+                        className={`px-2.5 py-0.5 rounded-xs border transition-colors cursor-pointer ${
+                          isSelected
+                            ? 'bg-[#141413] text-[#fbfbf9] border-[#141413]'
+                            : 'bg-[#ffffff] text-[#6e6b65] border-[#e5e2dc] hover:text-[#141413]'
+                        }`}
+                      >
+                        {yr} (03)
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex-1 border border-[#e5e2dc] bg-[#ffffff] rounded-sm p-6 sm:p-7 flex flex-col justify-between gap-4">
+                <div className="divide-y divide-[#eeebe6] border-b border-[#eeebe6]">
+                  {displayedCertifications.map((cert, idx) => {
+                    const isSelected = activeCert?.name === cert.name;
+                    return (
+                      <button
+                        key={cert.name}
+                        type="button"
+                        onClick={() => setActiveCertName(cert.name)}
+                        onMouseEnter={() => setActiveCertName(cert.name)}
+                        className={`w-full text-left py-3 px-2.5 -mx-2.5 rounded-xs flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 transition-colors cursor-pointer ${
+                          isSelected ? 'bg-[#fbfbf9]' : 'hover:bg-[#fbfbf9]/60'
+                        }`}
+                      >
+                        <div className="flex items-baseline gap-2.5 min-w-0">
+                          <span
+                            className={`font-mono text-[11px] shrink-0 ${
+                              isSelected ? 'text-[#141413] font-medium' : 'text-[#9c9890]'
+                            }`}
+                          >
+                            0{idx + 1}
+                          </span>
+                          <div className="min-w-0">
+                            <h4 className="title-sm text-[#141413] text-[15px] truncate">
+                              {cert.name}
+                            </h4>
+                            <p className="caption text-[12px] text-[#6e6b65] truncate">
+                              {cert.credentialFocus}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="text-left sm:text-right font-mono text-[11px] text-[#6e6b65] shrink-0 pl-6 sm:pl-0">
+                          <span>{cert.issuer} &bull; {cert.year}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Active Credential Focus Bar (Mirrors left box Fellowship + Notes height) */}
+                {activeCert && (
+                  <div className="space-y-2.5">
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-[10px] font-mono">
+                        <span className="caption-uppercase text-[#9c9890] text-[10px]">
+                          Selected Credential Focus
+                        </span>
+                        <span className="text-[#141413]">
+                          {activeCert.issuer} &bull; {activeCert.year}
+                        </span>
+                      </div>
+                      <p className="text-[12px] text-[#1e3a2b] bg-[#1e3a2b]/5 border border-[#1e3a2b]/20 rounded-sm p-2.5 font-mono">
+                        {activeCert.name} — {activeCert.credentialFocus}
                       </p>
                     </div>
 
-                    <div className="text-left sm:text-right font-mono text-[11px] text-[#6e6b65] shrink-0">
-                      <span>{cert.issuer} &bull; {cert.year}</span>
+                    <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65]">
+                      <span>
+                        Showing {selectedCertCohort} Cohort (03 of 06 Verified Credentials)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const nextYr = selectedCertCohort === '2026' ? '2025' : '2026';
+                          setSelectedCertCohort(nextYr);
+                          const firstInYear = educationContent.certifications.find(
+                            (c) => c.year === nextYr
+                          );
+                          if (firstInYear) setActiveCertName(firstInYear.name);
+                        }}
+                        className="text-[#141413] underline underline-offset-4 hover:text-[#1e3a2b] cursor-pointer"
+                      >
+                        Switch to {selectedCertCohort === '2026' ? '2025' : '2026'} &rarr;
+                      </button>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
             </div>
           </div>

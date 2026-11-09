@@ -57,19 +57,6 @@ export function AboutPage() {
               "{personalInfo.brandStatement}"
             </blockquote>
           </div>
-
-          <div className="pt-4">
-            <span className="caption-uppercase text-[#6e6b65] block mb-2.5">
-              Research &amp; Technical Focus
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {aboutContent.coreInterests.map((interest) => (
-                <Badge key={interest} variant="mono" size="md">
-                  {interest}
-                </Badge>
-              ))}
-            </div>
-          </div>
         </div>
 
         <div className="lg:col-span-5 space-y-6">

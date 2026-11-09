@@ -38,13 +38,13 @@
 /* Base Body Styles */
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
   background-color: var(--colors-canvas);
   color-scheme: light;
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   background-color: var(--colors-canvas);
   color: var(--colors-body);
   font-family: var(--font-body);

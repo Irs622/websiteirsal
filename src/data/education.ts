@@ -54,12 +54,6 @@ export const educationContent: EducationContent = {
       credentialFocus: 'Machine Learning Pipelines & Responsible AI'
     },
     {
-      name: 'Dasar Keamanan AI',
-      issuer: 'Kementerian Komunikasi dan Digital (Komdigi RI)',
-      year: '2026',
-      credentialFocus: 'AI Model Safety, Threat Vectors & Governance'
-    },
-    {
       name: 'Google Analytics (GA4) Certification',
       issuer: 'Google',
       year: '2026',

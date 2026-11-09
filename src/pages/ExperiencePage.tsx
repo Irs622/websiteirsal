@@ -4,6 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 import { experienceContent } from '../data/experience';
 import { leadershipContent } from '../data/leadership';
 import { Badge } from '../components/ui/Badge';
+import { ExperienceTimeline } from '../components/ExperienceTimeline';
 
 export function ExperiencePage() {
   useEffect(() => {
@@ -39,64 +40,9 @@ export function ExperiencePage() {
         </p>
       </header>
 
-      {/* Experience Chronological Ledger (Open, unboxed) */}
-      <div className="border-t border-[#e5e2dc] divide-y divide-[#e5e2dc] mb-16">
-        {experienceContent.items.map((item) => (
-          <div
-            key={item.id}
-            className="py-10 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10"
-          >
-            <div className="md:col-span-3 space-y-1">
-              <div className="font-mono text-[12px] text-[#141413] font-medium">
-                {item.period}
-              </div>
-              <div className="font-mono text-[11px] text-[#6e6b65]">
-                {item.location}
-              </div>
-              <div className="pt-2 text-[11px] font-mono uppercase tracking-wider text-[#1e3a2b]">
-                {item.type}
-              </div>
-            </div>
-
-            <div className="md:col-span-9 space-y-4">
-              <div>
-                <h3 className="font-display text-[24px] sm:text-[28px] text-[#141413] leading-snug">
-                  {item.company}
-                </h3>
-                <div className="text-[15px] font-medium text-[#44423e] mt-0.5">
-                  {item.role}
-                </div>
-              </div>
-
-              <ul className="space-y-2 max-w-3xl">
-                {item.responsibilities.map((resp, i) => (
-                  <li
-                    key={i}
-                    className="flex items-start gap-3 text-[15px] leading-relaxed text-[#44423e]"
-                  >
-                    <span className="font-mono text-[11px] text-[#9c9890] select-none mt-1">
-                      —
-                    </span>
-                    <span>{resp}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {item.techStack && (
-                <div className="pt-3 flex flex-wrap gap-1.5 border-t border-[#eeebe6]">
-                  {item.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="font-mono text-[11px] px-2 py-0.5 bg-[#f5f4f0] text-[#6e6b65] border border-[#e5e2dc] rounded-xs"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
+      {/* Interactive Scroll-Driven Experience Chronological Ledger */}
+      <div className="mb-16">
+        <ExperienceTimeline items={experienceContent.items} />
       </div>
 
       {/* Leadership Section (Open, unboxed) */}
