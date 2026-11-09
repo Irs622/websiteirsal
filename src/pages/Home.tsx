@@ -1,502 +1,741 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'motion/react';
-import { ArrowRight, ArrowUpRight, Sparkles, Layers, Code, Camera, Film, BookOpen } from 'lucide-react';
-import { GlassButton } from '../components/GlassButton';
-import { GlassCard } from '../components/GlassCard';
-import { SkillTag } from '../components/SkillTag';
-import { AtmosphericOrb } from '../components/AtmosphericOrb';
-import { AudioWaveformCard } from '../components/AudioWaveformCard';
-import { TestimonialCard } from '../components/TestimonialCard';
-import { PricingTierCard } from '../components/PricingTierCard';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-import liveEventImage from 'figma:asset/5879bf3215834319cdadf80da5a00755d2ab9eb0.png';
+import {
+  ArrowDown,
+  ArrowUpRight,
+  Mail,
+  MapPin,
+  FileText
+} from 'lucide-react';
+import { personalInfo } from '../data/personal';
+import { aboutContent } from '../data/about';
+import { expertiseContent } from '../data/skills';
+import { experienceContent } from '../data/experience';
+import { projectsContent } from '../data/projects';
+import { researchContent } from '../data/research';
+import { leadershipContent } from '../data/leadership';
+import { educationContent } from '../data/education';
+
+import { Button } from '../components/ui/Button';
+import { Badge } from '../components/ui/Badge';
+import { Surface } from '../components/ui/Surface';
+import { SectionHeader } from '../components/ui/SectionHeader';
+import { AtmosphericGlow } from '../components/ui/AtmosphericGlow';
+import { ProjectShowcase } from '../components/ProjectShowcase';
+import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
+
+import portraitImg from '../assets/irsal-portrait.png';
 
 export function Home() {
-  const navigate = useNavigate();
-
-  const disciplines = [
-    {
-      title: 'UI/UX Design',
-      count: '10+ Projects',
-      desc: 'Intuitive user architectures, responsive design systems & clean prototypes.',
-      orb: 'mint' as const,
-      icon: <Layers size={18} />
-    },
-    {
-      title: 'React Engineering',
-      count: '10+ Apps',
-      desc: 'Performant web applications built with TypeScript, Tailwind & modular patterns.',
-      orb: 'sky' as const,
-      icon: <Code size={18} />
-    },
-    {
-      title: 'Editorial Photography',
-      count: '500+ Shots',
-      desc: 'Live event coverage, urban landscapes, and high-dynamic-range framing.',
-      orb: 'peach' as const,
-      icon: <Camera size={18} />
-    },
-    {
-      title: 'Film & Motion Editing',
-      count: '80+ Edits',
-      desc: 'Color grading, rhythmic pacing, and dynamic promotional storytelling.',
-      orb: 'rose' as const,
-      icon: <Film size={18} />
-    },
-    {
-      title: 'Content Strategy & Writing',
-      count: '50+ Articles',
-      desc: 'Design methodology articles, documentation, and digital narratives.',
-      orb: 'lavender' as const,
-      icon: <BookOpen size={18} />
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      history.pushState(null, '', `#${id}`);
     }
-  ];
-
-  const featuredWorks = [
-    {
-      id: 1,
-      title: 'E-Commerce Dashboard',
-      category: 'UI/UX Design',
-      description: 'Modern analytics interface with real-time data visualization and editorial clarity.',
-      image: 'https://images.unsplash.com/photo-1757310998437-b2e8a7bd2e97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB1aSUyMGRlc2lnbiUyMGludGVyZmFjZXxlbnwxfHx8fDE3NjQwOTEyNjR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      tags: ['Figma', 'Design System', 'Analytics']
-    },
-    {
-      id: 3,
-      title: 'Live Event Visuals',
-      category: 'Editorial Photography',
-      description: 'Atmospheric concert photography exploring dramatic shadows and lighting.',
-      image: liveEventImage,
-      tags: ['Sony A7III', 'Live Concert', 'Atmosphere']
-    },
-    {
-      id: 2,
-      title: 'Portfolio Web Architecture',
-      category: 'React & TypeScript',
-      description: 'Editorial web application with quiet typography and custom motion pacing.',
-      image: 'https://images.unsplash.com/photo-1591267990439-bc68529677c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWFjdCUyMGRldmVsb3BtZW50JTIwY29kZXxlbnwxfHx8fDE3NjQwOTEyNjR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-      tags: ['React', 'TypeScript', 'Tailwind']
-    }
-  ];
-
-  const testimonials = [
-    {
-      quote: "Irsal has that rare ability to bridge exacting aesthetic taste with rock-solid frontend execution. The resulting design was both serene and lightning-fast.",
-      author: "Aditya Pratama",
-      role: "Product Lead",
-      company: "Kinetik Studio"
-    },
-    {
-      quote: "Working with Irsal brought editorial clarity to our brand. The typography, spacing, and micro-interactions exceeded our highest expectations.",
-      author: "Rian Hidayat",
-      role: "Engineering Director",
-      company: "Svara Tech"
-    }
-  ];
-
-  const engagementTiers = [
-    {
-      name: "Design Audit & Advisory",
-      tagline: "Comprehensive architectural and typographic teardown for existing web products.",
-      price: "$1,200",
-      cadence: "per sprint",
-      features: [
-        "Complete design system & UI audit",
-        "Typographic hierarchy & spacing review",
-        "Accessibility & contrast audit (WCAG AA)",
-        "Component refactoring recommendations",
-        "Executive summary & implementation guide"
-      ],
-      ctaText: "Inquire about audit"
-    },
-    {
-      name: "Full Product MVP",
-      tagline: "End-to-end design & React engineering from zero to production launch.",
-      price: "$4,500",
-      cadence: "per project",
-      features: [
-        "Full tokenized design library in Figma",
-        "React 18/19 & TypeScript web client",
-        "High-performance Tailwind CSS architecture",
-        "Responsive 12-column fluid grid",
-        "Turnkey production deployment"
-      ],
-      ctaText: "Start sprint engagement",
-      featured: true
-    },
-    {
-      name: "Embedded Creative Lead",
-      tagline: "Dedicated creative direction, continuous frontend architecture and feature iteration.",
-      price: "$6,800",
-      cadence: "per month",
-      features: [
-        "Weekly feature sprint design & coding",
-        "Design tokens & component governance",
-        "Frontend PR reviews & architecture",
-        "Editorial photography & visual assets",
-        "Direct async Slack & GitHub access"
-      ],
-      ctaText: "Check availability"
-    }
-  ];
+  };
 
   return (
-    <div className="relative overflow-hidden">
-      {/* ========================================================
-          HERO BAND (96px Rhythm, Off-white canvas, Display 300)
-         ======================================================== */}
-      <section className="relative min-h-[85vh] flex items-center justify-center px-6 py-24 md:py-32">
-        {/* Atmospheric Gradient Orbs behind headline (Signature Peach & Lavender blooms) */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
-          <AtmosphericOrb
-            color="peach"
-            size={520}
-            animation="drift-1"
-            className="-top-12 -right-16 opacity-60 dark:opacity-20"
-          />
-          <AtmosphericOrb
-            color="lavender"
-            size={580}
-            animation="drift-2"
-            className="bottom-4 -left-20 opacity-55 dark:opacity-20"
-          />
-          <AtmosphericOrb
-            color="mint"
-            size={360}
-            animation="drift-1"
-            className="top-1/3 left-1/2 -translate-x-1/2 opacity-35 dark:opacity-15"
-          />
-        </div>
+    <div className="relative overflow-hidden selection:bg-[#E7E5E4] selection:text-[#0C0A09]">
+      {/* ======================================================== */}
+      {/* SECTION 1: HERO                                          */}
+      {/* ======================================================== */}
+      <section
+        id="hero"
+        aria-label="Introduction"
+        className="relative min-h-[88vh] sm:min-h-[92vh] flex flex-col justify-center pt-8 pb-20 px-6 sm:px-8 border-b border-[#E7E5E4]"
+      >
+        {/* Subtle Pastel Atmospheric Gradient Glows in Background */}
+        <AtmosphericGlow
+          color="mint"
+          size={520}
+          className="-top-20 -left-24 opacity-35"
+          animation="drift-1"
+        />
+        <AtmosphericGlow
+          color="lavender"
+          size={560}
+          className="top-1/4 -right-32 opacity-40"
+          animation="drift-2"
+        />
+        <AtmosphericGlow
+          color="peach"
+          size={420}
+          className="bottom-10 left-1/3 opacity-30"
+          animation="drift-1"
+        />
 
-        {/* Hero Content */}
-        <div className="max-w-[960px] mx-auto text-center relative z-10">
-          {/* Status Badge Pill */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8 inline-block"
-          >
-            <SkillTag size="md">
-              <Sparkles size={13} className="text-[#a8a29e]" />
-              <span>Open for creative engineering roles</span>
-            </SkillTag>
-          </motion.div>
+        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
+          {/* Top Editorial Eyebrow */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-[#777169]">
+            <span className="label-editorial text-[#0C0A09] font-medium tracking-[0.16em]">
+              Editorial Identity
+            </span>
+            <span className="text-[#D6D3D1]">•</span>
+            <span className="inline-flex items-center gap-1.5 text-[13px]">
+              <MapPin size={13} className="text-[#0C0A09]" />
+              {personalInfo.location}
+            </span>
+            <span className="text-[#D6D3D1] hidden sm:inline">•</span>
+            <span className="text-[13px] text-[#777169] hidden sm:inline">
+              LPDP Scholar
+            </span>
+          </div>
 
-          {/* Waldenburg Light Display Mega (Weight 300 strictly, -1.92px tracking) */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="display-mega mb-6"
-          >
-            Irsal Shydiq
-          </motion.h1>
+          {/* Master Headline (EB Garamond Light 300) */}
+          <div className="max-w-4xl space-y-4 mb-8">
+            <h1 className="display-hero text-[#0C0A09]">
+              {personalInfo.heroHeadline}
+            </h1>
+            <p className="display-secondary text-[#292524] font-light max-w-3xl leading-[1.18]">
+              {personalInfo.heroSubheadline}
+            </p>
+          </div>
 
-          {/* Sub-headline (Display Light at weight 300) */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="display-md mb-6 font-display font-light text-[#292524] dark:text-[#d6d3d1]"
-          >
-            Multidisciplinary Designer & React Developer
-          </motion.p>
+          {/* Concise Editorial Introduction */}
+          <p className="body-editorial text-[17px] sm:text-[19px] text-[#4E4E4E] max-w-2xl leading-relaxed mb-10">
+            {personalInfo.heroIntro}
+          </p>
 
-          {/* Editorial running text (Inter 16px / 400 with 0.16px letter-spacing) */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="body-md max-w-2xl mx-auto mb-10 text-[#4e4e4e] dark:text-[#a8a29e]"
-          >
-            Designing quiet, human-centered interfaces and building robust React applications with equal reverence for typographic detail and software craft.
-          </motion.p>
+          {/* Identity & Social Badges */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-12 text-[14px]">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 sm:pr-6 sm:border-r border-[#E7E5E4]">
+              <span className="font-medium text-[#0C0A09] text-[15px]">{personalInfo.name}</span>
+              <span className="text-[#D6D3D1] hidden sm:inline">—</span>
+              <span className="text-[#4E4E4E] font-normal">{personalInfo.professionalTitle}</span>
+            </div>
 
-          {/* CTAs: Ink pill primary + Transparent outline secondary */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex items-center justify-center gap-4 flex-wrap"
-          >
-            <GlassButton
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+              >
+                <GithubIcon size={15} />
+                <span>GitHub</span>
+                <ArrowUpRight size={13} className="opacity-50" />
+              </a>
+
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+              >
+                <LinkedinIcon size={15} />
+                <span>LinkedIn</span>
+                <ArrowUpRight size={13} className="opacity-50" />
+              </a>
+
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+              >
+                <Mail size={15} />
+                <span>{personalInfo.email}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Primary & Secondary Call to Actions */}
+          <div className="flex flex-wrap items-center gap-4">
+            <Button
               variant="primary"
               size="lg"
-              onClick={() => navigate('/portfolio')}
+              onClick={() => scrollToSection('projects')}
+              icon={<ArrowDown size={15} />}
             >
-              <span>Explore Selected Works</span>
-              <ArrowRight size={16} />
-            </GlassButton>
+              Explore My Work
+            </Button>
 
-            <GlassButton
-              variant="outline"
-              size="lg"
-              onClick={() => navigate('/contact')}
+            <a
+              href={`mailto:${personalInfo.email}?subject=CV%20Request%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
+              className="inline-block"
             >
-              <span>Get in Touch</span>
-            </GlassButton>
-          </motion.div>
+              <Button
+                variant="secondary"
+                size="lg"
+                icon={<FileText size={15} />}
+              >
+                Download CV
+              </Button>
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* ========================================================
-          DISCIPLINE STACK (Feature Cards & Atmospheric Cards)
-         ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#e7e5e4] dark:border-[#292524]">
-          <div>
-            <span className="caption-uppercase text-[#777169] block mb-2">Practice & Focus</span>
-            <h2 className="display-lg">Multidisciplinary Overview</h2>
-          </div>
-          <p className="body-sm text-[#777169] max-w-sm mt-3 md:mt-0">
-            A spectrum of creative and technical disciplines refined through freelance and independent projects.
-          </p>
-        </div>
+      {/* ======================================================== */}
+      {/* SECTION 2: ABOUT                                         */}
+      {/* ======================================================== */}
+      <section
+        id="about"
+        aria-label="About LM. Irsal Shydiq"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <SectionHeader
+            number={aboutContent.sectionNumber}
+            label={aboutContent.sectionTitle}
+            headline={aboutContent.headline}
+          />
 
-        {/* 3-up & 2-up responsive feature card grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {disciplines.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-            >
-              <GlassCard
-                hover
-                orbVariant={item.orb}
-                className="h-full flex flex-col justify-between"
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {/* Left: Editorial Narrative & Snapshot (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              {aboutContent.narrative.map((paragraph, idx) => (
+                <p
+                  key={idx}
+                  className="body-editorial text-[17px] leading-relaxed text-[#292524]"
+                >
+                  {paragraph}
+                </p>
+              ))}
+
+              {/* Core Interests List */}
+              <div className="pt-6">
+                <span className="label-editorial text-[#777169] block mb-3">
+                  Research &amp; Engineering Interests
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {aboutContent.coreInterests.map((interest) => (
+                    <Badge key={interest} variant="default" size="md">
+                      {interest}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Portrait & Compact Professional Snapshot (5 cols) */}
+            <div className="lg:col-span-5 space-y-8">
+              {/* Portrait Composition */}
+              <div className="relative overflow-hidden rounded-[24px] border border-[#E7E5E4] bg-[#FFFFFF] p-3 shadow-[0_2px_16px_rgba(0,0,0,0.03)]">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[18px] bg-[#F5F5F5]">
+                  <img
+                    src={portraitImg}
+                    alt="LM. Irsal Shydiq — Software Engineer and LPDP Scholar in Bandung, Indonesia"
+                    className="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-3 pt-4 flex items-center justify-between text-[12px] text-[#777169]">
+                  <span className="font-mono">Fig 1.0 — Portrait</span>
+                  <span>Bandung, Indonesia</span>
+                </div>
+              </div>
+
+              {/* Snapshot Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aboutContent.snapshot.map((item) => (
+                  <div
+                    key={item.label}
+                    className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[16px] p-4 space-y-1"
+                  >
+                    <span className="label-editorial text-[#777169] text-[10px] block">
+                      {item.label}
+                    </span>
+                    <h4 className="text-[14px] font-medium text-[#0C0A09]">
+                      {item.value}
+                    </h4>
+                    {item.detail && (
+                      <p className="text-[12px] text-[#777169]">{item.detail}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* SECTION 3: EXPERTISE                                     */}
+      {/* ======================================================== */}
+      <section
+        id="expertise"
+        aria-label="Technical Expertise"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#F5F5F5]"
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <SectionHeader
+            number={expertiseContent.sectionNumber}
+            label={expertiseContent.sectionTitle}
+            headline={expertiseContent.headline}
+            subheadline={expertiseContent.subheadline}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {expertiseContent.categories.map((category, index) => (
+              <Surface
+                key={category.id}
+                variant="card"
+                padding="md"
+                className="flex flex-col justify-between hover:border-[#D6D3D1] transition-all group"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="w-9 h-9 rounded-full bg-[#f0efed] dark:bg-[#292524] flex items-center justify-center text-[#0c0a09] dark:text-white">
-                      {item.icon}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="label-editorial text-[#777169]">
+                      0{index + 1}
                     </span>
-                    <span className="caption-uppercase text-[#777169] dark:text-[#a8a29e]">
-                      {item.count}
-                    </span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#E7E5E4] group-hover:bg-[#0C0A09] transition-colors" />
                   </div>
 
-                  <h3 className="title-md mb-2">
-                    {item.title}
+                  <h3 className="font-display text-[24px] font-light text-[#0C0A09] mb-2">
+                    {category.name}
                   </h3>
 
-                  <p className="body-sm text-[#4e4e4e] dark:text-[#a8a29e]">
-                    {item.desc}
+                  <p className="text-[14px] text-[#777169] leading-relaxed mb-6">
+                    {category.tagline}
                   </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-[#e7e5e4] dark:border-[#292524] flex items-center justify-between">
-                  <span className="caption-uppercase text-[11px] text-[#777169]">Verified</span>
-                  <span className="text-[12px] font-medium text-[#0c0a09] dark:text-white inline-flex items-center gap-1 group-hover:underline">
-                    Inquire <ArrowUpRight size={13} />
-                  </span>
+                <div className="pt-4 border-t border-[#E7E5E4]">
+                  <div className="flex flex-wrap gap-1.5">
+                    {category.skills.map((skill) => (
+                      <Badge key={skill} variant="neutral" size="sm">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </GlassCard>
-            </motion.div>
-          ))}
+              </Surface>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ========================================================
-          SELECTED WORKS SECTION (2-up & 3-up Editorial Grid)
-         ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#e7e5e4] dark:border-[#292524]">
-          <div>
-            <span className="caption-uppercase text-[#777169] block mb-2">Curated Folio</span>
-            <h2 className="display-lg">Selected Projects</h2>
-          </div>
-          <div className="mt-3 md:mt-0">
-            <GlassButton
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/portfolio')}
-            >
-              View all projects
-            </GlassButton>
-          </div>
-        </div>
+      {/* ======================================================== */}
+      {/* SECTION 4: EXPERIENCE                                    */}
+      {/* ======================================================== */}
+      <section
+        id="experience"
+        aria-label="Professional Experience"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <SectionHeader
+            number={experienceContent.sectionNumber}
+            label={experienceContent.sectionTitle}
+            headline={experienceContent.headline}
+            subheadline={experienceContent.subheadline}
+          />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredWorks.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <GlassCard
-                hover
-                onClick={() => navigate('/case-study', { state: { project } })}
-                className="h-full flex flex-col justify-between"
+          <div className="space-y-6">
+            {experienceContent.items.map((item, index) => (
+              <div
+                key={item.id}
+                className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[20px] p-6 sm:p-8 hover:border-[#D6D3D1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
               >
-                <div>
-                  {/* Image container with 12px radius */}
-                  <div className="relative overflow-hidden rounded-[12px] mb-5 h-52 bg-[#f0efed] dark:bg-[#292524]">
-                    <ImageWithFallback
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                    <div className="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-[#0c0a09]/90 border border-[#e7e5e4] dark:border-[#292524] text-[#0c0a09] dark:text-white">
-                      <ArrowUpRight size={14} />
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+                  {/* Left Column: Organization & Timeline (4 cols) */}
+                  <div className="lg:col-span-4 space-y-1">
+                    <span className="label-editorial text-[#777169] block mb-1">
+                      0{index + 1} • {item.type}
+                    </span>
+                    <h3 className="font-display text-[24px] font-light text-[#0C0A09]">
+                      {item.company}
+                    </h3>
+                    <p className="text-[15px] font-medium text-[#292524]">
+                      {item.role}
+                    </p>
+                    <div className="pt-2 text-[13px] text-[#777169] flex flex-col gap-0.5">
+                      <span>{item.period}</span>
+                      <span>{item.location}</span>
                     </div>
                   </div>
 
-                  <span className="caption-uppercase text-[11px] text-[#777169] block mb-1">
-                    {project.category}
+                  {/* Right Column: Key Responsibilities (8 cols) */}
+                  <div className="lg:col-span-8 space-y-4">
+                    <span className="label-editorial text-[#777169] block">
+                      Core Responsibilities &amp; Impact
+                    </span>
+                    <ul className="space-y-2.5">
+                      {item.responsibilities.map((resp, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-3 text-[14px] leading-relaxed text-[#4E4E4E]"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#0C0A09] mt-2 shrink-0" />
+                          <span>{resp}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {item.techStack && (
+                      <div className="pt-3 flex flex-wrap gap-1.5">
+                        {item.techStack.map((tech) => (
+                          <Badge key={tech} variant="neutral" size="sm">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* SECTION 5: SELECTED WORK                                 */}
+      {/* ======================================================== */}
+      <section
+        id="projects"
+        aria-label="Selected Engineering Projects"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#F5F5F5]"
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <SectionHeader
+            number={projectsContent.sectionNumber}
+            label={projectsContent.sectionTitle}
+            headline={projectsContent.headline}
+            subheadline={projectsContent.subheadline}
+          />
+
+          <div className="space-y-4">
+            {projectsContent.projects.map((project, index) => (
+              <ProjectShowcase
+                key={project.id}
+                project={project}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* SECTION 6: RESEARCH & INTERESTS                          */}
+      {/* ======================================================== */}
+      <section
+        id="research"
+        aria-label="Research and Technical Inquiries"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <SectionHeader
+            number={researchContent.sectionNumber}
+            label={researchContent.sectionTitle}
+            headline={researchContent.headline}
+            subheadline={researchContent.subheadline}
+          />
+
+          {/* Featured Ongoing Research Direction */}
+          <div className="mb-14 bg-[#FFFFFF] border border-[#E7E5E4] rounded-[24px] p-8 sm:p-10 shadow-[0_2px_16px_rgba(0,0,0,0.03)] relative overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <span className="label-editorial text-[#777169]">
+                Featured Research Direction
+              </span>
+              <span className="inline-flex items-center text-[12px] text-amber-900 bg-amber-50 border border-amber-200 rounded-full px-3 py-0.5">
+                {researchContent.featuredDirection.status}
+              </span>
+            </div>
+
+            <h3 className="font-display text-[28px] sm:text-[34px] font-light text-[#0C0A09] leading-tight mb-4">
+              "{researchContent.featuredDirection.title}"
+            </h3>
+
+            <p className="body-editorial text-[16px] text-[#4E4E4E] leading-relaxed mb-6 max-w-4xl">
+              {researchContent.featuredDirection.description}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-[#E7E5E4]">
+              <div>
+                <span className="label-editorial text-[#0C0A09] block mb-1">
+                  Investigation Methodology
+                </span>
+                <p className="text-[14px] text-[#4E4E4E] leading-relaxed">
+                  {researchContent.featuredDirection.methodology}
+                </p>
+              </div>
+              <div>
+                <span className="label-editorial text-[#0C0A09] block mb-1">
+                  Target Outcomes
+                </span>
+                <p className="text-[14px] text-[#4E4E4E] leading-relaxed">
+                  {researchContent.featuredDirection.anticipatedOutcomes}
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-6 flex flex-wrap gap-2">
+              {researchContent.featuredDirection.keywords.map((kw) => (
+                <Badge key={kw} variant="neutral" size="sm">
+                  {kw}
+                </Badge>
+              ))}
+            </div>
+          </div>
+
+          {/* Clean Editorial Research List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {researchContent.interests.map((item, idx) => (
+              <div
+                key={item.topic}
+                className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[18px] p-5 sm:p-6 hover:border-[#D6D3D1] transition-all"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="label-editorial text-[#777169]">
+                    0{idx + 1} • {item.category}
                   </span>
+                </div>
+                <h4 className="font-display text-[22px] font-light text-[#0C0A09] mb-2">
+                  {item.topic}
+                </h4>
+                <p className="text-[14px] text-[#4E4E4E] leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-                  <h3 className="display-sm mb-2 text-[#0c0a09] dark:text-white font-display font-light">
-                    {project.title}
+      {/* ======================================================== */}
+      {/* SECTION 7: LEADERSHIP                                    */}
+      {/* ======================================================== */}
+      <section
+        id="leadership"
+        aria-label="Leadership and Community"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#F5F5F5]"
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <SectionHeader
+            number={leadershipContent.sectionNumber}
+            label={leadershipContent.sectionTitle}
+            headline={leadershipContent.headline}
+            subheadline={leadershipContent.subheadline}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {leadershipContent.roles.map((role, idx) => (
+              <Surface
+                key={role.organization}
+                variant="card"
+                padding="md"
+                className="space-y-6"
+              >
+                <div>
+                  <span className="label-editorial text-[#777169] block mb-1">
+                    0{idx + 1} • {role.period}
+                  </span>
+                  <h3 className="font-display text-[24px] font-light text-[#0C0A09]">
+                    {role.organization}
                   </h3>
-
-                  <p className="body-sm text-[#4e4e4e] dark:text-[#a8a29e] mb-4">
-                    {project.description}
+                  <p className="text-[15px] font-medium text-[#292524] mt-1">
+                    {role.role}
+                  </p>
+                  <p className="text-[13px] text-[#777169] mt-0.5">
+                    {role.scope}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#e7e5e4] dark:border-[#292524]">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-[#f0efed] dark:bg-[#292524] text-[#292524] dark:text-[#d6d3d1]"
-                    >
+                <div className="space-y-2.5 pt-2 border-t border-[#E7E5E4]">
+                  <span className="label-editorial text-[#777169] block">
+                    Strategic Initiatives
+                  </span>
+                  <ul className="space-y-2">
+                    {role.contributions.map((c, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#4E4E4E]"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0C0A09] mt-2 shrink-0" />
+                        <span>{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-2 flex flex-wrap gap-1.5">
+                  {role.tags.map((tag) => (
+                    <Badge key={tag} variant="neutral" size="sm">
                       {tag}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ========================================================
-          AUDIO / WAVEFORM SIGNATURE (ElevenLabs Audio Card)
-         ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
-        <div className="mb-8 pb-4 border-b border-[#e7e5e4] dark:border-[#292524]">
-          <span className="caption-uppercase text-[#777169] block mb-1">Interactive Voice Note</span>
-          <h2 className="display-lg">Creative Direction & Sound Sample</h2>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <AudioWaveformCard />
-        </motion.div>
-      </section>
-
-      {/* ========================================================
-          PRICING & ENGAGEMENT TIERS (Featured Inverted Tier)
-         ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#e7e5e4] dark:border-[#292524]">
-          <div>
-            <span className="caption-uppercase text-[#777169] block mb-2">Engagements</span>
-            <h2 className="display-lg">Services & Collaboration Tiers</h2>
+              </Surface>
+            ))}
           </div>
-          <p className="body-sm text-[#777169] max-w-sm mt-3 md:mt-0">
-            Predictable engagement models tailored to ambitious founders and high-craft engineering teams.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {engagementTiers.map((tier, index) => (
-            <motion.div
-              key={tier.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <PricingTierCard
-                name={tier.name}
-                tagline={tier.tagline}
-                price={tier.price}
-                cadence={tier.cadence}
-                features={tier.features}
-                ctaText={tier.ctaText}
-                featured={tier.featured}
-                onSelect={() => navigate('/contact')}
-              />
-            </motion.div>
-          ))}
         </div>
       </section>
 
-      {/* ========================================================
-          TESTIMONIALS SECTION (Editorial Quotes)
-         ======================================================== */}
-      <section className="max-w-[1200px] mx-auto px-6 py-24 relative z-10 border-t border-[#e7e5e4] dark:border-[#292524]">
-        <div className="mb-8 pb-4 border-b border-[#e7e5e4] dark:border-[#292524]">
-          <span className="caption-uppercase text-[#777169] block mb-1">Endorsements</span>
-          <h2 className="display-lg">Collaborator Reflections</h2>
-        </div>
+      {/* ======================================================== */}
+      {/* SECTION 8: EDUCATION & CERTIFICATIONS                    */}
+      {/* ======================================================== */}
+      <section
+        id="education"
+        aria-label="Education and Certifications"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#E7E5E4] bg-[#FAFAFA]"
+      >
+        <div className="max-w-[1200px] mx-auto">
+          <SectionHeader
+            number={educationContent.sectionNumber}
+            label={educationContent.sectionTitle}
+            headline={educationContent.headline}
+            subheadline={educationContent.subheadline}
+          />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((t, index) => (
-            <motion.div
-              key={t.author}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <TestimonialCard
-                quote={t.quote}
-                author={t.author}
-                role={t.role}
-                company={t.company}
-              />
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            {/* Formal University Education (5 cols) */}
+            <div className="lg:col-span-5 space-y-4">
+              <span className="label-editorial text-[#777169] block">
+                Higher Education
+              </span>
+
+              <div className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[20px] p-6 sm:p-8 space-y-4 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+                <div>
+                  <h3 className="font-display text-[26px] font-light text-[#0C0A09]">
+                    {educationContent.education.institution}
+                  </h3>
+                  <p className="text-[16px] font-medium text-[#292524] mt-1">
+                    {educationContent.education.degree}
+                  </p>
+                  <p className="text-[14px] text-[#777169]">
+                    {educationContent.education.field}
+                  </p>
+                </div>
+
+                <div className="py-3 border-t border-b border-[#E7E5E4] grid grid-cols-2 gap-4 text-[13px]">
+                  <div>
+                    <span className="label-editorial block text-[#777169]">Timeline</span>
+                    <span className="font-medium text-[#0C0A09]">
+                      {educationContent.education.status}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="label-editorial block text-[#777169]">Grade</span>
+                    <span className="font-medium text-[#0C0A09]">
+                      GPA: {educationContent.education.gpa}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="label-editorial block text-[#777169]">Honor &amp; Fellowship</span>
+                  <p className="text-[13px] font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-2.5">
+                    {educationContent.education.scholarship}
+                  </p>
+                </div>
+
+                {educationContent.education.notes && (
+                  <p className="text-[13px] text-[#777169] leading-relaxed">
+                    {educationContent.education.notes}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Verified Certifications Catalog (7 cols) */}
+            <div className="lg:col-span-7 space-y-4">
+              <span className="label-editorial text-[#777169] block">
+                Verified Technical Certifications (2025 – 2026)
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {educationContent.certifications.map((cert) => (
+                  <div
+                    key={cert.name}
+                    className="bg-[#FFFFFF] border border-[#E7E5E4] rounded-[16px] p-4 flex flex-col justify-between hover:border-[#D6D3D1] transition-all"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between text-[11px] text-[#777169] mb-1">
+                        <span>{cert.issuer}</span>
+                        <span className="font-mono">{cert.year}</span>
+                      </div>
+                      <h4 className="text-[14px] font-medium text-[#0C0A09] leading-snug">
+                        {cert.name}
+                      </h4>
+                    </div>
+
+                    <p className="text-[12px] text-[#777169] pt-2 mt-2 border-t border-[#E7E5E4]/60">
+                      {cert.credentialFocus}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ========================================================
-          EDITORIAL CTA BAND (Pre-footer 96px rhythm)
-         ======================================================== */}
-      <section className="relative px-6 py-24 md:py-32 text-center overflow-hidden border-t border-[#e7e5e4] dark:border-[#292524]">
-        {/* Soft pastel atmospheric bloom behind CTA */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-          <AtmosphericOrb
-            color="rose"
-            size={450}
-            className="opacity-45 dark:opacity-15"
-          />
-          <AtmosphericOrb
-            color="sky"
-            size={400}
-            className="opacity-35 dark:opacity-10 translate-x-20"
-          />
-        </div>
+      {/* ======================================================== */}
+      {/* SECTION 9: CONTACT                                       */}
+      {/* ======================================================== */}
+      <section
+        id="contact"
+        aria-label="Contact and Collaboration"
+        className="py-24 sm:py-32 px-6 sm:px-8 bg-[#F5F5F5] relative overflow-hidden"
+      >
+        <AtmosphericGlow
+          color="rose"
+          size={500}
+          className="-bottom-20 -right-20 opacity-30"
+          animation="drift-1"
+        />
+        <AtmosphericGlow
+          color="mint"
+          size={420}
+          className="top-10 left-10 opacity-30"
+          animation="drift-2"
+        />
 
-        <div className="max-w-[720px] mx-auto relative z-10">
-          <span className="caption-uppercase text-[#777169] block mb-3">Next Step</span>
-          <h2 className="display-lg mb-5 font-display font-light text-[#0c0a09] dark:text-white">
-            Ready to build something quietly remarkable?
+        <div className="relative z-10 max-w-[900px] mx-auto text-center space-y-8">
+          <div className="inline-flex items-center gap-2">
+            <span className="label-editorial text-[#777169] tracking-[0.16em]">
+              07 / CONTACT
+            </span>
+          </div>
+
+          <h2 className="display-hero text-[#0C0A09] max-w-2xl mx-auto">
+            Have something meaningful to build?
           </h2>
-          <p className="body-md mb-8 text-[#4e4e4e] dark:text-[#a8a29e]">
-            Whether you need a bespoke design system, a complete React application, or editorial visual direction, let’s discuss your upcoming venture.
+
+          <p className="body-editorial text-[18px] sm:text-[20px] text-[#4E4E4E] max-w-xl mx-auto leading-relaxed">
+            I'm open to engineering opportunities, technical collaborations, and projects that create meaningful impact.
           </p>
-          <GlassButton
-            variant="primary"
-            size="lg"
-            onClick={() => navigate('/contact')}
-          >
-            <span>Start a conversation</span>
-            <ArrowRight size={16} />
-          </GlassButton>
+
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href={`mailto:${personalInfo.email}?subject=Project%20Collaboration%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
+              className="inline-block"
+            >
+              <Button
+                variant="primary"
+                size="lg"
+                icon={<ArrowUpRight size={16} />}
+              >
+                Get in Touch
+              </Button>
+            </a>
+
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                icon={<LinkedinIcon size={16} />}
+              >
+                Connect on LinkedIn
+              </Button>
+            </a>
+          </div>
+
+          <div className="pt-8 text-[14px] text-[#777169]">
+            <span>Direct Email: </span>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="font-medium text-[#0C0A09] hover:underline"
+            >
+              {personalInfo.email}
+            </a>
+          </div>
         </div>
       </section>
     </div>

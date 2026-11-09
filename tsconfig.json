@@ -21,10 +21,8 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Paths */
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "figma:asset/*": ["src/assets/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]

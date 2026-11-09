@@ -3,15 +3,79 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Irsal Shydiq — Multidisciplinary Designer & Developer</title>
-    <meta name="description" content="Portfolio of Irsal Shydiq. Multidisciplinary design, React frontend engineering, and documentary photography." />
+    
+    <!-- Primary Metadata -->
+    <title>LM. Irsal Shydiq | Software Engineer &amp; AI Developer</title>
+    <meta name="title" content="LM. Irsal Shydiq | Software Engineer &amp; AI Developer" />
+    <meta name="description" content="Explore the portfolio of Irsal Shydiq, a software engineer focused on artificial intelligence, mobile development, full-stack engineering, and accessible technology." />
+    <meta name="author" content="LM. Irsal Shydiq" />
+    <meta name="keywords" content="LM. Irsal Shydiq, Software Engineer, AI Developer, Mobile Development, Web Developer, Full Stack, Accessibility Engineering, Bandung, Indonesia" />
+    <meta name="theme-color" content="#F5F5F5" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="LM. Irsal Shydiq | Software Engineer &amp; AI Developer" />
+    <meta property="og:description" content="Explore the portfolio of Irsal Shydiq, a software engineer focused on artificial intelligence, mobile development, full-stack engineering, and accessible technology." />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LM. Irsal Shydiq | Software Engineer &amp; AI Developer" />
+    <meta name="twitter:description" content="Explore the portfolio of Irsal Shydiq, a software engineer focused on artificial intelligence, mobile development, full-stack engineering, and accessible technology." />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts: EB Garamond (Editorial Serif) & Inter (Clean Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data: Person & WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://irsalshydiq.vercel.app/#person",
+            "name": "LM. Irsal Shydiq",
+            "givenName": "Irsal",
+            "familyName": "Shydiq",
+            "jobTitle": "Software Engineer",
+            "description": "Software engineer focused on artificial intelligence, mobile development, full-stack engineering, and accessible technology.",
+            "url": "https://irsalshydiq.vercel.app",
+            "sameAs": [
+              "https://github.com/irs622",
+              "https://linkedin.com/in/irsalshydiq"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Bandung",
+              "addressCountry": "Indonesia"
+            },
+            "alumniOf": {
+              "@type": "CollegeOrUniversity",
+              "name": "UIN Sunan Gunung Djati Bandung"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://irsalshydiq.vercel.app/#website",
+            "url": "https://irsalshydiq.vercel.app",
+            "name": "LM. Irsal Shydiq — Editorial Portfolio",
+            "publisher": {
+              "@id": "https://irsalshydiq.vercel.app/#person"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
 
-  <body>
+  <body class="light bg-[#F5F5F5] text-[#4E4E4E] antialiased selection:bg-[#E7E5E4] selection:text-[#0C0A09]">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

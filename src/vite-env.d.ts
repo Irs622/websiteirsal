@@ -1,10 +1,5 @@
 /// <reference types="vite/client" />
 
-declare module 'figma:asset/*.png' {
-  const src: string;
-  export default src;
-}
-
 declare module '*.png' {
   const value: string;
   export default value;

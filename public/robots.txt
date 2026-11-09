@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://irsalshydiq.vercel.app/sitemap.xml

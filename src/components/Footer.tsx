@@ -1,143 +1,84 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Github, Linkedin, Instagram, Mail, ArrowUpRight } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
-import { SkillTag } from './SkillTag';
+import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react';
+import { personalInfo } from '../data/personal';
+import { GithubIcon, LinkedinIcon } from './ui/Icons';
 
 export function Footer() {
-  const { theme } = useTheme();
-  const isLight = theme === 'light';
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-  const socialLinks = [
-    { icon: <Github size={15} />, href: 'https://github.com/irsalshydiq', label: 'GitHub' },
-    { icon: <Linkedin size={15} />, href: 'https://linkedin.com/in/LmIrsalshydiq', label: 'LinkedIn' },
-    { icon: <Instagram size={15} />, href: 'https://instagram.com/irsalshydiq', label: 'Instagram' },
-    { icon: <Mail size={15} />, href: 'mailto:Irsalshydiq@gmail.com', label: 'Email' }
-  ];
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className={`
-        border-t transition-colors duration-200 mt-auto
-        ${isLight
-          ? 'bg-[#f5f5f5] border-[#e7e5e4] text-[#4e4e4e]'
-          : 'bg-[#0c0a09] border-[#292524] text-[#a8a29e]'
-        }
-      `}
-    >
-      <div className="max-w-[1200px] mx-auto px-6 py-20 md:py-24">
-        {/* 5-Column Grid at Desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-6 mb-16">
-          {/* Column 1: Editorial Identity */}
-          <div className="sm:col-span-2 md:col-span-1 space-y-3">
-            <Link to="/" className="inline-block">
-              <span className={`font-display text-[24px] tracking-[-0.4px] font-light ${
-                isLight ? 'text-[#0c0a09]' : 'text-white'
-              }`}>
-                Irsal Shydiq
-              </span>
-            </Link>
-            <p className="body-sm text-[14px] leading-relaxed text-[#777169] dark:text-[#a8a29e]">
-              Multidisciplinary design and React engineering with editorial calm.
+    <footer className="border-t border-[#E7E5E4] bg-[#F5F5F5] text-[#4E4E4E] transition-colors mt-auto">
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 py-16 sm:py-20">
+        {/* Main Footer Row */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-[#E7E5E4]">
+          {/* Identity */}
+          <div className="space-y-1">
+            <h3 className="font-display text-[22px] font-light text-[#0C0A09] tracking-[-0.01em]">
+              {personalInfo.name}
+            </h3>
+            <p className="text-[14px] text-[#777169]">
+              {personalInfo.professionalTitle}
             </p>
-            <div className="pt-1">
-              <SkillTag size="sm">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1" />
-                Available 2025
-              </SkillTag>
-            </div>
+            <p className="text-[13px] text-[#777169] pt-1">
+              Bandung, Indonesia • Open to technical collaborations
+            </p>
           </div>
 
-          {/* Column 2: Navigation Index */}
-          <div className="space-y-3">
-            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
-              Index
-            </h4>
-            <ul className="space-y-2">
-              {[
-                { label: 'Overview', to: '/' },
-                { label: 'Selected Works', to: '/portfolio' },
-                { label: 'About & Career', to: '/about' },
-                { label: 'Direct Dispatch', to: '/contact' }
-              ].map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    className={`body-sm text-[14px] hover:underline transition-colors ${
-                      isLight ? 'hover:text-[#0c0a09]' : 'hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Social and Contact Links */}
+          <div className="flex flex-wrap items-center gap-6 sm:gap-8 text-[14px]">
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+            >
+              <GithubIcon size={15} />
+              <span>GitHub</span>
+              <ArrowUpRight size={13} className="opacity-50" />
+            </a>
 
-          {/* Column 3: Design Disciplines */}
-          <div className="space-y-3">
-            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
-              Design
-            </h4>
-            <ul className="space-y-2 body-sm text-[14px] text-[#777169] dark:text-[#a8a29e]">
-              <li>Design Systems</li>
-              <li>Typographic Order</li>
-              <li>UI/UX Ergonomics</li>
-              <li>Figma Tokens</li>
-              <li>User Research</li>
-            </ul>
-          </div>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+            >
+              <LinkedinIcon size={15} />
+              <span>LinkedIn</span>
+              <ArrowUpRight size={13} className="opacity-50" />
+            </a>
 
-          {/* Column 4: Engineering & Media */}
-          <div className="space-y-3">
-            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
-              Engineering
-            </h4>
-            <ul className="space-y-2 body-sm text-[14px] text-[#777169] dark:text-[#a8a29e]">
-              <li>React 18/19</li>
-              <li>TypeScript</li>
-              <li>Tailwind CSS</li>
-              <li>Motion Ergonomics</li>
-              <li>Audio & Video Edit</li>
-            </ul>
-          </div>
-
-          {/* Column 5: Connect */}
-          <div className="space-y-3">
-            <h4 className="caption-uppercase text-[11px] font-semibold tracking-[0.96px] text-[#777169]">
-              Connect
-            </h4>
-            <ul className="space-y-2">
-              {socialLinks.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`body-sm text-[14px] inline-flex items-center gap-1.5 transition-colors ${
-                      isLight ? 'hover:text-[#0c0a09]' : 'hover:text-white'
-                    }`}
-                  >
-                    <span className="opacity-70">{item.icon}</span>
-                    <span>{item.label}</span>
-                    <ArrowUpRight size={12} className="opacity-40" />
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors"
+            >
+              <Mail size={15} />
+              <span>{personalInfo.email}</span>
+            </a>
           </div>
         </div>
 
-        {/* Hairline Divider & Bottom Metadata */}
-        <div className={`pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4 text-xs ${
-          isLight ? 'border-[#e7e5e4] text-[#777169]' : 'border-[#292524] text-[#777169]'
-        }`}>
-          <p>© {new Date().getFullYear()} Irsal Shydiq. Editorial magazine format.</p>
-          <div className="flex items-center gap-4">
-            <span className="font-display italic text-[14px]">Waldenburg 300 / Inter</span>
-            <span>•</span>
-            <span>Bandung, ID</span>
-          </div>
+        {/* Bottom Metadata & Back to Top */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] text-[#777169]">
+          <p>
+            © {currentYear} {personalInfo.name}. All rights reserved. Editorial digital identity.
+          </p>
+
+          <button
+            onClick={scrollToTop}
+            className="inline-flex items-center gap-1.5 text-[#4E4E4E] hover:text-[#0C0A09] transition-colors cursor-pointer group"
+            aria-label="Back to top of page"
+          >
+            <span>Back to top</span>
+            <ArrowUp
+              size={14}
+              className="transition-transform group-hover:-translate-y-0.5"
+            />
+          </button>
         </div>
       </div>
     </footer>
