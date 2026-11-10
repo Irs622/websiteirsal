@@ -237,3 +237,218 @@ textarea:focus-visible {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--colors-muted);
 }
+
+/* ==========================================================================
+   ANATOMY ISOMETRIC ENGINE STYLES (Editorial Warm Paper Calibration)
+   ========================================================================== */
+.iso {
+  --anatomy-page: #fbfbf9;
+  --anatomy-card: #ffffff;
+  --anatomy-text: #44423e;
+  --anatomy-strong: #141413;
+  --anatomy-muted: #6e6b65;
+  --anatomy-paper: #ffffff;
+  --anatomy-face: #fbfbf9;
+  --anatomy-top: #ffffff;
+  --anatomy-shade-0: #dcd8cf;
+  --anatomy-shade-1: #e6e2da;
+  --anatomy-shade-2: #efece6;
+  --anatomy-shade-3: #f6f4f0;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #e8efe9;
+  --anatomy-hi: #141413;
+  --anatomy-mid: #6e6b65;
+  --anatomy-lo: #a8a49c;
+  --anatomy-faint: #d8d4cc;
+  --anatomy-lit: #141413;
+  --anatomy-halo: #8a867c;
+  --anatomy-halo-opacity: 0.26;
+  --anatomy-dot: #2c2b29;
+  --anatomy-red: #b43c3c;
+  --anatomy-green: #1e3a2b;
+  --anatomy-blue: #254b7c;
+  --anatomy-weight: 0.65px;
+  --anatomy-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --anatomy-mono: var(--font-mono);
+}
+
+.iso-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.iso-svg path,
+.iso-svg circle {
+  vector-effect: non-scaling-stroke;
+}
+
+.iso-fill {
+  fill: var(--anatomy-paper);
+  stroke: none;
+}
+
+.iso-solid[data-lit] > .iso-fill {
+  fill: var(--anatomy-face);
+}
+
+.iso-shade,
+.iso-top {
+  stroke: none;
+}
+
+.iso-shade[data-shade="0"] {
+  fill: var(--anatomy-shade-0);
+}
+
+.iso-shade[data-shade="1"] {
+  fill: var(--anatomy-shade-1);
+}
+
+.iso-shade[data-shade="2"] {
+  fill: var(--anatomy-shade-2);
+}
+
+.iso-shade[data-shade="3"] {
+  fill: var(--anatomy-shade-3);
+}
+
+.iso-top {
+  fill: var(--anatomy-top);
+}
+
+.iso-solid[data-lit] > .iso-top {
+  fill: var(--anatomy-lit-top);
+}
+
+.iso-solid[data-lit] > .iso-shade {
+  fill: var(--anatomy-lit-shade);
+}
+
+.iso-solid[data-lit] > .iso-edge {
+  stroke: var(--anatomy-lit);
+  stroke-width: 0.9px;
+}
+
+.iso-halo {
+  fill: var(--anatomy-halo);
+  stroke: none;
+  filter: blur(8px);
+  opacity: var(--anatomy-halo-opacity);
+  transform: translateY(3px);
+}
+
+.iso-line {
+  fill: none;
+  stroke: var(--anatomy-lo);
+  stroke-width: var(--anatomy-weight);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.iso-line[data-tone="hi"] {
+  stroke: var(--anatomy-hi);
+}
+
+.iso-line[data-tone="mid"] {
+  stroke: var(--anatomy-mid);
+}
+
+.iso-line[data-tone="lo"] {
+  stroke: var(--anatomy-lo);
+}
+
+.iso-line[data-tone="faint"] {
+  stroke: var(--anatomy-faint);
+}
+
+.iso-line[data-tone="lit"] {
+  stroke: var(--anatomy-lit);
+  stroke-width: 0.95px;
+}
+
+.iso-line[data-tone="green"] {
+  stroke: var(--anatomy-green);
+  stroke-width: 0.9px;
+}
+
+.iso-line[data-dotted] {
+  stroke-dasharray: 0.01 3.5;
+  stroke-width: 1px;
+}
+
+.iso-line[data-dashed] {
+  stroke-dasharray: 3 3;
+}
+
+.iso-line[data-flow] {
+  stroke-dasharray: 2 6;
+}
+
+.iso-wire-end {
+  fill: var(--anatomy-paper);
+  stroke: var(--anatomy-lo);
+  stroke-width: var(--anatomy-weight);
+}
+
+.iso-wire[data-tone="hi"] .iso-wire-end {
+  stroke: var(--anatomy-hi);
+}
+
+.iso-wire[data-tone="mid"] .iso-wire-end {
+  stroke: var(--anatomy-mid);
+}
+
+.iso-wire[data-tone="lit"] .iso-wire-end {
+  stroke: var(--anatomy-lit);
+}
+
+.iso-dots circle {
+  fill: var(--anatomy-dot);
+  stroke: none;
+  opacity: 0.35;
+}
+
+.iso-dots[data-tone="hi"] circle {
+  opacity: 0.85;
+}
+
+.iso-dots[data-tone="mid"] circle {
+  opacity: 0.48;
+}
+
+.iso-dots[data-tone="lo"] circle {
+  opacity: 0.24;
+}
+
+.iso-face-text {
+  fill: var(--anatomy-mid);
+  font-family: var(--anatomy-mono);
+  letter-spacing: 0.04em;
+  user-select: none;
+}
+
+.iso-face-text[data-tone="hi"] {
+  fill: var(--anatomy-hi);
+}
+
+.iso-face-text[data-tone="lo"] {
+  fill: var(--anatomy-lo);
+}
+
+@keyframes iso-flow {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+.iso-line[data-flow] {
+  animation: iso-flow 1600ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iso-line[data-flow] {
+    animation: none;
+  }
+}

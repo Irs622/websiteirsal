@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ExperienceItem } from '../data/experience';
+import { ExperienceSpinePin } from './ExperienceAnatomyRig';
 
 interface ExperienceTimelineProps {
   items: ExperienceItem[];
@@ -121,6 +122,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
   }, [items.length]);
 
   const scrollToItem = (idx: number) => {
+    setActiveIndex(idx);
     const target = itemRefs.current[idx];
     if (target) {
       const y = target.getBoundingClientRect().top + window.scrollY - 120;
@@ -187,7 +189,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
         {/* Continuous Vertical Hairline Track (Desktop & Mobile) */}
         <div
           aria-hidden="true"
-          className="absolute left-[7px] md:left-[25%] top-0 bottom-0 w-[1px] bg-[#e5e2dc]"
+          className="absolute left-[24px] md:left-[25%] top-0 bottom-0 w-[1px] bg-[#e5e2dc]"
         >
           {/* Live Scroll-Linked Ink Fill */}
           <div
@@ -209,28 +211,21 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                   itemRefs.current[idx] = el;
                 }}
                 data-index={idx}
-                className="relative py-12 sm:py-14 pl-7 md:pl-0 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-12"
+                className="relative py-12 sm:py-14 pl-20 md:pl-0 grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-12"
               >
-                {/* Timeline Axis Node Marker */}
-                <button
-                  type="button"
+                {/* Timeline Axis Node ("Titik" Isometric Anatomy Mechanism per Context) */}
+                <ExperienceSpinePin
+                  index={idx}
+                  company={item.company}
+                  isActive={isActive}
+                  isPassed={isPassed}
+                  scrollProgress={scrollProgress}
+                  reducedMotion={reducedMotion}
                   onClick={() => scrollToItem(idx)}
-                  aria-label={`Focus ${item.company}`}
-                  className="group absolute left-[7px] md:left-[25%] top-14 -translate-x-1/2 z-10 w-4 h-4 flex items-center justify-center cursor-pointer focus:outline-none"
-                >
-                  <span
-                    className={`block rounded-full transition-all duration-500 ${
-                      isActive
-                        ? 'w-3 h-3 bg-[#141413] ring-4 ring-[#fbfbf9] shadow-[0_0_0_1px_#141413]'
-                        : isPassed
-                        ? 'w-2 h-2 bg-[#141413] ring-4 ring-[#fbfbf9]'
-                        : 'w-2 h-2 bg-[#d0ccc3] ring-4 ring-[#fbfbf9] group-hover:bg-[#6e6b65]'
-                    }`}
-                  />
-                </button>
+                />
 
                 {/* Left Column: Sticky Period, Location & Role Type (3 cols = 25% width) */}
-                <div className="md:col-span-3 md:pr-8">
+                <div className="md:col-span-3 md:pr-14">
                   <div
                     className={`md:sticky md:top-32 space-y-1.5 transition-all duration-500 ${
                       isRevealed
@@ -272,7 +267,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
 
                 {/* Right Column: Company, Role, Staggered Responsibilities & Tech Stack (9 cols) */}
                 <div
-                  className={`md:col-span-9 md:pl-8 space-y-5 transition-all duration-700 ease-out ${
+                  className={`md:col-span-9 md:pl-14 space-y-5 transition-all duration-700 ease-out ${
                     isRevealed
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-6'
