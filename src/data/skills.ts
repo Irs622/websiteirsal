@@ -41,7 +41,7 @@ export const expertiseContent: ExpertiseContent = {
       id: 'infrastructure-devops',
       name: 'Infrastructure & Operations',
       tagline: 'Containerized deployments, Linux VPS administration, reverse proxies, and continuous delivery pipelines.',
-      skills: ['Docker', 'Linux (Ubuntu/Debian)', 'Nginx', 'GitHub Actions', 'RESTful APIs', 'Google Play Console']
+      skills: ['Docker', 'Linux', 'Nginx', 'GitHub Actions', 'RESTful APIs', 'Play Console']
     }
   ]
 };

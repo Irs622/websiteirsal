@@ -18,29 +18,28 @@ export const aboutContent: AboutContent = {
   sectionTitle: 'ABOUT',
   headline: 'Engineering grounded in systems architecture, accessibility, and empirical research.',
   narrative: [
-    "I am an Informatics Engineering student at UIN Sunan Gunung Djati Bandung and an LPDP Scholarship Awardee from the Ministry of Religious Affairs Indonesia. My engineering work focuses on full-stack web architectures, native mobile platforms, and assistive technologies that remove usability barriers for individuals with visual impairments.",
-    "At PT Inpartner Optima Integra, I develop and maintain production web applications, addressing Core Web Vitals, organic search indexing, and AI conversational interfaces. Previously at WALHI Jawa Barat, I engineered Laravel web infrastructure and containerized staging environments for regional environmental advocacy publications.",
-    "My engineering philosophy favors deterministic systems, clean data models, and strict accessibility standards over superficial visual ornament. I pair hands-on software development with academic inquiry—currently investigating Web Application Firewall detection efficacy and authoring peer-reviewed research on browser-based educational interfaces."
+    "I am an Informatics Engineering student at UIN Sunan Gunung Djati Bandung and an LPDP Scholarship Awardee. My engineering work focuses on full-stack web architectures, native mobile platforms, and assistive technologies that remove usability barriers.",
+    "Currently an intern at PT Inpartner Optima Integra, I develop production web applications, addressing Core Web Vitals and AI interfaces. My philosophy favors deterministic systems, clean data models, and strict accessibility standards over visual ornament, paired with ongoing research into browser-based educational interfaces."
   ],
   snapshot: [
     {
       label: 'Academic Base',
-      value: 'Informatics Engineering',
-      detail: 'UIN Sunan Gunung Djati Bandung (Class of 2027 • GPA 3.30)'
+      value: 'Informatics Eng. (UIN 27)',
+      detail: 'GPA 3.30 / 4.00'
     },
     {
       label: 'Fellowship',
       value: 'LPDP Scholar',
-      detail: 'Ministry of Religious Affairs Indonesia'
+      detail: 'Ministry of Religious Affairs'
     },
     {
-      label: 'Current Engagement',
+      label: 'Engagement',
       value: 'Software Engineer Intern',
-      detail: 'PT Inpartner Optima Integra (Jakarta / Hybrid)'
+      detail: 'PT Inpartner Optima Integra'
     },
     {
-      label: 'Engineering Practice',
-      value: 'Full-Stack, Mobile & a11y',
+      label: 'Engineering',
+      value: 'Full-Stack, Mobile, a11y',
       detail: 'Bandung, Indonesia (UTC+7)'
     }
   ],
@@ -48,8 +47,7 @@ export const aboutContent: AboutContent = {
     'Accessible Computing (WCAG 2.2 AAA)',
     'Full-Stack Web Architecture',
     'Native Android & Kotlin',
-    'Web Application Security & Firewalls',
     'Applied Artificial Intelligence',
-    'Containerization & Linux Systems'
+    'Security & Firewalls'
   ]
 };

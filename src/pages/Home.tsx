@@ -24,6 +24,7 @@ import { Badge } from '../components/ui/Badge';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { ProjectShowcase } from '../components/ProjectShowcase';
 import { ExperienceTimeline } from '../components/ExperienceTimeline';
+import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 
 import portraitImg from '../assets/irsal-portrait.png';
@@ -211,27 +212,28 @@ export function Home() {
       <section
         id="about"
         aria-label="About LM. Irsal Shydiq"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
+        className="py-14 sm:py-16 px-6 sm:px-8 border-b border-[#e5e2dc]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
             number="01"
             label={aboutContent.sectionTitle}
             headline={aboutContent.headline}
+            className="!mb-5 sm:!mb-6"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left: Editorial Narrative & Guiding Thesis (7 cols) */}
-            <div className="lg:col-span-7 space-y-6">
-              <blockquote className="display-md italic text-[#141413] border-l-2 border-[#141413] pl-5 py-1 leading-snug">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            {/* Left: Editorial Narrative & Guiding Thesis (6 cols) */}
+            <div className="lg:col-span-6 space-y-3.5">
+              <blockquote className="text-[17px] sm:text-[19px] font-display italic text-[#141413] border-l-2 border-[#141413] pl-4 py-0.5 leading-snug">
                 "{personalInfo.brandStatement}"
               </blockquote>
 
-              <div className="space-y-4 pt-2">
+              <div className="space-y-3">
                 {aboutContent.narrative.map((paragraph, idx) => (
                   <p
                     key={idx}
-                    className="text-[16px] leading-[1.75] text-[#44423e]"
+                    className="text-[15px] sm:text-[15.5px] leading-[1.65] text-[#44423e]"
                   >
                     {paragraph}
                   </p>
@@ -239,51 +241,27 @@ export function Home() {
               </div>
             </div>
 
-            {/* Right: Open Academic & Professional Dossier Margin (5 cols) */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
-                <div className="py-4 space-y-1">
-                  <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65]">
-                    <span className="text-[#141413] font-medium flex items-center gap-1.5">
-                      <GraduationCap size={14} />
-                      Academic Base
-                    </span>
-                    <span>Class of 2027</span>
-                  </div>
-                  <h4 className="title-sm text-[#141413]">Informatics Engineering</h4>
-                  <p className="caption text-[#6e6b65]">
-                    UIN Sunan Gunung Djati Bandung &bull; Cumulative GPA: 3.30 / 4.00
-                  </p>
-                </div>
-
-                <div className="py-4 space-y-1">
-                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Fellowship</span>
-                  <div className="flex items-center gap-2 text-[13px] font-medium text-[#1e3a2b]">
-                    <Award size={15} />
-                    <span>LPDP Scholarship Awardee</span>
-                  </div>
-                  <p className="caption text-[#6e6b65] text-[12px]">Ministry of Religious Affairs (Kemenag RI)</p>
-                </div>
-
-                <div className="py-4 space-y-1">
-                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Current Production Role</span>
-                  <span className="font-medium text-[#141413] text-[14px] block">Software Engineer Intern</span>
-                  <span className="caption text-[#6e6b65] text-[12px] block">PT Inpartner Optima Integra &bull; Jakarta / Hybrid</span>
-                </div>
-
-                <div className="py-4 space-y-1">
-                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Prior Production Role</span>
-                  <span className="font-medium text-[#141413] text-[14px] block">Full Stack Developer Intern</span>
-                  <span className="caption text-[#6e6b65] text-[12px] block">WALHI Jawa Barat &bull; Laravel, Docker, Linux VPS</span>
-                </div>
-
-                <div className="py-4 space-y-1">
-                  <span className="caption-uppercase text-[10px] text-[#9c9890] block">Engineering Focus</span>
-                  <span className="text-[13px] text-[#44423e] block">Full-Stack Web, Native Android, Accessible Systems (WCAG 2.2 AAA)</span>
-                  <span className="caption text-[#6e6b65] text-[11px] font-mono block">Bandung, West Java, Indonesia &bull; UTC+7</span>
-                </div>
-              </div>
+            {/* Right: Isometric Anatomy Rig (6 cols) */}
+            <div className="lg:col-span-6">
+              <AboutEngineerAnatomy />
             </div>
+          </div>
+
+          {/* Full-Width Single-Row Dossier Bar spanning Left to Right */}
+          <div className="mt-7 pt-5 border-t border-[#e5e2dc] grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-8">
+            {aboutContent.snapshot.map((item) => (
+              <div key={item.label} className="space-y-0.5">
+                <span className="caption-uppercase text-[10px] text-[#9c9890] block">
+                  {item.label}
+                </span>
+                <span className="font-medium text-[#141413] text-[14px] block">
+                  {item.value}
+                </span>
+                <span className="caption text-[#6e6b65] text-[12px] block">
+                  {item.detail}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -309,7 +287,7 @@ export function Home() {
             {expertiseContent.categories.map((category, idx) => (
               <div
                 key={category.id}
-                className="py-8 sm:py-9 grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline"
+                className="py-8 sm:py-9 grid grid-cols-1 md:grid-cols-12 gap-6 items-start"
               >
                 <div className="md:col-span-1 font-mono text-[12px] text-[#9c9890]">
                   0{idx + 1}
@@ -324,15 +302,17 @@ export function Home() {
                   </p>
                 </div>
 
-                <div className="md:col-span-7 flex flex-wrap gap-2 pt-1 md:pt-0">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="font-mono text-[12px] px-2.5 py-1 bg-[#ffffff] border border-[#e5e2dc] rounded-xs text-[#242321]"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                <div className="md:col-span-7 pt-1 md:pt-0">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 w-full md:max-w-[340px] md:ml-auto">
+                    {category.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="font-mono text-[9px] sm:text-[9.5px] px-1.5 py-0.5 bg-[#ffffff] border border-[#e5e2dc] rounded-xs text-[#242321] text-center flex items-center justify-center"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
