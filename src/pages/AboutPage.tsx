@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, GraduationCap, Award } from 'lucide-react';
+import { ArrowLeft, GraduationCap, Award, FileText, Download } from 'lucide-react';
 import { personalInfo } from '../data/personal';
 import { aboutContent } from '../data/about';
-import { Badge } from '../components/ui/Badge';
+import { Button } from '../components/ui/Button';
 import portraitImg from '../assets/irsal-portrait.png';
 
 export function AboutPage() {
@@ -109,6 +109,23 @@ export function AboutPage() {
               <span className="caption-uppercase text-[10px] text-[#9c9890] block">Engineering Practice</span>
               <span className="text-[13px] text-[#44423e] block">Full-Stack Web, Native Android, Accessible Systems (WCAG 2.2 AAA)</span>
               <span className="caption text-[#6e6b65] text-[11px] font-mono block">Bandung, West Java, Indonesia &bull; UTC+7</span>
+            </div>
+
+            <div className="pt-5 flex items-center gap-2.5">
+              <Link to="/cv" className="inline-block">
+                <Button variant="outline" size="sm" icon={<FileText size={13} />}>
+                  Curriculum Vitae
+                </Button>
+              </Link>
+              <a
+                href="/cv-irsal-shydiq.pdf"
+                download="LM_Irsal_Shydiq_CV.pdf"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-mono text-[#6e6b65] hover:text-[#141413] border border-[#e5e2dc] rounded-sm bg-white hover:bg-[#f5f4f0] transition-colors"
+                title="Download Official CV (PDF)"
+              >
+                <Download size={12} />
+                <span>PDF</span>
+              </a>
             </div>
           </div>
         </div>

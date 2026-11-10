@@ -28,6 +28,7 @@ export function Navigation() {
     { label: 'Work', to: '/#projects' },
     { label: 'Research', to: '/#research' },
     { label: 'Education', to: '/#education' },
+    { label: 'CV', to: '/cv' },
     { label: 'Contact', to: '/#contact' }
   ];
 
@@ -71,20 +72,35 @@ export function Navigation() {
             aria-label="Primary navigation"
             className="hidden md:flex items-center gap-6 lg:gap-8"
           >
-            {navLinks.map((item) => (
-              <a
-                key={item.label}
-                href={item.to}
-                onClick={(e) => handleNavClick(e, item.to)}
-                className="nav-link text-[#6e6b65] hover:text-[#141413] transition-colors py-1 text-[14px]"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navLinks.map((item) =>
+              item.to.startsWith('/#') ? (
+                <a
+                  key={item.label}
+                  href={item.to}
+                  onClick={(e) => handleNavClick(e, item.to)}
+                  className="nav-link text-[#6e6b65] hover:text-[#141413] transition-colors py-1 text-[14px]"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className="nav-link text-[#6e6b65] hover:text-[#141413] transition-colors py-1 text-[14px]"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
 
           {/* Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2.5">
+            <Link to="/cv" className="inline-block">
+              <Button variant="ghost" size="sm">
+                Curriculum Vitae
+              </Button>
+            </Link>
             <a
               href={`mailto:${personalInfo.email}?subject=Collaboration%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
               className="inline-block"
@@ -115,19 +131,30 @@ export function Navigation() {
             aria-label="Mobile Navigation"
           >
             <div className="flex flex-col gap-3">
-              {navLinks.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.to}
-                  onClick={(e) => {
-                    handleNavClick(e, item.to);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="nav-link text-[#141413] py-2 border-b border-[#eeebe6] text-[15px]"
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navLinks.map((item) =>
+                item.to.startsWith('/#') ? (
+                  <a
+                    key={item.label}
+                    href={item.to}
+                    onClick={(e) => {
+                      handleNavClick(e, item.to);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="nav-link text-[#141413] py-2 border-b border-[#eeebe6] text-[15px]"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="nav-link text-[#141413] py-2 border-b border-[#eeebe6] text-[15px]"
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
               <div className="pt-3">
                 <a
                   href={`mailto:${personalInfo.email}?subject=Collaboration%20Inquiry`}

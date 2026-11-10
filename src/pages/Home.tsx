@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ArrowDown,
   ArrowUpRight,
   Mail,
   MapPin,
   FileText,
+  Download,
   Award,
   GraduationCap
 } from 'lucide-react';
@@ -127,17 +129,24 @@ export function Home() {
                   Explore Selected Work
                 </Button>
 
-                <a
-                  href={`mailto:${personalInfo.email}?subject=Collaboration%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
-                  className="inline-block"
-                >
+                <Link to="/cv" className="inline-block">
                   <Button
                     variant="outline"
                     size="md"
                     icon={<FileText size={14} />}
                   >
-                    Request CV
+                    Curriculum Vitae
                   </Button>
+                </Link>
+
+                <a
+                  href="/cv-irsal-shydiq.pdf"
+                  download="LM_Irsal_Shydiq_CV.pdf"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 text-[13px] font-mono text-[#6e6b65] hover:text-[#141413] border border-[#e5e2dc] rounded-sm bg-white hover:bg-[#f5f4f0] transition-colors"
+                  title="Download Official CV (PDF)"
+                >
+                  <Download size={13} />
+                  <span>PDF</span>
                 </a>
               </div>
 

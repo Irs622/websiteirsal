@@ -9,6 +9,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ExperiencePage } from './pages/ExperiencePage';
 import { ResearchPage } from './pages/ResearchPage';
 import { ContactPage } from './pages/ContactPage';
+import { CvPage } from './pages/CvPage';
 import { NotFound } from './pages/NotFound';
 
 function ScrollHandler() {
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="/projects/:slug" element={<ProjectDetail />} />
             <Route path="/research" element={<ResearchPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/cv" element={<CvPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

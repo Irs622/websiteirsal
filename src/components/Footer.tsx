@@ -41,6 +41,7 @@ export function Footer() {
                 { label: 'Work History', to: '/experience' },
                 { label: 'Selected Work', to: '/projects' },
                 { label: 'Applied Research', to: '/research' },
+                { label: 'Curriculum Vitae (CV)', to: '/cv' },
                 { label: 'Inquiries & Contact', to: '/contact' }
               ].map((item) => (
                 <li key={item.to}>

@@ -5,6 +5,8 @@ export interface PersonalInfo {
   tagline: string;
   location: string;
   email: string;
+  phone: string;
+  cvPdf: string;
   github: string;
   linkedin: string;
   brandStatement: string;
@@ -20,6 +22,8 @@ export const personalInfo: PersonalInfo = {
   tagline: 'Software Engineer • Full-Stack Web & Mobile Systems',
   location: 'Bandung, Indonesia',
   email: 'ichalprov@gmail.com',
+  phone: '+62 821-8727-0634',
+  cvPdf: '/cv-irsal-shydiq.pdf',
   github: 'https://github.com/irs622',
   linkedin: 'https://linkedin.com/in/irsalshydiq',
   brandStatement: 'Software engineer building resilient web systems, native applications, and accessible computing interfaces.',

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowUpRight, MapPin, Copy, Check } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, MapPin, Copy, Check, Phone, FileText } from 'lucide-react';
 import { personalInfo } from '../data/personal';
 import { Button } from '../components/ui/Button';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
@@ -88,6 +88,11 @@ export function ContactPage() {
                 Launch Mail Client
               </Button>
             </a>
+            <Link to="/cv" className="inline-block">
+              <Button variant="outline" size="md" icon={<FileText size={14} />}>
+                Curriculum Vitae
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -95,8 +100,19 @@ export function ContactPage() {
         <div className="lg:col-span-5 space-y-4">
           <div className="bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-5 space-y-3">
             <span className="caption-uppercase text-[#6e6b65] block">
-              Repositories &amp; Networks
+              Direct Contact &amp; Networks
             </span>
+
+            <a
+              href={`tel:${personalInfo.phone.replace(/[\s-]/g, '')}`}
+              className="flex items-center justify-between p-2.5 rounded-sm hover:bg-[#f5f4f0] transition-colors border border-transparent hover:border-[#e5e2dc]"
+            >
+              <div className="flex items-center gap-2.5">
+                <Phone size={15} className="text-[#141413]" />
+                <span className="font-mono text-[13px] text-[#141413]">{personalInfo.phone}</span>
+              </div>
+              <ArrowUpRight size={13} className="text-[#6e6b65]" />
+            </a>
 
             <a
               href={personalInfo.github}
