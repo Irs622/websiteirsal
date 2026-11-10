@@ -215,17 +215,21 @@ export function Home() {
         className="py-14 sm:py-16 px-6 sm:px-8 border-b border-[#e5e2dc]"
       >
         <div className="max-w-[1200px] mx-auto">
-          <SectionHeader
-            number="01"
-            label={aboutContent.sectionTitle}
-            headline={aboutContent.headline}
-            className="!mb-5 sm:!mb-6"
-          />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left: Section Header, Guiding Thesis & Editorial Narrative (6 cols) */}
+            <div className="lg:col-span-6 space-y-4">
+              <div>
+                <div className="flex items-center gap-2 mb-2 text-[11px] font-mono text-[#6e6b65] tracking-wider uppercase">
+                  <span className="text-[#141413] font-medium">01</span>
+                  <span className="text-[#d0ccc3]">&bull;</span>
+                  <span>{aboutContent.sectionTitle}</span>
+                </div>
+                <h2 className="display-lg text-[#141413] tracking-[-0.01em]">
+                  {aboutContent.headline}
+                </h2>
+              </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-            {/* Left: Editorial Narrative & Guiding Thesis (6 cols) */}
-            <div className="lg:col-span-6 space-y-3.5">
-              <blockquote className="text-[17px] sm:text-[19px] font-display italic text-[#141413] border-l-2 border-[#141413] pl-4 py-0.5 leading-snug">
+              <blockquote className="text-[17px] sm:text-[18.5px] font-display italic text-[#141413] border-l-2 border-[#141413] pl-4 py-0.5 leading-snug">
                 "{personalInfo.brandStatement}"
               </blockquote>
 
@@ -233,7 +237,7 @@ export function Home() {
                 {aboutContent.narrative.map((paragraph, idx) => (
                   <p
                     key={idx}
-                    className="text-[15px] sm:text-[15.5px] leading-[1.65] text-[#44423e]"
+                    className="text-[15px] leading-[1.65] text-[#44423e]"
                   >
                     {paragraph}
                   </p>
@@ -248,7 +252,7 @@ export function Home() {
           </div>
 
           {/* Full-Width Single-Row Dossier Bar spanning Left to Right */}
-          <div className="mt-7 pt-5 border-t border-[#e5e2dc] grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-8">
+          <div className="mt-8 pt-6 border-t border-[#e5e2dc] grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {aboutContent.snapshot.map((item) => (
               <div key={item.label} className="space-y-0.5">
                 <span className="caption-uppercase text-[10px] text-[#9c9890] block">
