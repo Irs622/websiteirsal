@@ -568,6 +568,11 @@ function buildWorkstationAnatomy() {
     phoneBody: slabOf(phonePlan, 1.75, 1.55, P, 4, 0.35),
     phoneScreen: slabOf(phoneScreenPlan, 3.3, 0.3, P, 3, 0.12),
     phoneBar: lineOnTop([-15.1, 17.2], [-12.5, 17.2], 3.65, P),
+    phoneNoticeLines: join([
+      lineOnTop([-15.8, 11.2], [-12.0, 11.2], 3.65, P),
+      lineOnTop([-15.8, 13.6], [-13.2, 13.6], 3.65, P)
+    ]),
+    phoneNoticeDot: [at([-16.3, 11.2, 3.65])],
 
     // Small Accessory Case
     caseBody: slabOf(casePlan, 1.75, 2.6, P, 4, 0.45),
@@ -587,12 +592,48 @@ export function AboutEngineerAnatomy() {
   const geo = useMemo(() => buildWorkstationAnatomy(), []);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  // Core environmental states
   const [hovered, setHovered] = useState(false);
-  const [lampLit, setLampLit] = useState(true);
   const [inView, setInView] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [phase, setPhase] = useState(0);
 
+  // Scroll tracking states
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollVelocityRef = useRef(0);
+  const lastScrollY = useRef(0);
+  const lastScrollTime = useRef(0);
+
+  // Pointer tilt physics
+  const pointerTiltRef = useRef({ x: 0, y: 0 });
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  // Interactive items state
+  const [lampLit, setLampLit] = useState(true);
+  const [lampRecoilAge, setLampRecoilAge] = useState(10);
+  const [hyperTypingTimer, setHyperTypingTimer] = useState(0);
+  const [engineerMood, setEngineerMood] = useState<'focused' | 'flow'>('flow');
+  const [coffeeSips, setCoffeeSips] = useState(0);
+  const [coffeeBoostTimer, setCoffeeBoostTimer] = useState(0);
+  const [coffeeLiftAge, setCoffeeLiftAge] = useState(10);
+  const [manualCheckCount, setManualCheckCount] = useState<number | null>(null);
+  const [padBounceAge, setPadBounceAge] = useState(10);
+  const [phoneAwake, setPhoneAwake] = useState(true);
+  const [plantBounceAge, setPlantBounceAge] = useState(10);
+  const [bookShiftAge, setBookShiftAge] = useState(10);
+  const [caseActive, setCaseActive] = useState(true);
+
+  // Telemetry banner feedback
+  const [telemetryMessage, setTelemetryMessage] = useState<string | null>(null);
+  const telemetryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const announce = (msg: string) => {
+    setTelemetryMessage(msg);
+    if (telemetryTimeoutRef.current) clearTimeout(telemetryTimeoutRef.current);
+    telemetryTimeoutRef.current = setTimeout(() => setTelemetryMessage(null), 3200);
+  };
+
+  // 1. Reduced Motion Preference
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return;
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -602,6 +643,7 @@ export function AboutEngineerAnatomy() {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
+  // 2. Intersection Observer (Loop efficiency when offscreen)
   useEffect(() => {
     const node = containerRef.current;
     if (!node || typeof IntersectionObserver === 'undefined') return;
@@ -609,12 +651,61 @@ export function AboutEngineerAnatomy() {
       ([entry]) => {
         if (entry) setInView(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { threshold: 0.05, rootMargin: '120px 0px' }
     );
     io.observe(node);
     return () => io.disconnect();
   }, []);
 
+  // 3. Scroll Tracker & Velocity Monitor
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    lastScrollY.current = window.scrollY;
+    lastScrollTime.current = performance.now();
+
+    const onScroll = () => {
+      const node = containerRef.current;
+      if (!node) return;
+      const rect = node.getBoundingClientRect();
+      const windowH = window.innerHeight || 800;
+      const total = windowH + rect.height;
+      const current = windowH - rect.top;
+      const prog = Math.max(0, Math.min(1, current / total));
+      setScrollProgress(prog);
+
+      const now = performance.now();
+      const dt = Math.max(16, now - lastScrollTime.current);
+      const dy = window.scrollY - lastScrollY.current;
+      lastScrollY.current = window.scrollY;
+      lastScrollTime.current = now;
+      scrollVelocityRef.current = Math.max(-80, Math.min(80, dy / dt));
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // 4. Interactive Pointer Move for 3D Tilt
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (reducedMotion) return;
+    const node = containerRef.current;
+    if (!node) return;
+    const rect = node.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    pointerTiltRef.current = {
+      x: -py * 5.0, // tilt X up/down
+      y: px * 6.5   // tilt Y left/right
+    };
+  };
+
+  const handlePointerLeave = () => {
+    pointerTiltRef.current = { x: 0, y: 0 };
+    setHovered(false);
+  };
+
+  // 5. Main Animation & Physics Loop (RAF)
   useEffect(() => {
     if (!inView || reducedMotion) return;
     let rafId = 0;
@@ -623,57 +714,188 @@ export function AboutEngineerAnatomy() {
     const loop = (now: number) => {
       const dt = Math.min((now - last) / 1000, 1 / 30);
       last = now;
-      setPhase((prev) => prev + dt * Math.PI * 2 * (hovered ? 0.95 : 0.55));
+
+      // Scroll velocity smooth decay
+      scrollVelocityRef.current *= 0.91;
+      const scrollSpeedBoost = Math.min(2.5, Math.abs(scrollVelocityRef.current) * 0.9);
+
+      // Decrement interactive event timers
+      setHyperTypingTimer((prev) => Math.max(0, prev - dt));
+      setCoffeeBoostTimer((prev) => Math.max(0, prev - dt));
+      setLampRecoilAge((prev) => prev + dt);
+      setCoffeeLiftAge((prev) => prev + dt);
+      setPadBounceAge((prev) => prev + dt);
+      setPlantBounceAge((prev) => prev + dt);
+      setBookShiftAge((prev) => prev + dt);
+
+      // Smooth pointer tilt interpolation
+      setTilt((prev) => ({
+        x: prev.x + (pointerTiltRef.current.x - prev.x) * (dt * 7.5),
+        y: prev.y + (pointerTiltRef.current.y - prev.y) * (dt * 7.5)
+      }));
+
+      // Combined cadence driver
+      const isHyper = hyperTypingTimer > 0;
+      const isBoosted = coffeeBoostTimer > 0;
+      const baseCadence = hovered ? 0.95 : 0.6;
+      const cadence =
+        (baseCadence + scrollSpeedBoost + (isHyper ? 2.8 : 0) + (isBoosted ? 0.75 : 0)) *
+        (Math.PI * 2);
+
+      setPhase((prev) => prev + dt * cadence);
       rafId = requestAnimationFrame(loop);
     };
 
     rafId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafId);
-  }, [inView, reducedMotion, hovered]);
+  }, [inView, reducedMotion, hovered, hyperTypingTimer, coffeeBoostTimer]);
 
+  // Direct Interactive Action Handlers (clean side-effects outside state updaters)
+  const toggleLamp = () => {
+    setLampLit((prev) => !prev);
+    setLampRecoilAge(0);
+    announce(lampLit ? 'Architect Lamp: Standby' : 'Architect Lamp: Active (3000K Warm Beam)');
+  };
+
+  const triggerHyperTyping = () => {
+    setHyperTypingTimer(3.0);
+    announce('Workstation: High-Throughput Compilation Mode');
+  };
+
+  const toggleEngineerMood = () => {
+    setEngineerMood((prev) => (prev === 'focused' ? 'flow' : 'focused'));
+    announce(engineerMood === 'focused' ? 'Audio: Lo-Fi Coding Beats (Flow State)' : 'Audio: Muted (Deep Focus)');
+  };
+
+  const sipCoffee = () => {
+    setCoffeeSips((prev) => (prev + 1) % 5);
+    setCoffeeBoostTimer(4.5);
+    setCoffeeLiftAge(0);
+    announce('Caffeine: Single-Origin Pour Over (+25% Speed Boost)');
+  };
+
+  const cycleChecklist = () => {
+    setManualCheckCount((prev) => (prev === null ? 1 : (prev + 1) % 4));
+    setPadBounceAge(0);
+    announce('Checklist: Architecture Milestones Updated');
+  };
+
+  const togglePhone = () => {
+    setPhoneAwake((prev) => !prev);
+    announce(phoneAwake ? 'Mobile Test Dock: Screen Standby' : 'Mobile Test Dock: Active (Incoming Ping)');
+  };
+
+  const pokePlant = () => {
+    setPlantBounceAge(0);
+    announce('Botanical: Succulent Potted Desk Specimen');
+  };
+
+  const nudgeBooks = () => {
+    setBookShiftAge(0);
+    announce('References: Systems Architecture & A11y Standards');
+  };
+
+  const toggleCase = () => {
+    setCaseActive((prev) => !prev);
+    announce(caseActive ? 'Accessory Case: Standby' : 'Accessory Case: Status LED Green');
+  };
+
+  // Derive all animated transforms & visual parameters
   const anim = useMemo(() => {
-    const sinP = Math.sin(phase);
+    const isHyper = hyperTypingTimer > 0;
+    const isFlow = engineerMood === 'flow';
 
-    // Engineer rhythmic head nod
-    const headDz = reducedMotion ? 0 : sinP * 0.5;
+    // 1. Lamp Recoil Spring
+    const lampBounce =
+      reducedMotion || lampRecoilAge > 1.2
+        ? 0
+        : Math.sin(lampRecoilAge * Math.PI * 5) * Math.exp(-lampRecoilAge * 4) * 0.8;
+    const lampTransform = translateAlong(P, [0, 0, lampBounce]);
+
+    // 2. Engineer head nod & rhythmic vibe
+    const headNodAmp = isFlow ? 0.75 : 0.45;
+    const headDz = reducedMotion ? 0 : Math.sin(phase) * headNodAmp;
     const headTransform = translateAlong(P, [0, 0, headDz]);
 
-    // Natural eye blink every ~2 cycles
-    const blinkMod = (phase % (Math.PI * 4)) / (Math.PI * 4);
-    const isBlinking = !reducedMotion && blinkMod > 0.92;
+    // Blinking logic (less frequent when hyper-typing)
+    const blinkCycle = isHyper ? Math.PI * 6 : Math.PI * 4;
+    const blinkMod = (phase % blinkCycle) / blinkCycle;
+    const isBlinking = !reducedMotion && !isFlow && blinkMod > 0.92;
 
-    // Alternating left & right chibi hands typing on the laptop
-    const leftHandDz = reducedMotion ? 0 : Math.min(0, Math.sin(phase * 3.2)) * 1.15;
-    const rightHandDz = reducedMotion ? 0 : Math.min(0, Math.cos(phase * 3.2)) * 1.15;
+    // 3. Chibi hands typing pace
+    const handSpeed = isHyper ? 6.5 : isFlow ? 3.8 : 3.2;
+    const leftHandDz = reducedMotion ? 0 : Math.min(0, Math.sin(phase * handSpeed)) * 1.35;
+    const rightHandDz = reducedMotion ? 0 : Math.min(0, Math.cos(phase * handSpeed)) * 1.35;
     const leftHandTransform = translateAlong(P, [0, 0, leftHandDz]);
     const rightHandTransform = translateAlong(P, [0, 0, rightHandDz]);
 
-    // Active depressed mechanical keycaps on the 15-key matrix
-    const activeKeyA = Math.floor(((phase * 3.4) % 8 + 8) % 8);
-    const activeKeyB = 7 + Math.floor(((phase * 2.8 + 2) % 8 + 8) % 8);
-    const keyPressTransform = translateAlong(P, [0, 0, -0.8]);
+    // 4. Mechanical keycaps active matrix
+    const keyCadence = isHyper ? 8.2 : 3.4;
+    const activeKeyA = Math.floor(((phase * keyCadence) % 8 + 8) % 8);
+    const activeKeyB = 7 + Math.floor(((phase * (keyCadence * 0.85) + 2) % 8 + 8) % 8);
+    const keyPressTransform = translateAlong(P, [0, 0, -0.9]);
 
-    // Progressive code typing bars on the widescreen monitor
-    const codeStep = (phase * 0.45) % 4;
-    const w1 = Math.min(1, Math.max(0.25, codeStep));
-    const w2 = Math.min(1, Math.max(0.2, codeStep - 0.6));
-    const w3 = Math.min(1, Math.max(0.25, codeStep - 1.2));
-    const cursorOn = reducedMotion ? true : Math.sin(phase * 2.8) > -0.15;
+    // 5. Widescreen monitor code progression
+    // Tied to both loop phase and scroll progress
+    const scrollDrivenStep = scrollProgress * 3.8;
+    const loopStep = (phase * (isHyper ? 1.2 : 0.45)) % 4;
+    const codeStep = (loopStep + scrollDrivenStep) % 4;
+    const w1 = Math.min(1, Math.max(0.2, codeStep));
+    const w2 = Math.min(1, Math.max(0.15, codeStep - 0.5));
+    const w3 = Math.min(1, Math.max(0.2, codeStep - 1.1));
+    const cursorOn = reducedMotion ? true : Math.sin(phase * (isHyper ? 5.5 : 2.8)) > -0.15;
 
-    // Notepad checkboxes progressively checking off (0..3)
-    const checkedCount = reducedMotion ? 3 : Math.floor((phase * 0.4) % 4);
+    // 6. Checklist notepad tasks (0..3)
+    const autoChecked = Math.min(3, Math.floor(scrollProgress * 4.2));
+    const checkedCount =
+      manualCheckCount !== null
+        ? manualCheckCount
+        : reducedMotion
+          ? 3
+          : autoChecked;
 
-    // Rising steam rings above the `</>` coffee mug
-    const steamDz = reducedMotion ? 0 : ((phase * 0.75) % (Math.PI * 2)) / (Math.PI * 2) * 1.8;
-    const steamTransform = translateAlong(P, [0, 0, steamDz]);
+    const padBounce =
+      reducedMotion || padBounceAge > 1.0
+        ? 0
+        : Math.sin(padBounceAge * Math.PI * 6) * Math.exp(-padBounceAge * 4.5) * 1.1;
+    const padTransform = translateAlong(P, [0, 0, padBounce]);
 
-    // Succulent plant gentle vertical breath
-    const plantDz = reducedMotion ? 0 : Math.sin(phase * 1.5) * 0.35;
-    const plantTransform = translateAlong(P, [0, 0, plantDz]);
+    // 7. Coffee mug lift & steam rings
+    const mugLift =
+      reducedMotion || coffeeLiftAge > 1.8
+        ? 0
+        : Math.sin(coffeeLiftAge * Math.PI * 2) * Math.exp(-coffeeLiftAge * 2.2) * 1.6;
+    const mugTransform = translateAlong(P, [0, 0, mugLift]);
+
+    const steamBaseDz = ((phase * 0.75) % (Math.PI * 2)) / (Math.PI * 2) * 1.9;
+    const steamBoost = coffeeBoostTimer > 0 ? 0.8 : 0;
+    const steamTransform = translateAlong(P, [0, 0, reducedMotion ? 0 : steamBaseDz + steamBoost]);
+
+    // 8. Succulent plant jiggle
+    const plantBreath = Math.sin(phase * 1.5) * 0.35;
+    const plantJiggle =
+      plantBounceAge > 1.2
+        ? 0
+        : Math.sin(plantBounceAge * Math.PI * 7) * Math.exp(-plantBounceAge * 3.8) * 1.5;
+    const plantTransform = translateAlong(P, [0, 0, reducedMotion ? 0 : plantBreath + plantJiggle]);
+
+    // 9. Stack of books top nudge
+    const bookSlide =
+      reducedMotion || bookShiftAge > 1.2
+        ? 0
+        : Math.sin(bookShiftAge * Math.PI * 3) * Math.exp(-bookShiftAge * 3.2) * 1.4;
+    const bookTopTransform = translateAlong(P, [bookSlide * 0.7, bookSlide * 0.7, 0]);
+
+    // 10. Lo-fi Equalizer Wave Bars on Headphones (Flow State)
+    const eq1 = 0.5 + Math.sin(phase * 4.2) * 0.45;
+    const eq2 = 0.5 + Math.cos(phase * 5.1) * 0.45;
+    const eq3 = 0.5 + Math.sin(phase * 3.6 + 1.2) * 0.45;
 
     return {
+      lampTransform,
       headTransform,
       isBlinking,
+      isFlow,
       leftHandTransform,
       rightHandTransform,
       activeKeyA,
@@ -684,43 +906,66 @@ export function AboutEngineerAnatomy() {
       w3,
       cursorOn,
       checkedCount,
+      padTransform,
+      mugTransform,
       steamTransform,
-      plantTransform
+      plantTransform,
+      bookTopTransform,
+      isHyper,
+      eq1,
+      eq2,
+      eq3
     };
-  }, [phase, reducedMotion]);
+  }, [
+    phase,
+    reducedMotion,
+    hyperTypingTimer,
+    coffeeBoostTimer,
+    lampRecoilAge,
+    coffeeLiftAge,
+    padBounceAge,
+    plantBounceAge,
+    bookShiftAge,
+    scrollProgress,
+    manualCheckCount,
+    engineerMood
+  ]);
+
+  // Telemetry status labels
+  const coffeeLevel = 4 - coffeeSips;
+  const coffeeBar = coffeeLevel === 0 ? 'EMPTY' : '▮'.repeat(coffeeLevel) + '▯'.repeat(4 - coffeeLevel);
 
   return (
     <figure
       ref={containerRef}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
       className="iso w-full overflow-visible"
     >
       <div
-        role="button"
-        tabIndex={0}
-        onClick={() => setLampLit((prev) => !prev)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setLampLit((prev) => !prev);
-          }
+        style={{
+          transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1)'
         }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        aria-label="Interactive Isometric Engineer Coding Anatomy — Click to toggle architect lamp"
-        className="relative cursor-pointer select-none focus:outline-none group"
+        className="relative select-none group"
       >
         <svg
           className="iso-svg w-full h-auto overflow-visible"
           viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
           role="img"
-          aria-label="Isometric Anatomy figure of a software engineer in a green hoodie and headphones coding on a laptop in front of a widescreen monitor, architect lamp, coffee mug, smartphone, notepad, plant, and books"
+          aria-label="Interactive Isometric Engineer Coding Workstation with clickable peripherals, real-time telemetry, and scroll-driven parallax"
         >
           <defs>
             <linearGradient id="iso-lamp-glow" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#fde047" stopOpacity={lampLit ? '0.32' : '0'} />
-              <stop offset="55%" stopColor="#fef08a" stopOpacity={lampLit ? '0.12' : '0'} />
+              <stop offset="0%" stopColor="#fde047" stopOpacity={lampLit ? '0.34' : '0'} />
+              <stop offset="55%" stopColor="#fef08a" stopOpacity={lampLit ? '0.14' : '0'} />
               <stop offset="100%" stopColor="#fef9c3" stopOpacity="0" />
             </linearGradient>
+            <filter id="iso-soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="0.8" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
           </defs>
 
           {/* ==============================================================
@@ -748,106 +993,148 @@ export function AboutEngineerAnatomy() {
           {/* ==============================================================
               2. BACK-RIGHT: ARCHITECT LAMP & WIDESCREEN CODE MONITOR
               ============================================================== */}
-          <Solid paths={geo.backRig.lampBase} tone="mid" crease="faint" color="sand" />
-          <Solid paths={geo.backRig.lampPost} tone="mid" crease="faint" color="sand" />
-          <Line d={geo.backRig.lampPostSeam} tone="faint" />
-          <Solid paths={geo.backRig.lampShoulder} tone="mid" crease="faint" color="sand" />
+          {/* Interactive Architect Lamp Group */}
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLamp();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleLamp();
+              }
+            }}
+            aria-label="Toggle Architect Task Lamp"
+            className="cursor-pointer group/lamp focus:outline-none"
+          >
+            <Solid paths={geo.backRig.lampBase} tone="mid" crease="faint" color="sand" />
+            <Solid paths={geo.backRig.lampPost} tone="mid" crease="faint" color="sand" />
+            <Line d={geo.backRig.lampPostSeam} tone="faint" />
+            <Solid paths={geo.backRig.lampShoulder} tone="mid" crease="faint" color="sand" />
 
-          {/* Widescreen Code Monitor Stand & Chassis */}
-          <Solid paths={geo.backRig.monBase} tone="mid" crease="faint" color="sand" />
-          <Solid paths={geo.backRig.monBasePad} tone="hi" crease="none" color="forest" />
-          <Solid paths={geo.backRig.monNeck} tone="mid" crease="none" color="sand" />
-          <Solid paths={geo.backRig.monChassis} tone="hi" crease="faint" color="sand" />
-
-          {/* Front Plane of Widescreen Monitor (+Y face facing viewer) */}
-          <g transform={geo.backRig.monTransform}>
-            <path
-              d={geo.backRig.monBezelPath}
-              fill="#f3efe6"
-              stroke="#57534d"
-              strokeWidth="0.6"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d={geo.backRig.monScreenPath}
-              fill="#153626"
-              stroke="#0f2318"
-              strokeWidth="0.65"
-              vectorEffect="non-scaling-stroke"
-            />
-            {/* 5 Left-Gutter Module Square Icons */}
-            {[0, 1, 2, 3, 4].map((row) => {
-              const zPos = -30.5 + row * 3.2;
-              return (
-                <rect
-                  key={row}
-                  x="5.2"
-                  y={zPos}
-                  width="1.5"
-                  height="1.5"
-                  rx="0.25"
-                  fill={row === anim.checkedCount ? '#86efac' : '#6be0a0'}
-                />
-              );
-            })}
-            {/* Animated White & Green Syntax Code Lines */}
-            <path
-              d={`M8.4 -29.8 H${8.4 + 13.5 * anim.w1}`}
-              stroke="#6be0a0"
-              strokeWidth="1.0"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d={`M8.4 -26.6 H${8.4 + 9.8 * anim.w2}`}
-              stroke="#fbfbf9"
-              strokeWidth="0.95"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M8.4 -23.4 H14.2"
-              stroke="#fbfbf9"
-              strokeWidth="0.95"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d={`M15.4 -23.4 H${15.4 + 6.8 * anim.w3}`}
-              stroke="#6be0a0"
-              strokeWidth="0.95"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M8.4 -20.2 H18.8 M8.4 -17.0 H14.5"
-              stroke="#fbfbf9"
-              strokeWidth="0.95"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15.8 -17.0 H19.6"
-              stroke="#6be0a0"
-              strokeWidth="1.0"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-            {anim.cursorOn && (
-              <rect x="20.6" y="-17.8" width="1.8" height="1.5" fill="#fbfbf9" />
-            )}
+            <g transform={anim.lampTransform}>
+              {lampLit && (
+                <>
+                  <path d={geo.backRig.beamPolygon} fill="url(#iso-lamp-glow)" />
+                  <Line d={geo.backRig.beamRays} tone="faint" dashed flow />
+                </>
+              )}
+              <Solid paths={geo.backRig.lampArm} tone="mid" crease="faint" color="sand" />
+              <Solid paths={geo.backRig.lampHood} tone="hi" crease="faint" color="forest" />
+              <Line d={geo.backRig.lampLedLine} tone={lampLit ? 'lit' : 'lo'} />
+            </g>
           </g>
 
-          {/* Cantilevered Architect Lamp Boom Arm, Forest LED Hood & Warm Light Beam */}
-          {lampLit && (
-            <>
-              <path d={geo.backRig.beamPolygon} fill="url(#iso-lamp-glow)" />
-              <Line d={geo.backRig.beamRays} tone="faint" dashed flow />
-            </>
-          )}
-          <Solid paths={geo.backRig.lampArm} tone="mid" crease="faint" color="sand" />
-          <Solid paths={geo.backRig.lampHood} tone="hi" crease="faint" color="forest" />
-          <Line d={geo.backRig.lampLedLine} tone={lampLit ? 'lit' : 'lo'} />
+          {/* Interactive Widescreen Code Monitor Group */}
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              triggerHyperTyping();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                triggerHyperTyping();
+              }
+            }}
+            aria-label="Widescreen Code Monitor - Click to trigger compilation burst"
+            className="cursor-pointer group/mon focus:outline-none"
+          >
+            <Solid paths={geo.backRig.monBase} tone="mid" crease="faint" color="sand" />
+            <Solid paths={geo.backRig.monBasePad} tone="hi" crease="none" color="forest" />
+            <Solid paths={geo.backRig.monNeck} tone="mid" crease="none" color="sand" />
+            <Solid paths={geo.backRig.monChassis} tone="hi" crease="faint" color="sand" />
+
+            {/* Front Plane of Widescreen Monitor (+Y face facing viewer) */}
+            <g transform={geo.backRig.monTransform}>
+              <path
+                d={geo.backRig.monBezelPath}
+                fill="#f3efe6"
+                stroke="#57534d"
+                strokeWidth="0.6"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path
+                d={geo.backRig.monScreenPath}
+                fill="#153626"
+                stroke="#0f2318"
+                strokeWidth="0.65"
+                vectorEffect="non-scaling-stroke"
+              />
+              {/* 5 Left-Gutter Module Square Icons */}
+              {[0, 1, 2, 3, 4].map((row) => {
+                const zPos = -30.5 + row * 3.2;
+                return (
+                  <rect
+                    key={row}
+                    x="5.2"
+                    y={zPos}
+                    width="1.5"
+                    height="1.5"
+                    rx="0.25"
+                    fill={row === anim.checkedCount ? '#86efac' : '#6be0a0'}
+                  />
+                );
+              })}
+              {/* Animated Syntax Code Lines (Accelerates during HyperTyping) */}
+              <path
+                d={`M8.4 -29.8 H${8.4 + 13.5 * anim.w1}`}
+                stroke="#6be0a0"
+                strokeWidth="1.0"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path
+                d={`M8.4 -26.6 H${8.4 + 9.8 * anim.w2}`}
+                stroke="#fbfbf9"
+                strokeWidth="0.95"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path
+                d="M8.4 -23.4 H14.2"
+                stroke="#fbfbf9"
+                strokeWidth="0.95"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path
+                d={`M15.4 -23.4 H${15.4 + 6.8 * anim.w3}`}
+                stroke="#6be0a0"
+                strokeWidth="0.95"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path
+                d="M8.4 -20.2 H18.8 M8.4 -17.0 H14.5"
+                stroke="#fbfbf9"
+                strokeWidth="0.95"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              <path
+                d="M15.8 -17.0 H19.6"
+                stroke="#6be0a0"
+                strokeWidth="1.0"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              {anim.cursorOn && (
+                <rect
+                  x="20.6"
+                  y="-17.8"
+                  width="1.8"
+                  height="1.5"
+                  fill={anim.isHyper ? '#86efac' : '#fbfbf9'}
+                />
+              )}
+            </g>
+          </g>
 
           {/* ==============================================================
               3. BACK-LEFT: GAMING CHAIR & ENGINEER IN GREEN HOODIE
@@ -879,28 +1166,45 @@ export function AboutEngineerAnatomy() {
           {/* ==============================================================
               4A. CENTER: OPEN CODING LAPTOP DECK & KEYBOARD MATRIX
               ============================================================== */}
-          <Solid paths={geo.laptop.deck} tone="hi" crease="faint" color="sand" />
-          <Line d={geo.laptop.kbWell} tone="lo" />
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              triggerHyperTyping();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                triggerHyperTyping();
+              }
+            }}
+            aria-label="Coding Laptop - Click to burst compile and type furiously"
+            className="cursor-pointer group/laptop focus:outline-none"
+          >
+            <Solid paths={geo.laptop.deck} tone="hi" crease="faint" color="sand" />
+            <Line d={geo.laptop.kbWell} tone="lo" />
 
-          {/* 15 Animated Mechanical Keycaps */}
-          {geo.laptop.keys.map((kPaths, kIdx) => {
-            const isPressed =
-              !reducedMotion &&
-              (kIdx === anim.activeKeyA || kIdx === anim.activeKeyB);
-            return (
-              <g
-                key={kIdx}
-                transform={isPressed ? anim.keyPressTransform : undefined}
-              >
-                <Solid
-                  paths={kPaths}
-                  tone={isPressed ? 'hi' : 'mid'}
-                  crease="none"
-                  color={isPressed ? 'forest' : 'sage'}
-                />
-              </g>
-            );
-          })}
+            {/* 15 Animated Mechanical Keycaps */}
+            {geo.laptop.keys.map((kPaths, kIdx) => {
+              const isPressed =
+                !reducedMotion &&
+                (kIdx === anim.activeKeyA || kIdx === anim.activeKeyB);
+              return (
+                <g
+                  key={kIdx}
+                  transform={isPressed ? anim.keyPressTransform : undefined}
+                >
+                  <Solid
+                    paths={kPaths}
+                    tone={isPressed ? 'hi' : 'mid'}
+                    crease="none"
+                    color={isPressed ? 'forest' : 'sage'}
+                  />
+                </g>
+              );
+            })}
+          </g>
 
           {/* Left & Right Chibi Hands Resting Above the Laptop Deck */}
           <g transform={anim.leftHandTransform}>
@@ -912,7 +1216,23 @@ export function AboutEngineerAnatomy() {
           </g>
 
           {/* Animated Chibi Head, Centered Expressive Face, Green Hair & `</>` Headphones */}
-          <g transform={anim.headTransform}>
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleEngineerMood();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleEngineerMood();
+              }
+            }}
+            aria-label="Engineer Character - Click to toggle between focused and flow audio mode"
+            className="cursor-pointer group/engineer focus:outline-none"
+            transform={anim.headTransform}
+          >
             {/* Back/Left Headphone Earcup */}
             <Solid paths={geo.engineer.earcupBack} tone="mid" crease="faint" color="sand" />
 
@@ -942,8 +1262,19 @@ export function AboutEngineerAnatomy() {
                 strokeLinecap="round"
                 vectorEffect="non-scaling-stroke"
               />
-              {/* Blinking or Open Oval Eyes */}
-              {anim.isBlinking ? (
+
+              {/* Expressive Eyes: Cheerful Squint (^ _ ^) in Flow mode, or Blinking/Open in Focus mode */}
+              {anim.isFlow ? (
+                // Happy curved eyes in flow state
+                <path
+                  d="M-3.5 -27.2 Q-2.5 -28.4 -1.5 -27.2 M1.5 -27.2 Q2.5 -28.4 3.5 -27.2"
+                  fill="none"
+                  stroke="#153626"
+                  strokeWidth="0.95"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              ) : anim.isBlinking ? (
                 <path
                   d="M1.6 -27.1 Q2.5 -26.5 3.4 -27.1 M-3.4 -27.1 Q-2.5 -26.5 -1.6 -27.1"
                   fill="none"
@@ -958,12 +1289,13 @@ export function AboutEngineerAnatomy() {
                   <ellipse cx="-2.5" cy="-27.1" rx="0.8" ry="1.15" fill="#153626" />
                 </>
               )}
+
               {/* Friendly Centered Smile */}
               <path
-                d="M-1.0 -24.4 Q0.0 -23.5 1.0 -24.4"
+                d={anim.isFlow ? 'M-1.3 -24.2 Q0.0 -23.0 1.3 -24.2' : 'M-1.0 -24.4 Q0.0 -23.5 1.0 -24.4'}
                 fill="none"
                 stroke="#153626"
-                strokeWidth="0.8"
+                strokeWidth="0.85"
                 strokeLinecap="round"
                 vectorEffect="non-scaling-stroke"
               />
@@ -983,6 +1315,38 @@ export function AboutEngineerAnatomy() {
                 strokeLinejoin="round"
                 vectorEffect="non-scaling-stroke"
               />
+              {/* Animated Pulsing Soundwave Equalizer Waves (Flow State) */}
+              {anim.isFlow && (
+                <g opacity="0.85">
+                  <line
+                    x1="2.2"
+                    y1={-1.4 * anim.eq1}
+                    x2="2.2"
+                    y2={1.4 * anim.eq1}
+                    stroke="#1b4330"
+                    strokeWidth="0.55"
+                    strokeLinecap="round"
+                  />
+                  <line
+                    x1="3.1"
+                    y1={-1.8 * anim.eq2}
+                    x2="3.1"
+                    y2={1.8 * anim.eq2}
+                    stroke="#1b4330"
+                    strokeWidth="0.55"
+                    strokeLinecap="round"
+                  />
+                  <line
+                    x1="4.0"
+                    y1={-1.2 * anim.eq3}
+                    x2="4.0"
+                    y2={1.2 * anim.eq3}
+                    stroke="#1b4330"
+                    strokeWidth="0.55"
+                    strokeLinecap="round"
+                  />
+                </g>
+              )}
             </g>
           </g>
 
@@ -998,74 +1362,258 @@ export function AboutEngineerAnatomy() {
               5. FOREGROUND ITEMS: BOOKS, PLANT, `</>` MUG, PHONE, CASE, NOTEPAD
               ============================================================== */}
           {/* 5A. Stack of Two Forest Hardcover Books with Sand Pages */}
-          <Solid paths={geo.frontItems.book1Bottom} tone="hi" crease="none" color="forest" />
-          <Solid paths={geo.frontItems.book1Pages} tone="mid" crease="faint" color="sand" />
-          <Solid paths={geo.frontItems.book1Top} tone="hi" crease="faint" color="forest" />
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              nudgeBooks();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                nudgeBooks();
+              }
+            }}
+            aria-label="Documentation Books - Click to nudge"
+            className="cursor-pointer group/books focus:outline-none"
+          >
+            <Solid paths={geo.frontItems.book1Bottom} tone="hi" crease="none" color="forest" />
+            <Solid paths={geo.frontItems.book1Pages} tone="mid" crease="faint" color="sand" />
+            <Solid paths={geo.frontItems.book1Top} tone="hi" crease="faint" color="forest" />
 
-          <Solid paths={geo.frontItems.book2Bottom} tone="hi" crease="none" color="forest" />
-          <Solid paths={geo.frontItems.book2Pages} tone="mid" crease="faint" color="sand" />
-          <Solid paths={geo.frontItems.book2Top} tone="hi" crease="faint" color="forest" />
+            <g transform={anim.bookTopTransform}>
+              <Solid paths={geo.frontItems.book2Bottom} tone="hi" crease="none" color="forest" />
+              <Solid paths={geo.frontItems.book2Pages} tone="mid" crease="faint" color="sand" />
+              <Solid paths={geo.frontItems.book2Top} tone="hi" crease="faint" color="forest" />
+            </g>
+          </g>
 
           {/* 5B. Potted Succulent Plant */}
-          <Solid paths={geo.frontItems.pot} tone="hi" crease="faint" color="sand" />
-          <Line d={geo.frontItems.potRim} tone="lo" />
-          <g transform={anim.plantTransform}>
-            <Solid paths={geo.frontItems.plantTier1} tone="hi" crease="faint" color="forest" />
-            <Solid paths={geo.frontItems.plantTier2} tone="hi" crease="faint" color="sage" />
-            <Line d={geo.frontItems.plantLeafLines} tone="lo" />
-            <Solid paths={geo.frontItems.plantBud} tone="hi" crease="none" color="forest" />
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              pokePlant();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                pokePlant();
+              }
+            }}
+            aria-label="Succulent Desk Plant - Click to jiggle"
+            className="cursor-pointer group/plant focus:outline-none"
+          >
+            <Solid paths={geo.frontItems.pot} tone="hi" crease="faint" color="sand" />
+            <Line d={geo.frontItems.potRim} tone="lo" />
+            <g transform={anim.plantTransform}>
+              <Solid paths={geo.frontItems.plantTier1} tone="hi" crease="faint" color="forest" />
+              <Solid paths={geo.frontItems.plantTier2} tone="hi" crease="faint" color="sage" />
+              <Line d={geo.frontItems.plantLeafLines} tone="lo" />
+              <Solid paths={geo.frontItems.plantBud} tone="hi" crease="none" color="forest" />
+            </g>
           </g>
 
           {/* 5C. Front-Left `</>` Coffee Mug on Coaster + Rising Steam Rings */}
-          <Solid paths={geo.frontItems.coaster} tone="mid" crease="faint" color="sand" />
-          <Line d={geo.frontItems.coasterInset} tone="faint" />
-          <Solid paths={geo.frontItems.mugHandle} tone="mid" crease="none" color="sand" />
-          <Solid paths={geo.frontItems.mugBody} tone="hi" crease="faint" color="sand" />
-          <Solid paths={geo.frontItems.mugCoffee} tone="hi" crease="none" color="forest" />
-          <g transform={geo.frontItems.mugLogoTransform}>
-            <path
-              d="M-0.8 -0.65 L-1.5 0 L-0.8 0.65 M0.8 -0.65 L1.5 0 L0.8 0.65 M0.25 -0.9 L-0.25 0.9"
-              fill="none"
-              stroke="#1b4330"
-              strokeWidth="0.65"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          </g>
-          <g transform={anim.steamTransform}>
-            {geo.frontItems.steamRings.map((sPath, idx) => (
-              <Line key={idx} d={sPath} tone={idx === 0 ? 'mid' : 'faint'} />
-            ))}
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              sipCoffee();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                sipCoffee();
+              }
+            }}
+            aria-label="Coffee Mug - Click to take a sip and boost speed"
+            className="cursor-pointer group/mug focus:outline-none"
+          >
+            <Solid paths={geo.frontItems.coaster} tone="mid" crease="faint" color="sand" />
+            <Line d={geo.frontItems.coasterInset} tone="faint" />
+
+            <g transform={anim.mugTransform}>
+              <Solid paths={geo.frontItems.mugHandle} tone="mid" crease="none" color="sand" />
+              <Solid paths={geo.frontItems.mugBody} tone="hi" crease="faint" color="sand" />
+              <Solid
+                paths={geo.frontItems.mugCoffee}
+                tone="hi"
+                crease="none"
+                color={coffeeLevel === 0 ? 'sand' : 'forest'}
+              />
+              <g transform={geo.frontItems.mugLogoTransform}>
+                <path
+                  d="M-0.8 -0.65 L-1.5 0 L-0.8 0.65 M0.8 -0.65 L1.5 0 L0.8 0.65 M0.25 -0.9 L-0.25 0.9"
+                  fill="none"
+                  stroke="#1b4330"
+                  strokeWidth="0.65"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </g>
+            </g>
+
+            <g transform={anim.steamTransform}>
+              {geo.frontItems.steamRings.map((sPath, idx) => (
+                <Line
+                  key={idx}
+                  d={sPath}
+                  tone={idx === 0 ? 'mid' : 'faint'}
+                  dashed={idx === 2}
+                />
+              ))}
+            </g>
           </g>
 
           {/* 5D. Isometric Smartphone */}
-          <Solid paths={geo.frontItems.phoneBody} tone="hi" crease="faint" color="sand" />
-          <Solid paths={geo.frontItems.phoneScreen} tone="hi" crease="none" color="forest" />
-          <Line d={geo.frontItems.phoneBar} tone="lit" />
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              togglePhone();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                togglePhone();
+              }
+            }}
+            aria-label="Smartphone Test Rig - Click to wake or standby"
+            className="cursor-pointer group/phone focus:outline-none"
+          >
+            <Solid paths={geo.frontItems.phoneBody} tone="hi" crease="faint" color="sand" />
+            <Solid
+              paths={geo.frontItems.phoneScreen}
+              tone="hi"
+              crease="none"
+              color={phoneAwake ? 'sage' : 'forest'}
+            />
+            <Line d={geo.frontItems.phoneBar} tone={phoneAwake ? 'lit' : 'mid'} />
+
+            {/* Notification Indicator Dot & Bars when Awake */}
+            {phoneAwake && (
+              <g>
+                <Dots points={geo.frontItems.phoneNoticeDot} size={0.55} tone="hi" />
+                <Line d={geo.frontItems.phoneNoticeLines} tone="hi" />
+              </g>
+            )}
+          </g>
 
           {/* 5E. Small Rounded Accessory Case */}
-          <Solid paths={geo.frontItems.caseBody} tone="hi" crease="faint" color="sand" />
-          <Line d={geo.frontItems.caseSeam} tone="lo" />
-          <Dots points={geo.frontItems.caseLed} size={0.5} tone="hi" />
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleCase();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleCase();
+              }
+            }}
+            aria-label="Accessory Case - Click to toggle LED"
+            className="cursor-pointer group/case focus:outline-none"
+          >
+            <Solid paths={geo.frontItems.caseBody} tone="hi" crease="faint" color="sand" />
+            <Line d={geo.frontItems.caseSeam} tone="lo" />
+            <Dots
+              points={geo.frontItems.caseLed}
+              size={caseActive ? 0.65 : 0.45}
+              tone={caseActive ? 'lit' : 'mid'}
+            />
+          </g>
 
           {/* 5F. Spiral Checklist Notepad */}
-          <Solid paths={geo.frontItems.padBody} tone="hi" crease="faint" color="sand" />
-          <Line d={geo.frontItems.spiralRings} tone="hi" />
-          {geo.frontItems.checkBoxes.map((cb, idx) => {
-            const isChecked = idx < anim.checkedCount;
-            return (
-              <React.Fragment key={idx}>
-                {isChecked ? (
-                  <Solid paths={cb.fillSlab} tone="hi" crease="none" color="sage" />
-                ) : (
-                  <Line d={cb.box} tone="mid" />
-                )}
-                <Line d={cb.line} tone="lo" />
-              </React.Fragment>
-            );
-          })}
+          <g
+            role="button"
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              cycleChecklist();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                cycleChecklist();
+              }
+            }}
+            aria-label="Milestone Checklist Notepad - Click to toggle tasks"
+            className="cursor-pointer group/notepad focus:outline-none"
+            transform={anim.padTransform}
+          >
+            <Solid paths={geo.frontItems.padBody} tone="hi" crease="faint" color="sand" />
+            <Line d={geo.frontItems.spiralRings} tone="hi" />
+            {geo.frontItems.checkBoxes.map((cb, idx) => {
+              const isChecked = idx < anim.checkedCount;
+              return (
+                <React.Fragment key={idx}>
+                  {isChecked ? (
+                    <Solid paths={cb.fillSlab} tone="hi" crease="none" color="sage" />
+                  ) : (
+                    <Line d={cb.box} tone="mid" />
+                  )}
+                  <Line d={cb.line} tone={isChecked ? 'lo' : 'faint'} />
+                </React.Fragment>
+              );
+            })}
+          </g>
         </svg>
+
+        {/* Live Anatomy Telemetry Status Ribbon */}
+        <div className="mt-3 pt-2.5 border-t border-[#e5e2dc]/80 flex flex-wrap items-center justify-between gap-y-1.5 gap-x-3 text-[10px] font-mono tracking-wider text-[#6e6b65] uppercase select-none">
+          <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={toggleLamp}
+              className="inline-flex items-center gap-1.5 font-medium text-[#1b4330] hover:text-[#0f2318] focus:outline-none transition-colors"
+              title="Click to toggle architect lamp"
+            >
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  lampLit ? 'bg-[#1b4330] animate-pulse' : 'bg-[#d0ccc3]'
+                }`}
+              />
+              <span>
+                {telemetryMessage ||
+                  (anim.isHyper
+                    ? 'STATUS: BURST COMPILING'
+                    : anim.isFlow
+                      ? 'AUDIO: LO-FI VIBES'
+                      : 'STATUS: READY')}
+              </span>
+            </button>
+            <span className="text-[#d0ccc3]">&bull;</span>
+            <button
+              type="button"
+              onClick={sipCoffee}
+              className="hidden xs:inline hover:text-[#1b4330] focus:outline-none transition-colors"
+              title="Click to take a sip of coffee"
+            >
+              COFFEE: <span className="text-[#1b4330] font-medium">{coffeeBar}</span>
+            </button>
+            <span className="text-[#d0ccc3] hidden xs:inline">&bull;</span>
+            <button
+              type="button"
+              onClick={cycleChecklist}
+              className="hover:text-[#1b4330] focus:outline-none transition-colors"
+              title="Click to cycle checklist tasks"
+            >
+              TASKS: <span className="text-[#1b4330] font-medium">{anim.checkedCount}/3</span>
+            </button>
+          </div>
+
+          <div className="text-[9px] text-[#9c9890] tracking-normal">
+            [CLICK ITEMS &bull; SCROLL TO EXPLORE]
+          </div>
+        </div>
       </div>
     </figure>
   );
