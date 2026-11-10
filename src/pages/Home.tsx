@@ -106,7 +106,7 @@ export function Home() {
               </p>
 
               {/* Human-Crafted Context Paragraph */}
-              <p className="text-[15px] sm:text-[16px] text-[#44423e] max-w-xl leading-relaxed">
+              <p className="text-[15px] sm:text-[16px] text-[#44423e] max-w-2xl leading-relaxed text-justify">
                 Informatics Engineering student at UIN Sunan Gunung Djati Bandung and LPDP Scholar. Currently interning as a Software Engineer at PT Inpartner Optima Integra, focusing on resilient web applications and assistive technology.
               </p>
 
@@ -237,7 +237,7 @@ export function Home() {
                 {aboutContent.narrative.map((paragraph, idx) => (
                   <p
                     key={idx}
-                    className="text-[15px] leading-[1.65] text-[#44423e]"
+                    className="text-[15px] leading-[1.65] text-[#44423e] text-justify"
                   >
                     {paragraph}
                   </p>

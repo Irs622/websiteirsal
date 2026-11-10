@@ -159,9 +159,9 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                     aria-label={`Jump to ${item.company}`}
                     className={`font-mono text-[11px] px-2 py-0.5 rounded-xs transition-all duration-300 cursor-pointer border ${
                       isActive
-                        ? 'bg-[#141413] text-[#fbfbf9] border-[#141413]'
+                        ? 'bg-[#1b4330] text-[#fbfbf9] border-[#1b4330] shadow-sm shadow-[#1b4330]/25'
                         : isPast
-                        ? 'bg-[#f5f4f0] text-[#141413] border-[#d0ccc3]'
+                        ? 'bg-[#e3eee7] text-[#1b4330] border-[#b6cebf]'
                         : 'bg-transparent text-[#9c9890] border-transparent hover:text-[#141413]'
                     }`}
                   >
@@ -173,7 +173,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
 
             <div className="w-14 sm:w-20 h-[2px] bg-[#e5e2dc] overflow-hidden rounded-full">
               <div
-                className="h-full bg-[#141413] transition-transform duration-150 ease-out origin-left"
+                className="h-full bg-[#1b4330] transition-transform duration-150 ease-out origin-left"
                 style={{ transform: `scaleX(${scrollProgress})` }}
               />
             </div>
@@ -191,9 +191,9 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
           aria-hidden="true"
           className="absolute left-[24px] md:left-[25%] top-0 bottom-0 w-[1px] bg-[#e5e2dc]"
         >
-          {/* Live Scroll-Linked Ink Fill */}
+          {/* Live Scroll-Linked Ink Fill (Green Spine Glow) */}
           <div
-            className="w-full bg-[#141413] origin-top transition-all duration-150 ease-out"
+            className="w-full bg-[#1b4330] origin-top transition-all duration-150 ease-out shadow-[0_0_8px_rgba(27,67,48,0.4)]"
             style={{ height: `${scrollProgress * 100}%` }}
           />
         </div>
