@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowDown,
@@ -17,12 +17,13 @@ import { experienceContent } from '../data/experience';
 
 import { researchContent } from '../data/research';
 import { leadershipContent } from '../data/leadership';
-import { educationContent } from '../data/education';
+import { EducationRecord } from '../components/EducationRecord';
 
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { SelectedWork } from '../components/SelectedWork';
+import { ContactSignoff } from '../components/ContactSignoff';
 import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
@@ -31,17 +32,6 @@ import portraitImg from '../assets/irsal-portrait.png';
 
 export function Home() {
 
-  const [selectedCertCohort, setSelectedCertCohort] = useState<'2026' | '2025'>('2026');
-  const [activeCertName, setActiveCertName] = useState<string>(
-    educationContent.certifications[0]?.name || ''
-  );
-
-  const displayedCertifications = educationContent.certifications.filter(
-    (c) => c.year === selectedCertCohort
-  );
-  const activeCert =
-    displayedCertifications.find((c) => c.name === activeCertName) ||
-    displayedCertifications[0];
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -438,194 +428,7 @@ export function Home() {
       {/* ======================================================== */}
       {/* SECTION 7: EDUCATION & CREDENTIALS                       */}
       {/* ======================================================== */}
-      <section
-        id="education"
-        aria-label="Education and Certifications"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
-      >
-        <div className="max-w-[1200px] mx-auto">
-          <SectionHeader
-            number="06"
-            label={educationContent.sectionTitle}
-            headline={educationContent.headline}
-            subheadline={educationContent.subheadline}
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
-            {/* Left Rectangle: University Education (6 cols, stretched to match right) */}
-            <div className="lg:col-span-6 flex flex-col">
-              <div className="h-7 flex items-center justify-between mb-3">
-                <span className="caption-uppercase text-[#6e6b65]">
-                  University Education
-                </span>
-                <span className="font-mono text-[11px] text-[#9c9890]">
-                  {educationContent.education.period}
-                </span>
-              </div>
-
-              <div className="flex-1 bg-[#ffffff] border border-[#e5e2dc] rounded-sm p-6 sm:p-7 flex flex-col justify-between gap-5">
-                <div>
-                  <h3 className="display-sm text-[#141413]">
-                    {educationContent.education.institution}
-                  </h3>
-                  <p className="body-strong text-[#242321] mt-1">
-                    {educationContent.education.degree}
-                  </p>
-                  <p className="caption text-[#6e6b65]">
-                    {educationContent.education.field}
-                  </p>
-                </div>
-
-                <div className="py-3.5 border-t border-b border-[#eeebe6] grid grid-cols-2 gap-4 text-[13px] font-mono">
-                  <div>
-                    <span className="caption-uppercase block text-[#9c9890] text-[10px]">Timeline</span>
-                    <span className="text-[#141413]">
-                      {educationContent.education.status}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="caption-uppercase block text-[#9c9890] text-[10px]">GPA</span>
-                    <span className="text-[#141413]">
-                      {educationContent.education.gpa}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="space-y-1">
-                    <span className="caption-uppercase block text-[#9c9890] text-[10px]">Fellowship</span>
-                    <p className="text-[12px] text-[#1e3a2b] bg-[#1e3a2b]/5 border border-[#1e3a2b]/20 rounded-sm p-2.5 font-mono">
-                      {educationContent.education.scholarship}
-                    </p>
-                  </div>
-
-                  {educationContent.education.notes && (
-                    <p className="caption text-[#6e6b65] leading-relaxed text-[12px]">
-                      {educationContent.education.notes}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Right Rectangle: Interactive Verified Credentials Catalog (6 cols, identical height) */}
-            <div className="lg:col-span-6 flex flex-col">
-              <div className="h-7 flex items-center justify-between gap-2 mb-3">
-                <span className="caption-uppercase text-[#6e6b65]">
-                  Verified Technical Credentials
-                </span>
-
-                {/* Interactive Cohort Switcher (3 items per cohort) */}
-                <div className="flex items-center gap-1 font-mono text-[11px]">
-                  {(['2026', '2025'] as const).map((yr) => {
-                    const isSelected = selectedCertCohort === yr;
-                    return (
-                      <button
-                        key={yr}
-                        type="button"
-                        onClick={() => {
-                          setSelectedCertCohort(yr);
-                          const firstInYear = educationContent.certifications.find(
-                            (c) => c.year === yr
-                          );
-                          if (firstInYear) setActiveCertName(firstInYear.name);
-                        }}
-                        className={`px-2.5 py-0.5 rounded-xs border transition-colors cursor-pointer ${
-                          isSelected
-                            ? 'bg-[#141413] text-[#fbfbf9] border-[#141413]'
-                            : 'bg-[#ffffff] text-[#6e6b65] border-[#e5e2dc] hover:text-[#141413]'
-                        }`}
-                      >
-                        {yr} (03)
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="flex-1 border border-[#e5e2dc] bg-[#ffffff] rounded-sm p-6 sm:p-7 flex flex-col justify-between gap-4">
-                <div className="divide-y divide-[#eeebe6] border-b border-[#eeebe6]">
-                  {displayedCertifications.map((cert, idx) => {
-                    const isSelected = activeCert?.name === cert.name;
-                    return (
-                      <button
-                        key={cert.name}
-                        type="button"
-                        onClick={() => setActiveCertName(cert.name)}
-                        onMouseEnter={() => setActiveCertName(cert.name)}
-                        className={`w-full text-left py-3 px-2.5 -mx-2.5 rounded-xs flex flex-col sm:flex-row sm:items-baseline justify-between gap-1.5 transition-colors cursor-pointer ${
-                          isSelected ? 'bg-[#fbfbf9]' : 'hover:bg-[#fbfbf9]/60'
-                        }`}
-                      >
-                        <div className="flex items-baseline gap-2.5 min-w-0">
-                          <span
-                            className={`font-mono text-[11px] shrink-0 ${
-                              isSelected ? 'text-[#141413] font-medium' : 'text-[#9c9890]'
-                            }`}
-                          >
-                            0{idx + 1}
-                          </span>
-                          <div className="min-w-0">
-                            <h4 className="title-sm text-[#141413] text-[15px] truncate">
-                              {cert.name}
-                            </h4>
-                            <p className="caption text-[12px] text-[#6e6b65] truncate">
-                              {cert.credentialFocus}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="text-left sm:text-right font-mono text-[11px] text-[#6e6b65] shrink-0 pl-6 sm:pl-0">
-                          <span>{cert.issuer} &bull; {cert.year}</span>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Active Credential Focus Bar (Mirrors left box Fellowship + Notes height) */}
-                {activeCert && (
-                  <div className="space-y-2.5">
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between text-[10px] font-mono">
-                        <span className="caption-uppercase text-[#9c9890] text-[10px]">
-                          Selected Credential Focus
-                        </span>
-                        <span className="text-[#141413]">
-                          {activeCert.issuer} &bull; {activeCert.year}
-                        </span>
-                      </div>
-                      <p className="text-[12px] text-[#1e3a2b] bg-[#1e3a2b]/5 border border-[#1e3a2b]/20 rounded-sm p-2.5 font-mono">
-                        {activeCert.name} — {activeCert.credentialFocus}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between text-[11px] font-mono text-[#6e6b65]">
-                      <span>
-                        Showing {selectedCertCohort} Cohort (03 of 06 Verified Credentials)
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const nextYr = selectedCertCohort === '2026' ? '2025' : '2026';
-                          setSelectedCertCohort(nextYr);
-                          const firstInYear = educationContent.certifications.find(
-                            (c) => c.year === nextYr
-                          );
-                          if (firstInYear) setActiveCertName(firstInYear.name);
-                        }}
-                        className="text-[#141413] underline underline-offset-4 hover:text-[#1e3a2b] cursor-pointer"
-                      >
-                        Switch to {selectedCertCohort === '2026' ? '2025' : '2026'} &rarr;
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <EducationRecord />
 
       {/* ======================================================== */}
       {/* SECTION 8: LEADERSHIP (COMPACT EDITORIAL ENTRIES)        */}
@@ -696,63 +499,7 @@ export function Home() {
       {/* ======================================================== */}
       {/* SECTION 9: CONTACT (STRONG CLOSING COMPOSITION)          */}
       {/* ======================================================== */}
-      <section
-        id="contact"
-        aria-label="Contact and Collaboration"
-        className="py-24 sm:py-32 px-6 sm:px-8"
-      >
-        <div className="max-w-[1200px] mx-auto">
-          <div className="max-w-4xl space-y-6">
-            <span className="caption-uppercase text-[#6e6b65] block">
-              08 &bull; INQUIRIES &amp; DISPATCH
-            </span>
-
-            <h2 className="display-mega text-[#141413] tracking-[-0.025em]">
-              Initiate dialogue or engineering inquiry.
-            </h2>
-
-            <p className="text-[18px] sm:text-[20px] text-[#44423e] max-w-2xl leading-relaxed">
-              I am currently open to software engineering internships, technical collaborations, and research inquiries across full-stack systems and accessible technology.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <a
-                href={`mailto:${personalInfo.email}?subject=Project%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
-                className="inline-block"
-              >
-                <Button
-                  variant="primary"
-                  size="md"
-                  icon={<ArrowUpRight size={14} />}
-                >
-                  Send Direct Email
-                </Button>
-              </a>
-
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
-              >
-                <Button
-                  variant="outline"
-                  size="md"
-                  icon={<LinkedinIcon size={14} />}
-                >
-                  LinkedIn Profile
-                </Button>
-              </a>
-
-              <div className="pl-0 sm:pl-4 font-mono text-[13px] text-[#6e6b65]">
-                <span>{personalInfo.email}</span>
-                <span className="mx-2 text-[#d0ccc3]">&bull;</span>
-                <span>Bandung, Indonesia (UTC+7)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContactSignoff />
     </div>
   );
 }
