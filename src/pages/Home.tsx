@@ -14,7 +14,7 @@ import { personalInfo } from '../data/personal';
 import { aboutContent } from '../data/about';
 import { expertiseContent } from '../data/skills';
 import { experienceContent } from '../data/experience';
-import { projectsContent } from '../data/projects';
+
 import { researchContent } from '../data/research';
 import { leadershipContent } from '../data/leadership';
 import { educationContent } from '../data/education';
@@ -22,7 +22,7 @@ import { educationContent } from '../data/education';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { SectionHeader } from '../components/ui/SectionHeader';
-import { ProjectShowcase } from '../components/ProjectShowcase';
+import { SelectedWork } from '../components/SelectedWork';
 import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
@@ -30,7 +30,7 @@ import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 import portraitImg from '../assets/irsal-portrait.png';
 
 export function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
   const [selectedCertCohort, setSelectedCertCohort] = useState<'2026' | '2025'>('2026');
   const [activeCertName, setActiveCertName] = useState<string>(
     educationContent.certifications[0]?.name || ''
@@ -51,18 +51,6 @@ export function Home() {
     }
   };
 
-  const projectCategories = [
-    { id: 'all', label: 'All Work', count: projectsContent.projects.length },
-    { id: 'Accessible Tech', label: 'Accessible Tech', count: projectsContent.projects.filter(p => p.category === 'Accessible Tech').length },
-    { id: 'Full-Stack Systems', label: 'Full-Stack Systems', count: projectsContent.projects.filter(p => p.category === 'Full-Stack Systems').length },
-    { id: 'AI & Web', label: 'AI & Web', count: projectsContent.projects.filter(p => p.category === 'AI & Web').length },
-    { id: 'Mobile & Native', label: 'Mobile & Native', count: projectsContent.projects.filter(p => p.category === 'Mobile & Native').length },
-    { id: 'Applied Research', label: 'Applied Research', count: projectsContent.projects.filter(p => p.category === 'Applied Research').length },
-  ];
-
-  const filteredProjects = selectedCategory === 'all'
-    ? projectsContent.projects
-    : projectsContent.projects.filter(p => p.category === selectedCategory);
 
   return (
     <div className="relative">
@@ -354,57 +342,7 @@ export function Home() {
         className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
       >
         <div className="max-w-[1200px] mx-auto">
-          <SectionHeader
-            number="04"
-            label={projectsContent.sectionTitle}
-            headline={projectsContent.headline}
-            subheadline={projectsContent.subheadline}
-          />
-
-          {/* Editorial Category Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2 mb-12 pb-4 border-b border-[#e5e2dc]">
-            {projectCategories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`text-[12px] font-mono px-3 py-1.5 rounded-xs transition-colors cursor-pointer flex items-center gap-2 ${
-                  selectedCategory === cat.id
-                    ? 'bg-[#141413] text-white font-medium'
-                    : 'bg-[#ffffff] text-[#6e6b65] border border-[#e5e2dc] hover:text-[#141413]'
-                }`}
-              >
-                <span>{cat.label}</span>
-                <span
-                  className={`text-[10px] px-1 rounded-xs ${
-                    selectedCategory === cat.id
-                      ? 'bg-white/20 text-white'
-                      : 'bg-[#eeebe6] text-[#6e6b65]'
-                  }`}
-                >
-                  {cat.count}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <div className="space-y-4">
-            {filteredProjects.map((project, index) => (
-              <React.Fragment key={project.id}>
-                {selectedCategory === 'all' && index === 3 && (
-                  <div className="pt-12 pb-4 flex items-center gap-4">
-                    <span className="caption-uppercase text-[#9c9890] tracking-wider">
-                      TECHNICAL ARCHIVE &bull; PRODUCTION RELEASES (2024 — 2025)
-                    </span>
-                    <div className="h-[1px] flex-1 bg-[#e5e2dc]" />
-                  </div>
-                )}
-                <ProjectShowcase
-                  project={project}
-                  index={index}
-                />
-              </React.Fragment>
-            ))}
-          </div>
+          <SelectedWork />
         </div>
       </section>
 
