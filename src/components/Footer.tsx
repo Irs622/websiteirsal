@@ -14,9 +14,8 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   // Scroll-scrubbed cinematic reveal: as the footer passes through the viewport
-  // a 0→1 progress value is written to --reveal, driving the sculpture's scale,
-  // the ghost wordmark parallax, and the staged directory entrance. Honours
-  // prefers-reduced-motion (reveals instantly, no scrubbing). rAF-throttled.
+  // a 0→1 progress value is written to --reveal, driving the poster's scale
+  // and staged directory entrance. Honours prefers-reduced-motion. rAF-throttled.
   useEffect(() => {
     const el = footerRef.current;
     if (!el) return;
@@ -41,16 +40,14 @@ export function Footer() {
       const progress = Math.min(1, Math.max(0, (vh - rect.top) / vh));
       el.style.setProperty('--reveal', progress.toFixed(3));
 
-      // Subtle blur-in driven by the sculpture's own entry as it rises into
-      // view on a normal scroll: 0 while its top edge is still low, 1 once it
-      // has risen to roughly the upper third (sharp, filling the screen).
+      // Subtle blur-in driven by the artwork's own entry as it rises into view
       if (art) {
         const a = art.getBoundingClientRect();
         const curtain = (vh - a.top) / (vh * 0.9);
         el.style.setProperty('--curtain', Math.min(1, Math.max(0, curtain)).toFixed(3));
       }
 
-      // Trip the staged content entrance a touch after the blue field appears.
+      // Trip the staged content entrance a touch after the dark field appears.
       if (progress > 0.18) setRevealed(true);
     };
     const onScroll = () => {
@@ -75,35 +72,30 @@ export function Footer() {
       aria-label="Site Footer and Directory"
     >
       {/* ======================================================== */}
-      {/* STAGE 0: LEAD-IN — soft cream→blue leading edge that      */}
-      {/* rises over the pinned 08 section (stacking), no hard seam. */}
+      {/* STAGE 0: LEAD-IN — soft cream→forest noir leading edge    */}
       {/* ======================================================== */}
       <div className="hermes-leadin" aria-hidden="true" />
 
       {/* ======================================================== */}
-      {/* STAGE 1: CURTAIN REVEAL — sculpture resolves blur → sharp */}
-      {/* as the footer stacks up over the 08 · INQUIRIES section.   */}
+      {/* STAGE 1: CURTAIN REVEAL — Full Bleed Artwork              */}
       {/* ======================================================== */}
       <div className="hermes-footer-reveal">
         {/* Top Visual Artwork Area (curtain) */}
         <div className="hermes-artwork-wrap">
+          {/* Full bleed image */}
           <img
-            src="/hermes/footer.webp"
-            alt="Hermes Classical Sculpture & Terminal Systems"
+            src="/hermes/footer-kairos.jpg"
+            alt="North Silence · Kairos — Field Studies in Silence · LM. Irsal Shydiq"
             className="hermes-artwork-img"
             loading="lazy"
           />
-          <div className="hermes-artwork-tint" aria-hidden="true" />
+
+          <div className="hermes-artwork-vignette" aria-hidden="true" />
           <div className="hermes-noise-overlay" aria-hidden="true" />
           <div className="hermes-artwork-fade" aria-hidden="true" />
-
-          {/* Giant Ghost Wordmark over Artwork */}
-          <div className="hermes-footer-ghost" aria-hidden="true">
-            <span>LM. Irsal Shydiq</span>
-          </div>
         </div>
 
-        {/* Colophon */}
+        {/* Colophon & Dispatch */}
         <div className="hermes-directory-wrap">
           {/* 08 · INQUIRIES & DISPATCH */}
           <div className="hermes-dispatch" id="contact">
@@ -124,7 +116,7 @@ export function Footer() {
             </p>
 
             <div className="hermes-dispatch-readout">
-              <span>TX/RX &bull; LIVE DISPATCH FIELD</span>
+              <span>TX/RX &bull; LIVE DISPATCH FIELD &bull; NORTH SILENCE // KAIROS</span>
               <span>LATENCY &lt; 12MS &bull; UTC+7</span>
             </div>
 
