@@ -32,27 +32,33 @@ function ScrollHandler() {
   return null;
 }
 
+function MainLayout() {
+  return (
+    <div className="relative min-h-screen flex flex-col bg-[#FBFBF9] text-[#44423E]">
+      <Navigation />
+      <main className="flex-1 overflow-x-clip">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/experience" element={<ExperiencePage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetail />} />
+          <Route path="/research" element={<ResearchPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/cv" element={<CvPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <Router>
       <ScrollHandler />
-      <div className="relative min-h-screen flex flex-col bg-[#FBFBF9] text-[#44423E]">
-        <Navigation />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/experience" element={<ExperiencePage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
-            <Route path="/research" element={<ResearchPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/cv" element={<CvPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <MainLayout />
     </Router>
   );
 }

@@ -23,7 +23,6 @@ import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { SelectedWork } from '../components/SelectedWork';
-import { ContactSignoff } from '../components/ContactSignoff';
 import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
@@ -496,10 +495,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* ======================================================== */}
-      {/* SECTION 9: CONTACT (STRONG CLOSING COMPOSITION)          */}
-      {/* ======================================================== */}
-      <ContactSignoff />
     </div>
   );
 }

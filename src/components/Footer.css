@@ -1,0 +1,694 @@
+/* Hermes-Inspired Footer Styles Adapted to Portfolio Editorial Palette & Selected Work Motion Design */
+
+:root {
+  --hermes-primary: #1a2fb8; /* Cinematic Electric Royal Blue */
+  --hermes-primary-deep: #0a1036;
+  --hermes-obsidian: #060a1c;
+  --hermes-blue-bright: #2b3dff;
+  --hw-fg: #fbfbf9; /* Project Canvas White */
+  --hw-teams-col: 1200px;
+  --hw-teams-pad-x: 24px;
+}
+
+.hermes-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  isolation: isolate;
+  background-color: var(--hermes-obsidian);
+}
+
+/* ================================================================== */
+/* STAGE 0: CONTINUOUS LEAD-IN                                        */
+/* A tall gradient ramp from the cream canvas above into the blue     */
+/* stage, so the cinematic reveal grows out of the previous section   */
+/* instead of popping in. Scrubbed by --reveal (set from scroll).     */
+/* ================================================================== */
+.hermes-leadin {
+  position: relative;
+  width: 100%;
+  height: clamp(170px, 26vh, 320px);
+  overflow: hidden;
+  /* Smooth ramp from the cream canvas above into the royal-blue field */
+  /* that the curtain reveals over — no dark/bright jump at the seam.   */
+  background: linear-gradient(
+    to bottom,
+    #fbfbf9 0%,
+    #e7ebf9 16%,
+    #a9b4ec 40%,
+    #5e6ccf 64%,
+    #2f3eae 86%,
+    var(--hermes-primary) 100%
+  );
+}
+
+/* ================================================================== */
+/* STAGE 1: HERMES TRANSITIONAL FOLIO BAR                             */
+/* ================================================================== */
+.hermes-folio-stage {
+  position: relative;
+  width: 100%;
+  padding: 72px 24px 64px;
+  background: radial-gradient(circle at 50% 50%, #10173f 0%, #060a1c 100%);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Giant Serif Watermark "Hermes" */
+.hermes-watermark-serif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display), 'Times New Roman', Georgia, serif;
+  font-size: clamp(80px, 16vw, 220px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.hermes-folio-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+}
+
+.hermes-folio-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hermes-folio-left {
+  text-align: left;
+}
+
+.hermes-folio-right {
+  text-align: right;
+}
+
+.hermes-folio-title {
+  color: #fbfbf9;
+  font-weight: 500;
+}
+
+.hermes-folio-sub {
+  color: rgba(251, 251, 249, 0.55);
+}
+
+/* Center Cluster of 3 Sleek Square Emblems */
+.hermes-folio-badges {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px;
+  background: rgba(14, 20, 16, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+}
+
+.hermes-emblem-badge {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 200ms ease, border-color 200ms ease, background-color 200ms ease;
+  cursor: pointer;
+}
+
+.hermes-emblem-badge:hover {
+  transform: translateY(-2px) scale(1.06);
+  border-color: rgba(91, 120, 255, 0.7);
+  background: rgba(26, 47, 184, 0.45);
+}
+
+@media (max-width: 768px) {
+  .hermes-folio-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 16px;
+  }
+  .hermes-folio-left, .hermes-folio-right {
+    text-align: center;
+  }
+}
+
+/* ================================================================== */
+/* STAGE 2: HERMES MEGA-FOOTER & ARTWORK BANNER                       */
+/* ================================================================== */
+.hermes-footer-reveal {
+  position: relative;
+  background-color: var(--hermes-primary);
+  color: var(--hw-fg);
+  /* no overflow clipping here — it would break the sticky sculpture pin */
+}
+
+/* Top Visual Artwork Area */
+.hermes-artwork-wrap {
+  /* CURTAIN: the sculpture pins full-screen and HOLDS while the directory  */
+  /* (below it) scrolls up over it. The directory provides the pin's room.  */
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--hermes-primary);
+  /* Subtle blur-in as the sculpture rises into view. */
+  filter: blur(calc((1 - var(--curtain, 0)) * 12px));
+  will-change: filter;
+}
+
+.hermes-artwork-img {
+  position: absolute;
+  inset: -8% 0 auto 0;
+  width: 100%;
+  height: 116%;
+  object-fit: cover;
+  object-position: top center;
+  filter: contrast(1.2) brightness(0.92) saturate(1.1);
+  mix-blend-mode: luminosity;
+  opacity: 0.92;
+}
+
+/* Electric-Blue Duotone Wash over footer.webp */
+.hermes-artwork-tint {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 52% 34%, rgba(43, 61, 255, 0.5) 0%, rgba(10, 16, 54, 0.92) 70%),
+    linear-gradient(180deg, rgba(26, 47, 184, 0.3) 0%, rgba(10, 16, 54, 0.6) 100%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* CRT Noise Pattern */
+.hermes-noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 1 1 0 -1.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+}
+
+/* Gradient Fade into Footer Base */
+.hermes-artwork-fade {
+  position: absolute;
+  inset-x: 0;
+  bottom: 0;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent 0%, var(--hermes-primary) 92%);
+  pointer-events: none;
+}
+
+/* Giant Ghost Title */
+.hermes-footer-ghost {
+  position: absolute;
+  inset-x: 0;
+  bottom: 12px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 10vw, 130px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.18);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 5;
+  transition: transform 400ms ease, opacity 400ms ease;
+}
+
+/* ================================================================== */
+/* STAGE 3: DIRECTORY 5-COLUMNS GRID                                  */
+/* ================================================================== */
+.hermes-directory-wrap {
+  position: relative;
+  z-index: 6;
+  max-width: calc(var(--hw-teams-col) + 2 * var(--hw-teams-pad-x));
+  margin: 0 auto;
+  padding: 24px var(--hw-teams-pad-x) 40px;
+  /* Blue floor that rises over the pinned sculpture; dispatch CTA fills it,   */
+  /* colophon sits at the bottom.                                             */
+  min-height: 72vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 40px;
+}
+
+/* ---- 08 · INQUIRIES & DISPATCH (footer edition, on the blue field) ---- */
+.hermes-dispatch {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.hermes-dispatch-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hermes-dispatch-label > :first-child {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.hermes-dispatch-title {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(32px, 4.6vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--hw-fg);
+}
+
+.hermes-dispatch-title em {
+  font-style: italic;
+  color: #9fc0f3;
+}
+
+.hermes-dispatch-sub {
+  margin: 0;
+  max-width: 540px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(251, 251, 249, 0.72);
+}
+
+.hermes-dispatch-readout,
+.hermes-dispatch-channel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.hermes-dispatch-readout {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hermes-dispatch-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #a9f0c6;
+  white-space: nowrap;
+}
+
+.hermes-dispatch-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38b368;
+  box-shadow: 0 0 8px rgba(56, 179, 104, 0.7);
+}
+
+.hermes-dispatch-email {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 14px;
+  padding-bottom: 8px;
+  color: var(--hw-fg);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: border-color 260ms ease;
+}
+
+.hermes-dispatch-email > span:first-child {
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: clamp(22px, 4.6vw, 54px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.hermes-dispatch-email:hover,
+.hermes-dispatch-email:focus-visible {
+  border-color: #ffffff;
+}
+
+.hermes-dispatch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: var(--hw-fg);
+  color: var(--hermes-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: transform 200ms ease;
+}
+
+.hermes-dispatch-email:hover .hermes-dispatch-pill {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .hermes-dispatch-readout,
+  .hermes-dispatch-channel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .hermes-dispatch-email {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+}
+
+/* Full-bleed blue floor that rises up over the pinned sculpture. The soft  */
+/* transparent top lets the sculpture stay faintly visible behind it.        */
+.hermes-directory-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  /* Semi-transparent wash so the pinned sculpture stays visible behind the   */
+  /* dispatch text (still enough tint to keep the white type readable).       */
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 47, 184, 0) 0%,
+    rgba(26, 47, 184, 0.45) 22%,
+    rgba(26, 47, 184, 0.62) 100%
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hermes-directory-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px 20px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .hermes-directory-grid {
+    grid-template-columns: minmax(0, 260px) repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* Column 1: Brand Badge */
+.hermes-col-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hermes-col-brand img {
+  filter: invert(1) brightness(1.2);
+  transition: transform 220ms ease;
+}
+
+.hermes-col-brand:hover img {
+  transform: translateY(-2px);
+}
+
+.hermes-col-brand p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(251, 251, 249, 0.85);
+  max-width: 240px;
+}
+
+/* Directory Nav Columns */
+.hermes-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hermes-col-tag {
+  opacity: 0.6;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.hermes-col-heading {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: none;
+  color: var(--hw-fg);
+  line-height: 1.2;
+}
+
+.hermes-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: -4px 0;
+}
+
+/* Exact Hermes Chip Inversion with Selected Work hover timings */
+.hermes-chip-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  margin-left: -6px;
+  border-radius: 2px;
+  color: var(--hw-fg);
+  white-space: nowrap;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.hermes-chip-link:hover {
+  background-color: var(--hw-fg);
+  color: var(--hermes-primary);
+  transform: translateX(4px);
+}
+
+/* Bottom Colophon Bar */
+.hermes-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 32px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(251, 251, 249, 0.7);
+}
+
+.hermes-social-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hermes-social-link {
+  color: rgba(251, 251, 249, 0.75);
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.hermes-social-link:hover {
+  color: #fbfbf9;
+  transform: translateY(-2px);
+}
+
+.hermes-colophon-legal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+}
+
+.hermes-back-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(251, 251, 249, 0.85);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 2px;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+.hermes-back-top-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 640px) {
+  .hermes-cards-stage {
+    padding: 72px 16px 64px;
+  }
+
+  .hermes-badge-card {
+    width: 130px;
+    height: 190px;
+    padding: 10px 8px;
+  }
+
+  .hermes-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .hermes-colophon-legal {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* ================================================================== */
+/* CINEMATIC SCROLL REVEAL                                            */
+/* The sculpture is scrubbed by scroll via --reveal (0 → 1, set in    */
+/* JS): it de-zooms and brightens as the blue field rises into view,  */
+/* exactly like the reference. Directory + colophon then cascade in.  */
+/* ================================================================== */
+
+/* --- Scroll-scrubbed sculpture (continuous, tied to --reveal) --- */
+/* Fills the viewport and drifts up slower than scroll (parallax hold),     */
+/* so the page reveals the sculpture like a curtain, then settles.          */
+.hermes-wrapper .hermes-artwork-img {
+  opacity: clamp(0.22, calc(var(--reveal, 0) * 2), 0.95);
+  transform:
+    scale(calc(1.12 - var(--reveal, 0) * 0.1))
+    translateY(calc(6% - var(--reveal, 0) * 12%));
+  transition: none;
+}
+
+/* Ghost wordmark: fades in mid-scroll, drifts gently with --reveal */
+.hermes-wrapper .hermes-footer-ghost {
+  opacity: clamp(0, calc((var(--reveal, 0) - 0.35) * 3), 1);
+  transform: translateY(calc((var(--reveal, 0) - 0.55) * 44px));
+  transition: none;
+}
+
+/* --- Staged content entrance (triggered once via .is-revealed) --- */
+.hermes-wrapper .hermes-watermark-serif,
+.hermes-wrapper .hermes-folio-container,
+.hermes-wrapper .hermes-directory-grid > *,
+.hermes-wrapper .hermes-bottom-bar {
+  opacity: 0;
+  transition:
+    opacity 900ms var(--hermes-reveal-ease, cubic-bezier(0.22, 0.61, 0.36, 1)),
+    transform 900ms var(--hermes-reveal-ease, cubic-bezier(0.22, 0.61, 0.36, 1));
+}
+
+.hermes-wrapper .hermes-folio-container,
+.hermes-wrapper .hermes-directory-grid > *,
+.hermes-wrapper .hermes-bottom-bar {
+  transform: translateY(16px);
+}
+
+.hermes-wrapper .hermes-watermark-serif {
+  transform: translateY(24px) scale(0.985);
+}
+
+.hermes-wrapper.is-revealed .hermes-watermark-serif {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 100ms;
+}
+
+.hermes-wrapper.is-revealed .hermes-folio-container {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 220ms;
+}
+
+/* Directory columns cascade one after another */
+.hermes-wrapper.is-revealed .hermes-directory-grid > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hermes-wrapper.is-revealed .hermes-directory-grid > *:nth-child(1) { transition-delay: 300ms; }
+.hermes-wrapper.is-revealed .hermes-directory-grid > *:nth-child(2) { transition-delay: 380ms; }
+.hermes-wrapper.is-revealed .hermes-directory-grid > *:nth-child(3) { transition-delay: 460ms; }
+.hermes-wrapper.is-revealed .hermes-directory-grid > *:nth-child(4) { transition-delay: 540ms; }
+.hermes-wrapper.is-revealed .hermes-directory-grid > *:nth-child(5) { transition-delay: 620ms; }
+
+.hermes-wrapper.is-revealed .hermes-bottom-bar {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 720ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hermes-wrapper *,
+  .hermes-badge-card,
+  .hermes-artwork-img,
+  .hermes-chip-link {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  /* Ensure everything is visible when motion is reduced */
+  .hermes-wrapper .hermes-watermark-serif,
+  .hermes-wrapper .hermes-folio-container,
+  .hermes-wrapper .hermes-artwork-img,
+  .hermes-wrapper .hermes-footer-ghost,
+  .hermes-wrapper .hermes-directory-grid > *,
+  .hermes-wrapper .hermes-bottom-bar {
+    opacity: 1 !important;
+  }
+}

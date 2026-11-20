@@ -1,121 +1,210 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowUp, ArrowUpRight } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowUp, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 import { personalInfo } from '../data/personal';
-import { GithubIcon, LinkedinIcon } from './ui/Icons';
+import './Footer.css';
 
 export function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const [revealed, setRevealed] = useState(false);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const currentYear = new Date().getFullYear();
 
+  // Scroll-scrubbed cinematic reveal: as the footer passes through the viewport
+  // a 0→1 progress value is written to --reveal, driving the sculpture's scale,
+  // the ghost wordmark parallax, and the staged directory entrance. Honours
+  // prefers-reduced-motion (reveals instantly, no scrubbing). rAF-throttled.
+  useEffect(() => {
+    const el = footerRef.current;
+    if (!el) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      el.style.setProperty('--reveal', '1');
+      el.style.setProperty('--curtain', '1');
+      setRevealed(true);
+      return;
+    }
+
+    const art = el.querySelector<HTMLElement>('.hermes-artwork-wrap');
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight || 1;
+      const rect = el.getBoundingClientRect();
+      // 0 when the footer's top edge sits at the viewport bottom,
+      // 1 once it has risen to the viewport top (artwork fills the screen).
+      const progress = Math.min(1, Math.max(0, (vh - rect.top) / vh));
+      el.style.setProperty('--reveal', progress.toFixed(3));
+
+      // Subtle blur-in driven by the sculpture's own entry as it rises into
+      // view on a normal scroll: 0 while its top edge is still low, 1 once it
+      // has risen to roughly the upper third (sharp, filling the screen).
+      if (art) {
+        const a = art.getBoundingClientRect();
+        const curtain = (vh - a.top) / (vh * 0.9);
+        el.style.setProperty('--curtain', Math.min(1, Math.max(0, curtain)).toFixed(3));
+      }
+
+      // Trip the staged content entrance a touch after the blue field appears.
+      if (progress > 0.18) setRevealed(true);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
   return (
-    <footer className="border-t border-[#e5e2dc] bg-[#f5f4f0] text-[#6e6b65] mt-auto">
-      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 pt-16 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#e5e2dc]">
-          {/* Identity & Focus (5 cols) */}
-          <div className="md:col-span-5 space-y-3">
-            <Link to="/" className="inline-block">
-              <span className="font-display text-[22px] font-normal tracking-[-0.01em] text-[#141413]">
-                {personalInfo.name}
-              </span>
-            </Link>
-            <p className="body-sm text-[#6e6b65] max-w-sm">
-              Informatics Engineering at UIN Sunan Gunung Djati Bandung &bull; LPDP Scholar. Building full-stack web platforms, native systems, and accessible computing interfaces.
-            </p>
-            <div className="pt-1 text-[12px] font-mono text-[#1e3a2b] flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1e3a2b]" />
-              <span>Available for engineering roles &bull; 2026</span>
-            </div>
-          </div>
+    <footer
+      ref={footerRef}
+      className={`hermes-wrapper${revealed ? ' is-revealed' : ''}`}
+      aria-label="Site Footer and Directory"
+    >
+      {/* ======================================================== */}
+      {/* STAGE 0: LEAD-IN — soft cream→blue leading edge that      */}
+      {/* rises over the pinned 08 section (stacking), no hard seam. */}
+      {/* ======================================================== */}
+      <div className="hermes-leadin" aria-hidden="true" />
 
-          {/* Directory Index (3 cols) */}
-          <div className="md:col-span-3 space-y-3">
-            <span className="caption-uppercase block text-[#9c9890]">Directory</span>
-            <ul className="space-y-1.5 text-[14px]">
-              {[
-                { label: 'Overview', to: '/' },
-                { label: 'About & Academic Base', to: '/about' },
-                { label: 'Work History', to: '/experience' },
-                { label: 'Selected Work', to: '/projects' },
-                { label: 'Applied Research', to: '/research' },
-                { label: 'Curriculum Vitae (CV)', to: '/cv' },
-                { label: 'Inquiries & Contact', to: '/contact' }
-              ].map((item) => (
-                <li key={item.to}>
-                  <Link
-                    to={item.to}
-                    className="text-[#6e6b65] hover:text-[#141413] transition-colors py-0.5 block"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* ======================================================== */}
+      {/* STAGE 1: CURTAIN REVEAL — sculpture resolves blur → sharp */}
+      {/* as the footer stacks up over the 08 · INQUIRIES section.   */}
+      {/* ======================================================== */}
+      <div className="hermes-footer-reveal">
+        {/* Top Visual Artwork Area (curtain) */}
+        <div className="hermes-artwork-wrap">
+          <img
+            src="/hermes/footer.webp"
+            alt="Hermes Classical Sculpture & Terminal Systems"
+            className="hermes-artwork-img"
+            loading="lazy"
+          />
+          <div className="hermes-artwork-tint" aria-hidden="true" />
+          <div className="hermes-noise-overlay" aria-hidden="true" />
+          <div className="hermes-artwork-fade" aria-hidden="true" />
 
-          {/* Verified Channels (4 cols) */}
-          <div className="md:col-span-4 space-y-3">
-            <span className="caption-uppercase block text-[#9c9890]">Dispatch &amp; Repositories</span>
-            <ul className="space-y-2 text-[14px]">
-              <li>
-                <a
-                  href={personalInfo.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#44423e] hover:text-[#141413] inline-flex items-center gap-2 transition-colors py-0.5"
-                >
-                  <GithubIcon size={14} />
-                  <span>github.com/irs622</span>
-                  <ArrowUpRight size={12} className="opacity-40" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={personalInfo.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#44423e] hover:text-[#141413] inline-flex items-center gap-2 transition-colors py-0.5"
-                >
-                  <LinkedinIcon size={14} />
-                  <span>linkedin.com/in/irsalshydiq</span>
-                  <ArrowUpRight size={12} className="opacity-40" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="text-[#44423e] hover:text-[#141413] inline-flex items-center gap-2 transition-colors py-0.5"
-                >
-                  <span className="font-mono text-[13px]">{personalInfo.email}</span>
-                </a>
-              </li>
-              <li className="pt-2 text-[12px] font-mono text-[#9c9890]">
-                Bandung, West Java, Indonesia &bull; UTC+7
-              </li>
-            </ul>
+          {/* Giant Ghost Wordmark over Artwork */}
+          <div className="hermes-footer-ghost" aria-hidden="true">
+            <span>LM. Irsal Shydiq</span>
           </div>
         </div>
 
-        {/* Bottom Colophon Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px] font-mono text-[#9c9890]">
-          <p>&copy; {currentYear} {personalInfo.name}. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <span>Typeset in EB Garamond &amp; Inter</span>
-            <span>&bull;</span>
-            <button
-              onClick={scrollToTop}
-              className="inline-flex items-center gap-1 text-[#44423e] hover:text-[#141413] transition-colors cursor-pointer group"
-              aria-label="Back to top of page"
+        {/* Colophon */}
+        <div className="hermes-directory-wrap">
+          {/* 08 · INQUIRIES & DISPATCH */}
+          <div className="hermes-dispatch" id="contact">
+
+            <div className="hermes-dispatch-label">
+              <span>08</span>
+              <span aria-hidden="true">&bull;</span>
+              <span>INQUIRIES &amp; DISPATCH</span>
+            </div>
+
+            <h2 className="hermes-dispatch-title">
+              Initiate dialogue<br />
+              <em>or engineering inquiry.</em>
+            </h2>
+
+            <p className="hermes-dispatch-sub">
+              Open to software engineering internships, technical collaborations, and research in full-stack systems and accessible technology.
+            </p>
+
+            <div className="hermes-dispatch-readout">
+              <span>TX/RX &bull; LIVE DISPATCH FIELD</span>
+              <span>LATENCY &lt; 12MS &bull; UTC+7</span>
+            </div>
+
+            <div className="hermes-dispatch-channel">
+              <span>PRIMARY DISPATCH CHANNEL &bull; DIRECT INBOX TRANSMISSION</span>
+              <span className="hermes-dispatch-status">
+                <span className="hermes-dispatch-dot" />
+                Available for 2026 roles
+              </span>
+            </div>
+
+            <a
+              className="hermes-dispatch-email"
+              href={`mailto:${personalInfo.email}?subject=Project%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
+              aria-label={`Send dispatch email to ${personalInfo.email}`}
             >
-              <span>Back to top</span>
-              <ArrowUp
-                size={13}
-                className="transition-transform group-hover:-translate-y-0.5"
-              />
-            </button>
+              <span>{personalInfo.email}</span>
+              <span className="hermes-dispatch-pill">
+                Send Dispatch <ArrowUpRight size={13} />
+              </span>
+            </a>
+          </div>
+
+          {/* Bottom Colophon Bar */}
+          <div className="hermes-bottom-bar">
+            {/* Social Icons */}
+            <div className="hermes-social-row">
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hermes-social-link"
+                aria-label="GitHub"
+              >
+                <Github size={18} />
+              </a>
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hermes-social-link"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="hermes-social-link"
+                aria-label="Email"
+              >
+                <Mail size={18} />
+              </a>
+            </div>
+
+            {/* Colophon Text */}
+            <div className="hermes-colophon-legal">
+              <p>&copy; {currentYear}, {personalInfo.name}</p>
+              <span className="opacity-40">&bull;</span>
+              <p className="opacity-70">Open Source</p>
+              <span className="opacity-40">&bull;</span>
+              <p className="opacity-70">MIT License</p>
+              <span className="opacity-40">&bull;</span>
+              <p className="opacity-70">Terms &amp; Privacy</p>
+            </div>
+
+            {/* Back to top */}
+            <div>
+              <button
+                type="button"
+                onClick={scrollToTop}
+                className="hermes-back-top-btn group"
+                aria-label="Back to top"
+              >
+                <span>Back to top</span>
+                <ArrowUp
+                  size={13}
+                  className="transition-transform duration-200 group-hover:-translate-y-1"
+                />
+              </button>
+            </div>
           </div>
         </div>
       </div>
