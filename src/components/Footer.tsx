@@ -35,8 +35,6 @@ export function Footer() {
       ticking = false;
       const vh = window.innerHeight || 1;
       const rect = el.getBoundingClientRect();
-      // 0 when the footer's top edge sits at the viewport bottom,
-      // 1 once it has risen to the viewport top (artwork fills the screen).
       const progress = Math.min(1, Math.max(0, (vh - rect.top) / vh));
       el.style.setProperty('--reveal', progress.toFixed(3));
 
@@ -47,7 +45,6 @@ export function Footer() {
         el.style.setProperty('--curtain', Math.min(1, Math.max(0, curtain)).toFixed(3));
       }
 
-      // Trip the staged content entrance a touch after the dark field appears.
       if (progress > 0.18) setRevealed(true);
     };
     const onScroll = () => {
@@ -82,7 +79,6 @@ export function Footer() {
       <div className="hermes-footer-reveal">
         {/* Top Visual Artwork Area (curtain) */}
         <div className="hermes-artwork-wrap">
-          {/* Full bleed image */}
           <img
             src="/hermes/footer-kairos.jpg"
             alt="North Silence · Kairos — Field Studies in Silence · LM. Irsal Shydiq"
@@ -114,19 +110,6 @@ export function Footer() {
             <p className="hermes-dispatch-sub">
               Open to software engineering internships, technical collaborations, and research in full-stack systems and accessible technology.
             </p>
-
-            <div className="hermes-dispatch-readout">
-              <span>TX/RX &bull; LIVE DISPATCH FIELD &bull; NORTH SILENCE // KAIROS</span>
-              <span>LATENCY &lt; 12MS &bull; UTC+7</span>
-            </div>
-
-            <div className="hermes-dispatch-channel">
-              <span>PRIMARY DISPATCH CHANNEL &bull; DIRECT INBOX TRANSMISSION</span>
-              <span className="hermes-dispatch-status">
-                <span className="hermes-dispatch-dot" />
-                Available for 2026 roles
-              </span>
-            </div>
 
             <a
               className="hermes-dispatch-email"
@@ -173,13 +156,7 @@ export function Footer() {
 
             {/* Colophon Text */}
             <div className="hermes-colophon-legal">
-              <p>&copy; {currentYear}, {personalInfo.name}</p>
-              <span className="opacity-40">&bull;</span>
-              <p className="opacity-70">Open Source</p>
-              <span className="opacity-40">&bull;</span>
-              <p className="opacity-70">MIT License</p>
-              <span className="opacity-40">&bull;</span>
-              <p className="opacity-70">Terms &amp; Privacy</p>
+              <p>&copy; {currentYear} {personalInfo.name}</p>
             </div>
 
             {/* Back to top */}
