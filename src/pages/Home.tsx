@@ -76,11 +76,15 @@ export function Home() {
             headline={expertiseContent.headline}
             subheadline={expertiseContent.subheadline}
           />
-          <LazyMount minHeight="460px">
-            <Suspense fallback={<div className="h-[460px]" aria-hidden="true" />}>
-              <ExpertiseChart />
-            </Suspense>
-          </LazyMount>
+          {/* Reserve the chart's real height (taller on mobile where the
+              tabs wrap) so the lazy mount never shifts the content below. */}
+          <div className="min-h-[610px] md:min-h-[500px]">
+            <LazyMount minHeight="610px">
+              <Suspense fallback={<div className="h-[560px]" aria-hidden="true" />}>
+                <ExpertiseChart />
+              </Suspense>
+            </LazyMount>
+          </div>
         </div>
       </section>
 
