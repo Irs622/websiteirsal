@@ -31,6 +31,7 @@ import { HeroAtlas } from '../components/hero/HeroAtlas';
 import { AboutSpecimen } from '../components/about/AboutSpecimen';
 import { ExpertiseChart } from '../components/expertise/ExpertiseChart';
 import { ResearchPull } from '../components/research/ResearchPull';
+import { ContactAssemble } from '../components/contact/ContactAssemble';
 
 import portraitImg from '../assets/irsal-portrait.png';
 
@@ -187,6 +188,11 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* ====================================================== */}
+      {/* SECTION 9: CONTACT — ASSEMBLE SEQUENCE                 */}
+      {/* ====================================================== */}
+      <ContactAssemble />
 
     </div>
   );
