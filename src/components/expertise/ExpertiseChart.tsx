@@ -1,13 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Bar,
-  BarChart,
-  Cell,
-  LabelList,
-  ResponsiveContainer,
-  XAxis,
-  YAxis
-} from 'recharts';
 import { expertiseContent } from '../../data/skills';
 import { projectsContent } from '../../data/projects';
 import { noWidows } from '../../utils/noWidows';
@@ -28,6 +19,9 @@ function projectCount(skill: string): number {
   ).length;
 }
 
+// Pixel height of the plotted bar area (labels sit in a band below).
+const BAR_AREA = 230;
+
 // Precompute per-category data.
 const CATEGORY_DATA = expertiseContent.categories.map((cat) => ({
   id: cat.id,
@@ -35,22 +29,6 @@ const CATEGORY_DATA = expertiseContent.categories.map((cat) => ({
   tagline: cat.tagline,
   bars: cat.skills.map((skill) => ({ name: skill, count: projectCount(skill) }))
 }));
-
-function RotatedTick({ x, y, payload }: any) {
-  return (
-    <text
-      x={x}
-      y={y + 10}
-      textAnchor="end"
-      transform={`rotate(-40, ${x}, ${y + 10})`}
-      fontSize={10}
-      fontFamily='"Geist Mono", ui-monospace, monospace'
-      fill="#6b6b66"
-    >
-      {payload.value}
-    </text>
-  );
-}
 
 export function ExpertiseChart() {
   const reduced = useReducedMotion();
@@ -109,42 +87,49 @@ export function ExpertiseChart() {
           {noWidows(category.tagline)}
         </p>
 
-        <div className="h-[320px] w-full" aria-hidden="true">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              key={category.id}
-              data={category.bars}
-              margin={{ top: 24, right: 8, bottom: 56, left: 0 }}
-              barCategoryGap="22%"
-            >
-              <XAxis
-                dataKey="name"
-                tickLine={false}
-                axisLine={{ stroke: '#e2e2de' }}
-                interval={0}
-                height={56}
-                tick={<RotatedTick />}
-              />
-              <YAxis hide domain={[0, maxCount]} />
-              <Bar
-                dataKey="count"
-                radius={[2, 2, 0, 0]}
-                isAnimationActive={inView && !reduced}
-                animationDuration={900}
-              >
-                {category.bars.map((b) => (
-                  <Cell key={b.name} fill="#d4d4cf" />
-                ))}
-                <LabelList
-                  dataKey="count"
-                  position="top"
-                  fontSize={11}
-                  fontFamily='"Geist Mono", ui-monospace, monospace'
-                  fill="#0b0b0b"
-                />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+        <div className="w-full" aria-hidden="true">
+          {/* bar area */}
+          <div
+            key={category.id}
+            className="flex items-end gap-1.5 sm:gap-3 border-b border-[#e2e2de]"
+            style={{ height: BAR_AREA + 28 }}
+          >
+            {category.bars.map((b, i) => {
+              const target = (b.count / maxCount) * BAR_AREA;
+              return (
+                <div
+                  key={b.name}
+                  className="flex-1 min-w-0 flex flex-col items-center justify-end"
+                >
+                  <span className="font-mono text-[11px] text-[#0b0b0b] mb-1.5 tabular-nums">
+                    {b.count}
+                  </span>
+                  <div
+                    className="w-full max-w-[44px] rounded-t-sm bg-[#d4d4cf]"
+                    style={{
+                      height: Math.max(2, inView ? target : 0),
+                      transition: reduced
+                        ? 'none'
+                        : `height 700ms cubic-bezier(0.22,1,0.36,1) ${i * 45}ms`
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          {/* rotated technology labels */}
+          <div className="flex gap-1.5 sm:gap-3">
+            {category.bars.map((b) => (
+              <div key={b.name} className="flex-1 min-w-0 flex justify-center h-16">
+                <span
+                  className="mt-2 font-mono text-[10px] leading-none text-[#6b6b66] whitespace-nowrap origin-top-right"
+                  style={{ transform: 'rotate(-40deg)' }}
+                >
+                  {b.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
