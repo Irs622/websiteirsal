@@ -28,6 +28,7 @@ import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 import { HeroAtlas } from '../components/hero/HeroAtlas';
 import { AboutSpecimen } from '../components/about/AboutSpecimen';
+import { ExpertiseChart } from '../components/expertise/ExpertiseChart';
 
 import portraitImg from '../assets/irsal-portrait.png';
 
@@ -56,57 +57,22 @@ export function Home() {
       <AboutSpecimen />
 
 
-      {/* ======================================================== */}
-      {/* SECTION 3: EXPERTISE (STRUCTURED TYPOGRAPHIC LIST)       */}
-      {/* ======================================================== */}
+      {/* ====================================================== */}
+      {/* SECTION 3: EXPERTISE — CAPABILITY CHART                 */}
+      {/* ====================================================== */}
       <section
         id="expertise"
         aria-label="Technical Expertise"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#e2e2de]"
       >
-        <div className="max-w-[1200px] mx-auto">
+        <div className="max-w-[1320px] mx-auto">
           <SectionHeader
             number="02"
             label={expertiseContent.sectionTitle}
             headline={expertiseContent.headline}
             subheadline={expertiseContent.subheadline}
           />
-
-          {/* Open Editorial Technical Ledger (Structured Typographic List) */}
-          <div className="border-t border-[#e5e2dc] divide-y divide-[#e5e2dc]">
-            {expertiseContent.categories.map((category, idx) => (
-              <div
-                key={category.id}
-                className="py-8 sm:py-9 grid grid-cols-1 md:grid-cols-12 gap-6 items-start"
-              >
-                <div className="md:col-span-1 font-mono text-[12px] text-[#9c9890]">
-                  0{idx + 1}
-                </div>
-
-                <div className="md:col-span-4 space-y-1">
-                  <h3 className="font-display text-[22px] sm:text-[24px] text-[#141413] leading-snug">
-                    {category.name}
-                  </h3>
-                  <p className="text-[13px] text-[#6e6b65] leading-relaxed max-w-sm">
-                    {category.tagline}
-                  </p>
-                </div>
-
-                <div className="md:col-span-7 pt-1 md:pt-0">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1 w-full md:max-w-[340px] md:ml-auto">
-                    {category.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="font-mono text-[9px] sm:text-[9.5px] px-1.5 py-0.5 bg-[#ffffff] border border-[#e5e2dc] rounded-xs text-[#242321] text-center flex items-center justify-center"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ExpertiseChart />
         </div>
       </section>
 
