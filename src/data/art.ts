@@ -55,6 +55,11 @@ export function artSrc(slug: string, ext: 'avif' | 'webp') {
   return `/art/${slug}.${ext}`;
 }
 
+/** Smaller 1200px-wide variant — use for crops, thumbnails, and any display ≤ 1200px. */
+export function artSrc1200(slug: string, ext: 'avif' | 'webp') {
+  return `/art/${slug}-1200.${ext}`;
+}
+
 /** Responsive srcset (1200w + 2400w) for a painting. */
 export function artSrcset(slug: string, ext: 'avif' | 'webp') {
   return `/art/${slug}-1200.${ext} 1200w, /art/${slug}.${ext} 2400w`;

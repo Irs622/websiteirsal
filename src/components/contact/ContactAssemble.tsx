@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '../../data/personal';
 import { inkPassages } from '../../data/ink';
-import { artBySlug, artSrc, artSrcset } from '../../data/art';
+import { artBySlug, artSrc1200, artSrcset } from '../../data/art';
 import { contactObjects, contactPainting, ContactObject } from '../../data/contactObjects';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
@@ -46,7 +46,7 @@ function Heading() {
 
 /* ---------- static fallback ---------- */
 function ContactStatic() {
-  const webp = artSrc(contactPainting, 'webp');
+  const webp = artSrc1200(contactPainting, 'webp');
   const ratio = artBySlug[contactPainting]?.ratio ?? 0.76;
   return (
     <section id="contact" aria-label="Contact" className="px-6 sm:px-8 py-20 sm:py-28">
@@ -55,6 +55,7 @@ function ContactStatic() {
         <div className="rounded-2xl overflow-hidden border border-[#e2e2de] mx-auto" style={{ aspectRatio: String(ratio), maxWidth: 440 }}>
           <picture>
             <source srcSet={artSrcset(contactPainting, 'avif')} sizes="(max-width: 1024px) 90vw, 440px" type="image/avif" />
+            <source srcSet={artSrcset(contactPainting, 'webp')} sizes="(max-width: 1024px) 90vw, 440px" type="image/webp" />
             <img src={webp} alt="Still life by Jan van Huysum (public domain)" className="w-full h-full object-cover" loading="lazy" decoding="async" />
           </picture>
         </div>
@@ -129,7 +130,7 @@ export function ContactAssemble() {
 function ContactStage() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { progress } = useScrollProgress(sectionRef);
-  const webp = artSrc(contactPainting, 'webp');
+  const webp = artSrc1200(contactPainting, 'webp');
   const ratio = artBySlug[contactPainting]?.ratio ?? 0.76;
 
   const paintingIn = easeInOut(phase(progress, 0.55, 0.75));
@@ -151,6 +152,7 @@ function ContactStage() {
           {/* reconstructed painting beneath */}
           <picture>
             <source srcSet={artSrcset(contactPainting, 'avif')} sizes="60vh" type="image/avif" />
+            <source srcSet={artSrcset(contactPainting, 'webp')} sizes="60vh" type="image/webp" />
             <img
               src={webp}
               alt=""

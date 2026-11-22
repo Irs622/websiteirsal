@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { personalInfo } from '../../data/personal';
 import { inkPassages } from '../../data/ink';
-import { artSrc, artBySlug } from '../../data/art';
+import { artSrc1200, artBySlug } from '../../data/art';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { atlasItems } from './atlasData';
 import { AtlasCard } from './AtlasCard';
@@ -96,7 +96,7 @@ export function HeroAtlas() {
 function HeroAtlasInteractive() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const layerRef = useRef<HTMLDivElement>(null);
-  const boxes = useDetectionBoxes(artSrc(DETECT_SLUG, 'webp'));
+  const boxes = useDetectionBoxes(artSrc1200(DETECT_SLUG, 'webp'));
   const detectRatio = artBySlug[DETECT_SLUG]?.ratio ?? 0.78;
 
   const [isMobile, setIsMobile] = useState(
@@ -265,7 +265,7 @@ function HeroAtlasInteractive() {
           {isDetect ? (
             <DetectionTile
               box={boxes[Math.floor(hash(c, r, 6) * boxes.length)]}
-              src={artSrc(DETECT_SLUG, 'webp')}
+              src={artSrc1200(DETECT_SLUG, 'webp')}
               ratio={detectRatio}
               width={Math.min(cardW, Math.round(cfg.cellW * 0.52))}
             />

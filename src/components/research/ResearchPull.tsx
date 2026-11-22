@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { researchContent } from '../../data/research';
-import { artBySlug, artSrc, artSrcset } from '../../data/art';
+import { artBySlug, artSrc, artSrc1200, artSrcset } from '../../data/art';
 import { noWidows } from '../../utils/noWidows';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
@@ -49,7 +49,7 @@ const lerpRect = (a: Rect, b: Rect, t: number): Rect => ({
 
 /* ---------- static fallback (mobile / reduced motion) ---------- */
 function ResearchList() {
-  const webp = artSrc(PAINTING, 'webp');
+  const webp = artSrc1200(PAINTING, 'webp');
   return (
     <section id="research" aria-label="Research" className="px-6 sm:px-8 py-20 sm:py-28 border-b border-[#e2e2de]">
       <div className="max-w-[1320px] mx-auto">
@@ -119,7 +119,6 @@ function ResearchStage() {
   const oy = (vp.h - REF_H * s) / 2;
 
   const webp = artSrc(PAINTING, 'webp');
-  const avif = artSrc(PAINTING, 'avif');
 
   // Phase values
   const gray = phase(progress, 0.15, 0.35);
@@ -153,6 +152,7 @@ function ResearchStage() {
           {/* full-bleed painting, desaturating */}
           <picture>
             <source srcSet={artSrcset(PAINTING, 'avif')} sizes="100vw" type="image/avif" />
+            <source srcSet={artSrcset(PAINTING, 'webp')} sizes="100vw" type="image/webp" />
             <img
               src={webp}
               alt=""

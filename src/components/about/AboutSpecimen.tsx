@@ -4,7 +4,7 @@ import { personalInfo } from '../../data/personal';
 import { projectsContent } from '../../data/projects';
 import { researchContent } from '../../data/research';
 import { educationContent } from '../../data/education';
-import { artBySlug, artSrc, artSrcset } from '../../data/art';
+import { artBySlug, artSrc1200, artSrcset } from '../../data/art';
 import { noWidows } from '../../utils/noWidows';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { CountUp } from '../ui/CountUp';
@@ -59,8 +59,7 @@ function Specimen() {
   const ref = useRef<HTMLDivElement>(null);
   const [drawn, setDrawn] = useState(false);
   const piece = artBySlug[SPECIMEN];
-  const webp = artSrc(SPECIMEN, 'webp');
-  const avif = artSrc(SPECIMEN, 'avif');
+  const webp = artSrc1200(SPECIMEN, 'webp');
 
   useEffect(() => {
     const el = ref.current;
@@ -86,6 +85,7 @@ function Specimen() {
       {/* Grayscale base */}
       <picture>
         <source srcSet={artSrcset(SPECIMEN, 'avif')} sizes="(max-width: 1024px) 100vw, 50vw" type="image/avif" />
+        <source srcSet={artSrcset(SPECIMEN, 'webp')} sizes="(max-width: 1024px) 100vw, 50vw" type="image/webp" />
         <img
           src={webp}
           alt={`${piece?.title} by ${piece?.artist} (detail), used as a decorative specimen plate`}
