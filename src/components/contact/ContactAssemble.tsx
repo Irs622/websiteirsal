@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '../../data/personal';
 import { inkPassages } from '../../data/about';
-import { artBySlug, artSrc } from '../../data/art';
+import { artBySlug, artSrc, artSrcset } from '../../data/art';
 import { contactObjects, contactPainting, ContactObject } from '../../data/contactObjects';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
@@ -54,7 +54,7 @@ function ContactStatic() {
         <Heading />
         <div className="rounded-2xl overflow-hidden border border-[#e2e2de]" style={{ aspectRatio: String(ratio) }}>
           <picture>
-            <source srcSet={avif} type="image/avif" />
+            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="100vw" type="image/avif" />
             <img src={webp} alt="Still life by Jan Davidsz. de Heem (public domain)" className="w-full h-full object-cover" loading="lazy" decoding="async" />
           </picture>
         </div>
@@ -171,7 +171,7 @@ function ContactStage() {
         >
           {/* reconstructed painting beneath */}
           <picture>
-            <source srcSet={avif} type="image/avif" />
+            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="100vw" type="image/avif" />
             <img
               src={webp}
               alt=""

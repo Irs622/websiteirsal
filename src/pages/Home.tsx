@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
+import { LazyMount } from '../components/util/LazyMount';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -29,7 +30,9 @@ import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 import { HeroAtlas } from '../components/hero/HeroAtlas';
 import { AboutSpecimen } from '../components/about/AboutSpecimen';
-import { ExpertiseChart } from '../components/expertise/ExpertiseChart';
+const ExpertiseChart = lazy(() =>
+  import('../components/expertise/ExpertiseChart').then((m) => ({ default: m.ExpertiseChart }))
+);
 import { ResearchPull } from '../components/research/ResearchPull';
 import { ContactAssemble } from '../components/contact/ContactAssemble';
 
@@ -75,7 +78,11 @@ export function Home() {
             headline={expertiseContent.headline}
             subheadline={expertiseContent.subheadline}
           />
-          <ExpertiseChart />
+          <LazyMount minHeight="460px">
+            <Suspense fallback={<div className="h-[460px]" aria-hidden="true" />}>
+              <ExpertiseChart />
+            </Suspense>
+          </LazyMount>
         </div>
       </section>
 

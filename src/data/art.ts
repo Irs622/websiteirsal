@@ -55,6 +55,11 @@ export function artSrc(slug: string, ext: 'avif' | 'webp') {
   return `/art/${slug}.${ext}`;
 }
 
+/** Responsive srcset (1200w + 2400w) for a painting. */
+export function artSrcset(slug: string, ext: 'avif' | 'webp') {
+  return `/art/${slug}-1200.${ext} 1200w, /art/${slug}.${ext} 2400w`;
+}
+
 /** Short credit line for the footer. */
 export const artCredits =
   'Artwork: public-domain still lifes by Rachel Ruysch, Jan van Huysum & Jan Davidsz. de Heem (Wikimedia Commons).';

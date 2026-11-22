@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
-import { Footer } from './components/Footer';
 import { Preloader } from './components/Preloader';
+import { LazyMount } from './components/util/LazyMount';
+
+const Footer = lazy(() => import('./components/Footer').then((m) => ({ default: m.Footer })));
 import { Home } from './pages/Home';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ProjectDetail } from './pages/ProjectDetail';
@@ -50,7 +52,11 @@ function MainLayout() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <Footer />
+      <LazyMount minHeight="420px">
+        <Suspense fallback={<div style={{ minHeight: 420 }} aria-hidden="true" />}>
+          <Footer />
+        </Suspense>
+      </LazyMount>
     </div>
   );
 }

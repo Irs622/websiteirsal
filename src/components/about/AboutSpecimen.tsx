@@ -4,7 +4,7 @@ import { personalInfo } from '../../data/personal';
 import { projectsContent } from '../../data/projects';
 import { researchContent } from '../../data/research';
 import { educationContent } from '../../data/education';
-import { artBySlug, artSrc } from '../../data/art';
+import { artBySlug, artSrc, artSrcset } from '../../data/art';
 import { noWidows } from '../../utils/noWidows';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { CountUp } from '../ui/CountUp';
@@ -84,7 +84,7 @@ function Specimen() {
     <div ref={ref} className="relative w-full" style={{ aspectRatio: String(piece?.ratio ?? 0.76) }}>
       {/* Grayscale base */}
       <picture>
-        <source srcSet={avif} type="image/avif" />
+        <source srcSet={artSrcset(SPECIMEN, 'avif')} sizes="(max-width: 1024px) 100vw, 50vw" type="image/avif" />
         <img
           src={webp}
           alt={`${piece?.title} by ${piece?.artist} (detail), used as a decorative specimen plate`}

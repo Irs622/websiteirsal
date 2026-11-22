@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { researchContent } from '../../data/research';
-import { artBySlug, artSrc } from '../../data/art';
+import { artBySlug, artSrc, artSrcset } from '../../data/art';
 import { noWidows } from '../../utils/noWidows';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
@@ -152,7 +152,7 @@ function ResearchStage() {
         >
           {/* full-bleed painting, desaturating */}
           <picture>
-            <source srcSet={avif} type="image/avif" />
+            <source srcSet={artSrcset(PAINTING, 'avif')} sizes="100vw" type="image/avif" />
             <img
               src={webp}
               alt=""
