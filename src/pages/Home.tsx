@@ -36,8 +36,6 @@ const ExpertiseChart = lazy(() =>
 import { ResearchPull } from '../components/research/ResearchPull';
 import { ContactAssemble } from '../components/contact/ContactAssemble';
 
-import portraitImg from '../assets/irsal-portrait.png';
-
 export function Home() {
 
 

@@ -4,7 +4,7 @@ import { ArrowLeft, GraduationCap, Award, FileText, Download } from 'lucide-reac
 import { personalInfo } from '../data/personal';
 import { aboutContent } from '../data/about';
 import { Button } from '../components/ui/Button';
-import portraitImg from '../assets/irsal-portrait.png';
+import portraitImg from '../assets/irsal-portrait.webp';
 
 export function AboutPage() {
   useEffect(() => {
