@@ -30,6 +30,7 @@ import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 import { HeroAtlas } from '../components/hero/HeroAtlas';
 import { AboutSpecimen } from '../components/about/AboutSpecimen';
 import { ExpertiseChart } from '../components/expertise/ExpertiseChart';
+import { ResearchPull } from '../components/research/ResearchPull';
 
 import portraitImg from '../assets/irsal-portrait.png';
 
@@ -111,94 +112,10 @@ export function Home() {
         </div>
       </section>
 
-      {/* ======================================================== */}
-      {/* SECTION 6: RESEARCH (ACADEMIC MONOGRAPH LAYOUT)           */}
-      {/* ======================================================== */}
-      <section
-        id="research"
-        aria-label="Research and Technical Inquiries"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
-      >
-        <div className="max-w-[1200px] mx-auto">
-          <SectionHeader
-            number="05"
-            label={researchContent.sectionTitle}
-            headline={researchContent.headline}
-            subheadline={researchContent.subheadline}
-          />
-
-          {/* Featured Academic Pre-Print Plate */}
-          <div className="mb-14 border border-[#e5e2dc] bg-[#ffffff] p-6 sm:p-10 rounded-sm space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#eeebe6] font-mono text-[11px]">
-              <span className="caption-uppercase text-[#6e6b65]">
-                Active Research Investigation &bull; Monograph Abstract
-              </span>
-              <span className="text-[#1e3a2b] bg-[#1e3a2b]/5 px-2 py-0.5 rounded-sm border border-[#1e3a2b]/20">
-                {researchContent.featuredDirection.status}
-              </span>
-            </div>
-
-            <h3 className="display-md text-[#141413] leading-snug">
-              "{researchContent.featuredDirection.title}"
-            </h3>
-
-            <p className="text-[16px] text-[#44423e] leading-relaxed max-w-4xl">
-              {researchContent.featuredDirection.description}
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-[#eeebe6]">
-              <div>
-                <span className="caption-uppercase block mb-1 text-[#141413]">
-                  Empirical Methodology
-                </span>
-                <p className="text-[14px] text-[#44423e] leading-relaxed">
-                  {researchContent.featuredDirection.methodology}
-                </p>
-              </div>
-              <div>
-                <span className="caption-uppercase block mb-1 text-[#141413]">
-                  Target Findings &amp; Outcomes
-                </span>
-                <p className="text-[14px] text-[#44423e] leading-relaxed">
-                  {researchContent.featuredDirection.anticipatedOutcomes}
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-[#eeebe6] flex flex-wrap gap-1.5">
-              {researchContent.featuredDirection.keywords.map((kw) => (
-                <Badge key={kw} variant="mono" size="sm">
-                  {kw}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Secondary Areas of Inquiry */}
-          <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
-            {researchContent.interests.map((item) => (
-              <div
-                key={item.topic}
-                className="py-6 grid grid-cols-1 md:grid-cols-12 gap-4 items-baseline"
-              >
-                <div className="md:col-span-4 space-y-0.5">
-                  <h4 className="title-sm text-[#141413]">
-                    {item.topic}
-                  </h4>
-                  <span className="caption text-[11px] font-mono text-[#6e6b65] block">
-                    {item.category}
-                  </span>
-                </div>
-                <div className="md:col-span-8">
-                  <p className="text-[14px] text-[#44423e] leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ====================================================== */}
+      {/* SECTION 6: RESEARCH — PINNED PULL SEQUENCE             */}
+      {/* ====================================================== */}
+      <ResearchPull />
 
       {/* ======================================================== */}
       {/* SECTION 7: EDUCATION & CREDENTIALS                       */}
