@@ -84,7 +84,7 @@ export function Home() {
       <section
         id="experience"
         aria-label="Professional Experience"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
+        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e2e2de]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -128,7 +128,7 @@ export function Home() {
       <section
         id="leadership"
         aria-label="Leadership and Community"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
+        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e2e2de]"
       >
         <div className="max-w-[1200px] mx-auto">
           <SectionHeader
@@ -138,7 +138,7 @@ export function Home() {
             subheadline={leadershipContent.subheadline}
           />
 
-          <div className="border-t border-[#e5e2dc] divide-y divide-[#eeebe6]">
+          <div className="border-t border-[#e2e2de] divide-y divide-[#ecece8]">
             {leadershipContent.roles.map((role) => (
               <div
                 key={role.organization}
@@ -146,17 +146,17 @@ export function Home() {
               >
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
                   <div>
-                    <h3 className="display-sm text-[#141413]">
+                    <h3 className="display-sm text-[#0b0b0b]">
                       {role.organization}
                     </h3>
-                    <p className="body-strong text-[#242321] mt-0.5">
+                    <p className="body-strong text-[#0b0b0b] mt-0.5">
                       {role.role}
                     </p>
-                    <p className="caption text-[#6e6b65] text-[12px] mt-0.5">
+                    <p className="caption text-[#6b6b66] text-[12px] mt-0.5">
                       {role.scope}
                     </p>
                   </div>
-                  <span className="font-mono text-[12px] text-[#6e6b65]">
+                  <span className="font-mono text-[12px] text-[#6b6b66]">
                     {role.period}
                   </span>
                 </div>
@@ -165,9 +165,9 @@ export function Home() {
                   {role.contributions.map((c, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#44423e]"
+                      className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#1a1a18]"
                     >
-                      <span className="text-[#9c9890] font-mono text-[11px] select-none mt-0.5">
+                      <span className="text-[#9a9a94] font-mono text-[11px] select-none mt-0.5">
                         &bull;
                       </span>
                       <span>{c}</span>
