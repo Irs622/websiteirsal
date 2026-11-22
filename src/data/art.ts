@@ -24,12 +24,12 @@ export const artPieces: ArtPiece[] = [
     source: 'Wikimedia Commons (public domain)'
   },
   {
-    slug: 'huysum-flowers',
+    slug: 'van-huysum-still-life',
     artist: 'Jan van Huysum',
-    title: 'Vase of Flowers',
-    date: 'c. 1720',
-    ratio: 3840 / 5041,
-    source: 'Wikimedia Commons (public domain)'
+    title: 'Still Life with Flowers and Fruit',
+    date: 'c. 1715',
+    ratio: 2400 / 3148,
+    source: 'Rijksmuseum, Amsterdam, via Wikimedia Commons (public domain)'
   },
   {
     slug: 'de-heem-festoon',
@@ -62,4 +62,4 @@ export function artSrcset(slug: string, ext: 'avif' | 'webp') {
 
 /** Short credit line for the footer. */
 export const artCredits =
-  'Artwork: public-domain still lifes by Rachel Ruysch, Jan van Huysum & Jan Davidsz. de Heem (Wikimedia Commons).';
+  'Artwork: Jan van Huysum, Still Life with Flowers and Fruit (c. 1715), Rijksmuseum, Amsterdam; with details by Rachel Ruysch & Jan Davidsz. de Heem. Public domain, via Wikimedia Commons.';

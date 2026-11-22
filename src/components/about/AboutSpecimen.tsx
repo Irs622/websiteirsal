@@ -9,7 +9,7 @@ import { noWidows } from '../../utils/noWidows';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { CountUp } from '../ui/CountUp';
 
-const SPECIMEN = 'huysum-flowers';
+const SPECIMEN = 'van-huysum-still-life';
 
 interface Crop {
   label: string;
@@ -19,12 +19,13 @@ interface Crop {
   h: number;
 }
 
-// Hand-placed crop regions over the bouquet, labelled by project disciplines.
+// Crop regions aligned to real flowers (van Huysum master 2400×3148),
+// labelled by project disciplines.
 const CROPS: Crop[] = [
-  { label: 'OBJ_01 ACCESSIBLE TECH', x: 0.40, y: 0.08, w: 0.23, h: 0.15 },
-  { label: 'OBJ_02 AI & WEB', x: 0.14, y: 0.33, w: 0.21, h: 0.15 },
-  { label: 'OBJ_03 FULL-STACK', x: 0.61, y: 0.42, w: 0.21, h: 0.15 },
-  { label: 'OBJ_04 MOBILE', x: 0.37, y: 0.63, w: 0.23, h: 0.16 }
+  { label: 'OBJ_01 ACCESSIBLE TECH', x: 0.231, y: 0.073, w: 0.207, h: 0.190 }, // tulip
+  { label: 'OBJ_02 AI & WEB', x: 0.577, y: 0.032, w: 0.217, h: 0.137 }, // poppy
+  { label: 'OBJ_03 FULL-STACK', x: 0.138, y: 0.513, w: 0.273, h: 0.192 }, // roses
+  { label: 'OBJ_04 MOBILE', x: 0.509, y: 0.690, w: 0.258, h: 0.140 } // grapes
 ];
 
 const distinctTech = new Set(

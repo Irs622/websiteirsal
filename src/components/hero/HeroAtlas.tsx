@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { personalInfo } from '../../data/personal';
-import { inkPassages } from '../../data/about';
+import { inkPassages } from '../../data/ink';
 import { artSrc, artBySlug } from '../../data/art';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { atlasItems } from './atlasData';

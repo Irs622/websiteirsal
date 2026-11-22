@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '../../data/personal';
-import { inkPassages } from '../../data/about';
+import { inkPassages } from '../../data/ink';
 import { artBySlug, artSrc, artSrcset } from '../../data/art';
 import { contactObjects, contactPainting, ContactObject } from '../../data/contactObjects';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -18,7 +18,8 @@ const hash = (i: number, s: number) => {
   return v - Math.floor(v);
 };
 
-const COLOR_EXCEPTIONS = 3; // objects that stay colour + draggable
+// Objects that stay in colour and remain draggable at the end.
+const COLOR_IDS = new Set(['0105', '0102', '0108']); // roses, poppy, grapes
 
 /* ---------- shared heading block ---------- */
 function Heading() {
@@ -46,16 +47,15 @@ function Heading() {
 /* ---------- static fallback ---------- */
 function ContactStatic() {
   const webp = artSrc(contactPainting, 'webp');
-  const avif = artSrc(contactPainting, 'avif');
-  const ratio = artBySlug[contactPainting]?.ratio ?? 0.8;
+  const ratio = artBySlug[contactPainting]?.ratio ?? 0.76;
   return (
     <section id="contact" aria-label="Contact" className="px-6 sm:px-8 py-20 sm:py-28">
       <div className="max-w-[1100px] mx-auto grid lg:grid-cols-2 gap-12 items-center">
         <Heading />
-        <div className="rounded-2xl overflow-hidden border border-[#e2e2de]" style={{ aspectRatio: String(ratio) }}>
+        <div className="rounded-2xl overflow-hidden border border-[#e2e2de] mx-auto" style={{ aspectRatio: String(ratio), maxWidth: 440 }}>
           <picture>
-            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="100vw" type="image/avif" />
-            <img src={webp} alt="Still life by Jan Davidsz. de Heem (public domain)" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="(max-width: 1024px) 90vw, 440px" type="image/avif" />
+            <img src={webp} alt="Still life by Jan van Huysum (public domain)" className="w-full h-full object-cover" loading="lazy" decoding="async" />
           </picture>
         </div>
       </div>
@@ -64,23 +64,12 @@ function ContactStatic() {
 }
 
 /* ---------- draggable colour detail ---------- */
-function DetailChip({
-  obj,
-  webp,
-  settle,
-  draggable
-}: {
-  obj: ContactObject;
-  webp: string;
-  settle: number;
-  draggable: boolean;
-}) {
+function DetailChip({ obj }: { obj: ContactObject }) {
   const [drag, setDrag] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const start = useRef({ x: 0, y: 0 });
 
   const onDown = (e: React.PointerEvent) => {
-    if (!draggable) return;
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
     setDragging(true);
     start.current = { x: e.clientX - drag.x, y: e.clientY - drag.y };
@@ -95,37 +84,28 @@ function DetailChip({
     setDrag({ x: 0, y: 0 }); // spring back
   };
 
-  const sx = 1 / obj.w;
-  const sy = 1 / obj.h;
-
   return (
-    <div
+    <img
+      src={obj.file}
+      alt=""
       aria-hidden="true"
+      draggable={false}
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
       onPointerCancel={onUp}
-      className="absolute overflow-hidden"
+      className="absolute"
       style={{
         left: `${obj.x * 100}%`,
         top: `${obj.y * 100}%`,
         width: `${obj.w * 100}%`,
         height: `${obj.h * 100}%`,
         transform: `translate(${drag.x}px, ${drag.y}px)`,
-        transition: dragging ? 'none' : 'transform 0.5s cubic-bezier(0.22,1,0.36,1)',
-        cursor: draggable ? (dragging ? 'grabbing' : 'grab') : 'default',
-        opacity: settle,
-        zIndex: 20
+        transition: dragging ? 'none' : 'transform 0.55s cubic-bezier(0.22,1,0.36,1)',
+        cursor: dragging ? 'grabbing' : 'grab',
+        zIndex: 25
       }}
-    >
-      <img
-        src={webp}
-        alt=""
-        draggable={false}
-        className="absolute max-w-none"
-        style={{ width: `${sx * 100}%`, height: `${sy * 100}%`, left: `${-obj.x * sx * 100}%`, top: `${-obj.y * sy * 100}%` }}
-      />
-    </div>
+    />
   );
 }
 
@@ -150,13 +130,12 @@ function ContactStage() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { progress } = useScrollProgress(sectionRef);
   const webp = artSrc(contactPainting, 'webp');
-  const avif = artSrc(contactPainting, 'avif');
-  const ratio = artBySlug[contactPainting]?.ratio ?? 0.8;
+  const ratio = artBySlug[contactPainting]?.ratio ?? 0.76;
 
   const paintingIn = easeInOut(phase(progress, 0.55, 0.75));
   const boxOut = 1 - phase(progress, 0.55, 0.72);
-  const gray = phase(progress, 0.75, 1);
-  const hint = phase(progress, 0.78, 0.92);
+  const gray = phase(progress, 0.78, 1);
+  const hint = phase(progress, 0.8, 0.92);
 
   return (
     <section ref={sectionRef} id="contact" aria-label="Contact" className="relative" style={{ height: '440vh' }}>
@@ -167,11 +146,11 @@ function ContactStage() {
         <div
           aria-hidden="true"
           className="relative rounded-2xl overflow-hidden"
-          style={{ height: '72vh', width: `calc(72vh * ${ratio})`, maxWidth: '92vw' }}
+          style={{ height: '78vh', width: `calc(78vh * ${ratio})`, maxWidth: '92vw' }}
         >
           {/* reconstructed painting beneath */}
           <picture>
-            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="100vw" type="image/avif" />
+            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="60vh" type="image/avif" />
             <img
               src={webp}
               alt=""
@@ -181,47 +160,48 @@ function ContactStage() {
             />
           </picture>
 
-          {/* flying detail objects */}
+          {/* flying cut-out objects */}
           {contactObjects.map((obj, i) => {
-            const isColor = i < COLOR_EXCEPTIONS;
-            const t = easeInOut(phase(progress, 0.2 + i * 0.012, 0.55));
-            const sxScatter = (hash(i, 1) - 0.5) * 760;
-            const syScatter = (hash(i, 2) - 0.5) * 620;
-            const rot = (hash(i, 3) - 0.5) * 40;
-            // after reconstruction, non-colour objects fade into the painting
-            const settle = isColor ? 1 : 1 - phase(progress, 0.74, 0.9);
-            const sx = 1 / obj.w;
-            const sy = 1 / obj.h;
+            const isColor = COLOR_IDS.has(obj.id);
+            const t = easeInOut(phase(progress, 0.2 + i * 0.012, 0.56));
+            const sxScatter = (hash(i, 1) - 0.5) * 820;
+            const syScatter = (hash(i, 2) - 0.5) * 680;
+            const rot = (hash(i, 3) - 0.5) * 44;
 
-            if (isColor && progress > 0.74) {
-              return <DetailChip key={obj.label} obj={obj} webp={webp} settle={1} draggable={hint > 0.2} />;
+            // Once settled, colour exceptions become draggable chips on top.
+            if (isColor && progress > 0.75) {
+              return <DetailChip key={obj.id} obj={obj} />;
             }
+
+            // Non-colour objects fade as the full painting takes over.
+            const fade = isColor ? 1 : 1 - phase(progress, 0.74, 0.9);
 
             return (
               <div
-                key={obj.label}
-                className="absolute overflow-hidden"
+                key={obj.id}
+                className="absolute"
                 style={{
                   left: `${obj.x * 100}%`,
                   top: `${obj.y * 100}%`,
                   width: `${obj.w * 100}%`,
                   height: `${obj.h * 100}%`,
-                  transform: `translate(${sxScatter * (1 - t)}px, ${syScatter * (1 - t)}px) rotate(${rot * (1 - t)}deg) scale(${0.6 + 0.4 * t})`,
-                  opacity: settle * Math.min(1, t * 1.5),
-                  outline: `2px solid rgba(61,75,255,${boxOut * t})`,
-                  zIndex: 10
+                  transform: `translate(${sxScatter * (1 - t)}px, ${syScatter * (1 - t)}px) rotate(${rot * (1 - t)}deg) scale(${0.55 + 0.45 * t})`,
+                  opacity: fade * Math.min(1, t * 1.6),
+                  zIndex: isColor ? 20 : 10
                 }}
               >
-                <img
-                  src={webp}
-                  alt=""
-                  draggable={false}
-                  className="absolute max-w-none"
-                  style={{ width: `${sx * 100}%`, height: `${sy * 100}%`, left: `${-obj.x * sx * 100}%`, top: `${-obj.y * sy * 100}%` }}
-                />
-                <span className="annotation-tag" style={{ position: 'absolute', top: 0, left: 0, opacity: boxOut * t }}>
-                  01{String(i + 1).padStart(2, '0')} {obj.label}
+                <img src={obj.file} alt="" draggable={false} className="w-full h-full object-contain" />
+                <span
+                  className="annotation-tag"
+                  style={{ position: 'absolute', top: 0, left: 0, opacity: boxOut * t }}
+                >
+                  {obj.label}
                 </span>
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 border border-[#3d4bff]"
+                  style={{ opacity: boxOut * t }}
+                />
               </div>
             );
           })}
