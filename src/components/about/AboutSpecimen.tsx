@@ -81,7 +81,7 @@ function Specimen() {
   const linePath = centers.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
 
   return (
-    <div ref={ref} className="relative w-full" style={{ aspectRatio: String(piece?.ratio ?? 0.76) }}>
+    <div ref={ref} className="relative w-full overflow-hidden" style={{ aspectRatio: String(piece?.ratio ?? 0.76) }}>
       {/* Grayscale base */}
       <picture>
         <source srcSet={artSrcset(SPECIMEN, 'avif')} sizes="(max-width: 1024px) 100vw, 50vw" type="image/avif" />
@@ -160,7 +160,7 @@ export function AboutSpecimen() {
     <section
       id="about"
       aria-label="About"
-      className="relative px-6 sm:px-8 py-20 sm:py-28 border-b border-[#e2e2de]"
+      className="relative px-6 sm:px-8 py-20 sm:py-28 border-b border-[#e2e2de] overflow-hidden"
     >
       <div className="max-w-[1320px] mx-auto grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
         {/* Left: pills + headline + bio */}
