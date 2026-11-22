@@ -17,7 +17,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
       <div className="absolute top-0 left-0 z-10">
         <span className="annotation-tag">PROJECT · {project.category}</span>
       </div>
-      <div className="absolute top-2.5 right-2.5 z-10 text-[#9a9a94] group-hover:text-[#3d4bff] transition-colors">
+      <div className="absolute top-2.5 right-2.5 z-10 text-[#6b6b66] group-hover:text-[#3d4bff] transition-colors">
         <Bookmark size={15} aria-hidden="true" />
       </div>
 
@@ -37,7 +37,7 @@ function ProjectCard({ project }: { project: ProjectItem }) {
           />
         ) : (
           <div className="absolute inset-0 flex flex-col justify-between p-4 bg-gradient-to-br from-[#f4f4f2] to-[#e7e7e3] transition-transform duration-500 group-hover:scale-[1.03]">
-            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#9a9a94]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-[#6b6b66]">
               {project.year}
             </span>
             <span className="font-sans font-light text-[22px] leading-[1.1] tracking-[-0.02em] text-[#0b0b0b] max-w-[90%]">
@@ -120,7 +120,7 @@ export function ProjectGallery({ heading = 'h2' }: { heading?: 'h1' | 'h2' }) {
               }`}
             >
               {c.label}
-              <span className={selected ? 'text-[#9a9a94]' : 'text-[#b4b4ae]'}>
+              <span className={selected ? 'text-[#9a9a94]' : 'text-[#6b6b66]'}>
                 {String(c.count).padStart(2, '0')}
               </span>
             </button>

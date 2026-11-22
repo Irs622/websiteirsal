@@ -142,7 +142,7 @@ export function ContactPage() {
           </div>
 
           <div className="bg-[#ffffff] border border-[#e2e2de] rounded-sm p-5 space-y-1 font-mono text-[12px]">
-            <span className="caption-uppercase text-[#9a9a94] block text-[10px]">Location &amp; Coordinates</span>
+            <span className="caption-uppercase text-[#6b6b66] block text-[10px]">Location &amp; Coordinates</span>
             <div className="flex items-center gap-2 font-medium text-[#0b0b0b] text-[13px] pt-1">
               <MapPin size={13} />
               <span>Bandung, West Java, Indonesia</span>

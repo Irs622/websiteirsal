@@ -162,7 +162,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                         ? 'bg-[#0b0b0b] text-[#f4f4f2] border-[#0b0b0b] shadow-sm shadow-[#0b0b0b]/25'
                         : isPast
                         ? 'bg-[#ecece8] text-[#0b0b0b] border-[#d4d4cf]'
-                        : 'bg-transparent text-[#9a9a94] border-transparent hover:text-[#0b0b0b]'
+                        : 'bg-transparent text-[#6b6b66] border-transparent hover:text-[#0b0b0b]'
                     }`}
                   >
                     0{idx + 1}
@@ -233,7 +233,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                         : 'opacity-0 translate-y-4'
                     }`}
                   >
-                    <div className="flex items-center gap-2 font-mono text-[11px] text-[#9a9a94]">
+                    <div className="flex items-center gap-2 font-mono text-[11px] text-[#6b6b66]">
                       <span>0{idx + 1}</span>
                       <span>/</span>
                       <span>0{items.length}</span>
@@ -302,7 +302,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                       >
                         <span
                           className={`font-mono text-[11px] select-none mt-1 transition-colors duration-300 ${
-                            isActive ? 'text-[#0b0b0b]' : 'text-[#9a9a94]'
+                            isActive ? 'text-[#0b0b0b]' : 'text-[#6b6b66]'
                           }`}
                         >
                           —

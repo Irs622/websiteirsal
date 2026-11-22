@@ -56,7 +56,7 @@ export function Preloader() {
       <div className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#0b0b0b]">
         {personalInfo.name}
       </div>
-      <div className="mt-3 font-mono text-[11px] tabular-nums text-[#9a9a94]">
+      <div className="mt-3 font-mono text-[11px] tabular-nums text-[#6b6b66]">
         {String(count).padStart(3, '0')}
       </div>
       <div className="mt-4 h-[2px] w-40 overflow-hidden bg-[#e2e2de]">

@@ -173,7 +173,7 @@ export function Home() {
                       key={i}
                       className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#1a1a18]"
                     >
-                      <span className="text-[#9a9a94] font-mono text-[11px] select-none mt-0.5">
+                      <span className="text-[#6b6b66] font-mono text-[11px] select-none mt-0.5">
                         &bull;
                       </span>
                       <span>{c}</span>

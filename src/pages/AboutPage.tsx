@@ -91,7 +91,7 @@ export function AboutPage() {
             </div>
 
             <div className="py-4 space-y-1">
-              <span className="caption-uppercase text-[10px] text-[#9a9a94] block">Fellowship</span>
+              <span className="caption-uppercase text-[10px] text-[#6b6b66] block">Fellowship</span>
               <div className="flex items-center gap-2 text-[13px] font-medium text-[#0b0b0b]">
                 <Award size={15} />
                 <span>LPDP Scholarship Awardee</span>
@@ -100,13 +100,13 @@ export function AboutPage() {
             </div>
 
             <div className="py-4 space-y-1">
-              <span className="caption-uppercase text-[10px] text-[#9a9a94] block">Current Production Role</span>
+              <span className="caption-uppercase text-[10px] text-[#6b6b66] block">Current Production Role</span>
               <span className="font-medium text-[#0b0b0b] text-[14px] block">Software Engineer Intern</span>
               <span className="caption text-[#6b6b66] text-[12px] block">PT Inpartner Optima Integra &bull; Jakarta / Hybrid</span>
             </div>
 
             <div className="py-4 space-y-1">
-              <span className="caption-uppercase text-[10px] text-[#9a9a94] block">Engineering Practice</span>
+              <span className="caption-uppercase text-[10px] text-[#6b6b66] block">Engineering Practice</span>
               <span className="text-[13px] text-[#1a1a18] block">Full-Stack Web, Native Android, Accessible Systems (WCAG 2.2 AAA)</span>
               <span className="caption text-[#6b6b66] text-[11px] font-mono block">Bandung, West Java, Indonesia &bull; UTC+7</span>
             </div>

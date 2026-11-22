@@ -144,12 +144,12 @@ export function Navigation() {
             <Link
               to="/"
               className="pl-6 flex flex-col leading-none min-w-0"
-              aria-label={`${personalInfo.name} — Home`}
             >
               <span className="text-[15px] sm:text-[16px] font-medium tracking-[-0.01em] text-[#0b0b0b] truncate">
                 {personalInfo.name}
               </span>
-              <span className="mt-1.5 font-mono text-[9.5px] sm:text-[10px] tracking-[0.08em] uppercase text-[#6b6b66] leading-[1.4]">
+              <span className="sr-only"> — Home</span>
+              <span aria-hidden="true" className="mt-1.5 font-mono text-[9.5px] sm:text-[10px] tracking-[0.08em] uppercase text-[#6b6b66] leading-[1.4]">
                 Software Engineer
                 <br />
                 LPDP Scholar
@@ -233,7 +233,7 @@ export function Navigation() {
                         onClick={(e) => handleNavClick(e, item.to)}
                         className="group flex items-baseline gap-4 py-4 sm:py-5 text-[#0b0b0b] hover:text-[#3d4bff] transition-colors"
                       >
-                        <span className="font-mono text-[11px] text-[#9a9a94] w-8 shrink-0">
+                        <span className="font-mono text-[11px] text-[#6b6b66] w-8 shrink-0">
                           {String(idx + 1).padStart(2, '0')}
                         </span>
                         <span className="display-lg">{item.label}</span>
@@ -244,7 +244,7 @@ export function Navigation() {
                         onClick={() => setMenuOpen(false)}
                         className="group flex items-baseline gap-4 py-4 sm:py-5 text-[#0b0b0b] hover:text-[#3d4bff] transition-colors"
                       >
-                        <span className="font-mono text-[11px] text-[#9a9a94] w-8 shrink-0">
+                        <span className="font-mono text-[11px] text-[#6b6b66] w-8 shrink-0">
                           {String(idx + 1).padStart(2, '0')}
                         </span>
                         <span className="display-lg">{item.label}</span>

@@ -23,11 +23,12 @@ export function AtlasCard({ item, width, onNavigate, tabable = true }: AtlasCard
       onClick={onNavigate}
       draggable={false}
       tabIndex={tabable ? 0 : -1}
-      aria-label={`${item.kind === 'project' ? 'Project' : 'Research'}: ${item.title}`}
       className="annotation-frame group relative block bg-white text-[#0b0b0b] no-underline transition-[outline-color,box-shadow] hover:shadow-[0_8px_30px_rgba(11,11,11,0.10)] focus-visible:outline focus-visible:outline-[1.5px] focus-visible:outline-[#3d4bff] focus-visible:outline-offset-2"
       style={{ width }}
     >
-      <span className="annotation-tag annotation-tag--tl">{item.tag}</span>
+      {/* Concise name for assistive tech; the mono tag below is decorative. */}
+      <span className="sr-only">{item.kind === 'project' ? 'Project' : 'Research'}: </span>
+      <span aria-hidden="true" className="annotation-tag annotation-tag--tl">{item.tag}</span>
 
       {item.kind === 'project' && item.image ? (
         <div className="overflow-hidden bg-[#ecece8]" style={{ aspectRatio: '4 / 3' }}>
@@ -76,7 +77,7 @@ export function AtlasCard({ item, width, onNavigate, tabable = true }: AtlasCard
 
       {/* Caption row */}
       <div className="flex items-center justify-between gap-2 px-3 py-2 border-t border-[#e2e2de]">
-        <span className={`truncate font-medium ${compact ? 'text-[11px]' : 'text-[12.5px]'}`}>
+        <span aria-hidden="true" className={`truncate font-medium ${compact ? 'text-[11px]' : 'text-[12.5px]'}`}>
           {item.title}
         </span>
         <ArrowUpRight

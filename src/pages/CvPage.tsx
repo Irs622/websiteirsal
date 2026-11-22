@@ -493,7 +493,7 @@ export function CvPage() {
         </section>
 
         {/* Document Footer Verification */}
-        <div className="mt-10 pt-4 border-t border-[#ecece8] flex items-center justify-between text-[11px] font-mono text-[#9a9a94] print:mt-6">
+        <div className="mt-10 pt-4 border-t border-[#ecece8] flex items-center justify-between text-[11px] font-mono text-[#6b6b66] print:mt-6">
           <span className="inline-flex items-center gap-1.5 text-[#0b0b0b]">
             <CheckCircle2 size={12} />
             <span>Verified Official Document &bull; LM. Irsal Shydiq</span>

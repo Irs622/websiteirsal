@@ -72,19 +72,19 @@ export function ProjectDetail() {
         {/* Project Meta Ledger */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-b border-[#e2e2de] py-5 font-mono text-[12px]">
           <div>
-            <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Role</span>
+            <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Role</span>
             <span className="text-[#0b0b0b]">{project.role}</span>
           </div>
           <div>
-            <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Timeline</span>
+            <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Timeline</span>
             <span className="text-[#0b0b0b]">{project.year}</span>
           </div>
           <div>
-            <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Discipline</span>
+            <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Discipline</span>
             <span className="text-[#0b0b0b]">{project.category}</span>
           </div>
           <div>
-            <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Verification</span>
+            <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Verification</span>
             <span className="text-[#0b0b0b] font-medium">Verified &amp; Deployed</span>
           </div>
         </div>
@@ -102,19 +102,19 @@ export function ProjectDetail() {
         {project.specs && (
           <div className="pt-4 border-t border-[#ecece8] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-[12px]">
             <div>
-              <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Platform</span>
+              <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Platform</span>
               <span className="text-[#0b0b0b] font-medium">{project.specs.platform}</span>
             </div>
             <div>
-              <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Architecture</span>
+              <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Architecture</span>
               <span className="text-[#0b0b0b] font-medium">{project.specs.architecture}</span>
             </div>
             <div>
-              <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Core Mechanism</span>
+              <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Core Mechanism</span>
               <span className="text-[#0b0b0b] font-medium">{project.specs.keyMechanism}</span>
             </div>
             <div>
-              <span className="caption-uppercase block text-[#9a9a94] text-[10px] mb-0.5">Standard / Audit</span>
+              <span className="caption-uppercase block text-[#6b6b66] text-[10px] mb-0.5">Standard / Audit</span>
               <span className="text-[#0b0b0b] font-medium">{project.specs.verification}</span>
             </div>
           </div>
@@ -158,7 +158,7 @@ export function ProjectDetail() {
               <ul className="space-y-3">
                 {project.technicalContribution.map((contrib, i) => (
                   <li key={i} className="flex items-start gap-3 body-md text-[#1a1a18]">
-                    <span className="text-[#9a9a94] font-mono text-[12px] select-none mt-0.5">
+                    <span className="text-[#6b6b66] font-mono text-[12px] select-none mt-0.5">
                       [{i + 1}]
                     </span>
                     <span className="leading-relaxed">{contrib}</span>
