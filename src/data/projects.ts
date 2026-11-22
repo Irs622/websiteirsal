@@ -22,6 +22,9 @@ export interface ProjectItem {
   githubUrl?: string;
   liveUrl?: string;
   specs?: ProjectTechnicalSpecs;
+  /** Optional thumbnail (slug under /public or absolute URL). Without it the
+      hero/gallery renders a typographic "spec card" instead. */
+  image?: string;
 }
 
 export interface ProjectsContent {

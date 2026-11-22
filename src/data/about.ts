@@ -13,6 +13,21 @@ export interface AboutContent {
   coreInterests: string[];
 }
 
+/**
+ * Short engineering-philosophy passages rendered as the hero "ink" layer and
+ * the contact text cloud. Reflective voice, grounded in the practice described
+ * in `narrative` / `brandStatement`.
+ */
+export const inkPassages: string[] = [
+  'I build for the people a system is most likely to forget. If an interface fails a screen reader, it has failed — the rest is decoration.',
+  'Deterministic over clever. A system you can reason about at 3am is worth more than one that is impressive in a demo.',
+  'Clean data models first. Most interface pain is really a schema that was never allowed to be honest about the problem.',
+  'Accessibility is not a feature flag. WCAG is the floor, not the ceiling, and it belongs in the first commit, not the last sprint.',
+  'Measure before you optimise. Core Web Vitals, latency budgets, and real devices tell the truth that intuition will not.',
+  'Research and engineering are the same habit: form a hypothesis, instrument it, and let the evidence overrule the ego.',
+  'Resilience is a design choice. Offline-first caches, graceful fallbacks, and boring infrastructure are how software keeps its promises.'
+];
+
 export const aboutContent: AboutContent = {
   sectionNumber: '01',
   sectionTitle: 'ABOUT',
