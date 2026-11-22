@@ -270,9 +270,20 @@ function ResearchStage() {
           })}
         </div>
 
+        {/* gradient scrim so the white headline stays legible over the painting */}
+        <div
+          aria-hidden="true"
+          className="absolute top-0 left-0 w-full sm:w-3/4 h-64 z-[5] pointer-events-none"
+          style={{
+            opacity: 1 - boxIn,
+            background:
+              'linear-gradient(135deg, rgba(11,11,11,0.72) 0%, rgba(11,11,11,0.4) 38%, transparent 68%)'
+          }}
+        />
+
         {/* headline (screen space) */}
         <div className="absolute top-0 left-0 p-8 sm:p-12 z-10" style={{ opacity: 1 - textIn }}>
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/70 mb-3">
+          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/80 mb-3">
             {researchContent.sectionNumber} · {researchContent.sectionTitle}
           </p>
           <h2 className="display-xl text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.5)]">
