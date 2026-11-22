@@ -23,6 +23,7 @@ import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { SelectedWork } from '../components/SelectedWork';
+import { ProjectGallery } from '../components/projects/ProjectGallery';
 import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
@@ -103,10 +104,10 @@ export function Home() {
       <section
         id="projects"
         aria-label="Selected Engineering Projects"
-        className="py-20 sm:py-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
+        className="py-20 sm:py-28 px-6 sm:px-8 border-b border-[#e2e2de]"
       >
-        <div className="max-w-[1200px] mx-auto">
-          <SelectedWork />
+        <div className="max-w-[1320px] mx-auto">
+          <ProjectGallery />
         </div>
       </section>
 
