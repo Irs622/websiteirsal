@@ -26,6 +26,7 @@ import { SelectedWork } from '../components/SelectedWork';
 import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
+import { HeroAtlas } from '../components/hero/HeroAtlas';
 
 import portraitImg from '../assets/irsal-portrait.png';
 
@@ -43,145 +44,10 @@ export function Home() {
 
   return (
     <div className="relative">
-      {/* ======================================================== */}
-      {/* SECTION 1: HERO (ART-DIRECTED EDITORIAL MASTHEAD)        */}
-      {/* ======================================================== */}
-      <section
-        id="hero"
-        aria-label="Introduction"
-        className="relative pt-12 sm:pt-20 pb-16 sm:pb-24 px-6 sm:px-8 border-b border-[#e5e2dc]"
-      >
-        <div className="max-w-[1200px] mx-auto w-full">
-          {/* Top Running Masthead Folio */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-6 sm:pb-8 mb-8 sm:mb-12 border-b border-[#eeebe6] text-[11px] font-mono text-[#6e6b65] uppercase tracking-wider">
-            <div className="flex items-center gap-2">
-              <span className="text-[#141413] font-medium">LM. IRSAL SHYDIQ</span>
-              <span className="text-[#d0ccc3]">&bull;</span>
-              <span className="inline-flex items-center gap-1">
-                <MapPin size={11} className="text-[#141413]" />
-                Bandung, Indonesia (UTC+7)
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1e3a2b]" />
-              <span className="text-[#1e3a2b]">Available for engineering roles &bull; 2026</span>
-            </div>
-          </div>
-
-          {/* Main Asymmetric Hero Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            {/* Left Column (8 cols): Large Monumental Headline & Narrative */}
-            <div className="lg:col-span-8 space-y-6">
-              {/* Master Headline: EB Garamond with controlled line breaks */}
-              <h1 className="display-mega text-[#141413] tracking-[-0.025em]">
-                Building technology<br className="hidden sm:inline" /> with purpose.
-              </h1>
-
-              {/* Supporting Editorial Statement */}
-              <p className="text-[19px] sm:text-[22px] font-display italic text-[#242321] max-w-2xl leading-snug">
-                Software engineer working across web architectures, native systems, and accessible computing interfaces.
-              </p>
-
-              {/* Human-Crafted Context Paragraph */}
-              <p className="text-[15px] sm:text-[16px] text-[#44423e] max-w-2xl leading-relaxed text-justify">
-                Informatics Engineering student at UIN Sunan Gunung Djati Bandung and LPDP Scholar. Currently interning as a Software Engineer at PT Inpartner Optima Integra, focusing on resilient web applications and assistive technology.
-              </p>
-
-              {/* Typographic Metadata Coordinates (Open, no clunky boxes) */}
-              <div className="pt-2 border-t border-[#eeebe6] flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-[12px] text-[#6e6b65]">
-                <span className="text-[#141413] font-medium">UIN Sunan Gunung Djati Bandung '27</span>
-                <span className="text-[#d0ccc3]">&bull;</span>
-                <span>LPDP Scholar Kemenag RI</span>
-                <span className="text-[#d0ccc3]">&bull;</span>
-                <span>Software Engineer Intern @ Inpartner</span>
-              </div>
-
-              {/* Direct Actions & Channels */}
-              <div className="pt-2 flex flex-wrap items-center gap-3">
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={() => scrollToSection('projects')}
-                  icon={<ArrowDown size={14} />}
-                >
-                  Explore Selected Work
-                </Button>
-
-                <Link to="/cv" className="inline-block">
-                  <Button
-                    variant="outline"
-                    size="md"
-                    icon={<FileText size={14} />}
-                  >
-                    Curriculum Vitae
-                  </Button>
-                </Link>
-
-                <a
-                  href="/cv-irsal-shydiq.pdf"
-                  download="LM_Irsal_Shydiq_CV.pdf"
-                  className="inline-flex items-center gap-1.5 px-3 py-2 text-[13px] font-mono text-[#6e6b65] hover:text-[#141413] border border-[#e5e2dc] rounded-sm bg-white hover:bg-[#f5f4f0] transition-colors"
-                  title="Download Official CV (PDF)"
-                >
-                  <Download size={13} />
-                  <span>PDF</span>
-                </a>
-              </div>
-
-              {/* Direct Channel Coordinates */}
-              <div className="flex flex-wrap items-center gap-4 pt-1 text-[13px] font-mono text-[#6e6b65]">
-                <a
-                  href={personalInfo.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:text-[#141413] transition-colors"
-                >
-                  <GithubIcon size={14} />
-                  <span>GitHub</span>
-                  <ArrowUpRight size={11} className="opacity-40" />
-                </a>
-                <span className="text-[#d0ccc3]">&bull;</span>
-                <a
-                  href={personalInfo.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 hover:text-[#141413] transition-colors"
-                >
-                  <LinkedinIcon size={14} />
-                  <span>LinkedIn</span>
-                  <ArrowUpRight size={11} className="opacity-40" />
-                </a>
-                <span className="text-[#d0ccc3]">&bull;</span>
-                <a
-                  href={`mailto:${personalInfo.email}`}
-                  className="inline-flex items-center gap-1.5 hover:text-[#141413] transition-colors"
-                >
-                  <Mail size={13} />
-                  <span>{personalInfo.email}</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Right Column (4 cols): Art-Directed Monochrome Editorial Portrait */}
-            <div className="lg:col-span-4 pt-2">
-              <div className="border border-[#e5e2dc] bg-[#ffffff] p-2.5 rounded-sm max-w-sm">
-                <div className="aspect-[3/4] overflow-hidden bg-[#eeebe6] rounded-xs">
-                  <img
-                    src={portraitImg}
-                    alt="LM. Irsal Shydiq — Software Engineer and LPDP Scholar in Bandung, Indonesia"
-                    className="w-full h-full object-cover object-top filter grayscale contrast-[1.08] brightness-[0.98]"
-                    loading="eager"
-                  />
-                </div>
-                <div className="pt-2.5 px-1 flex items-center justify-between text-[11px] font-mono text-[#6e6b65] border-t border-[#eeebe6] mt-2">
-                  <span className="text-[#141413] font-medium">LM. Irsal Shydiq</span>
-                  <span>Bandung, West Java &bull; '27</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ====================================================== */}
+      {/* SECTION 1: HERO — DRAGGABLE PROJECT ATLAS              */}
+      {/* ====================================================== */}
+      <HeroAtlas />
 
       {/* ======================================================== */}
       {/* SECTION 2: ABOUT (EDITORIAL BIOGRAPHY & ACADEMIC DOSSIER) */}
