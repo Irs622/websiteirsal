@@ -1,180 +1,112 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUp, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUp, ArrowUpRight } from 'lucide-react';
 import { personalInfo } from '../data/personal';
+import { projectsContent } from '../data/projects';
+import { artCredits } from '../data/art';
 import './Footer.css';
 
+const planeCards = projectsContent.projects.slice(0, 6);
+
+const columns = [
+  {
+    title: 'Work',
+    links: [
+      { label: 'All work', to: '/projects' },
+      { label: 'Experience', to: '/#experience' },
+      { label: 'Expertise', to: '/#expertise' }
+    ]
+  },
+  {
+    title: 'Writing',
+    links: [
+      { label: 'Research', to: '/research' },
+      { label: 'About', to: '/#about' },
+      { label: 'Curriculum Vitae', to: '/cv' }
+    ]
+  },
+  {
+    title: 'Contact',
+    external: [
+      { label: 'Email', href: `mailto:${personalInfo.email}` },
+      { label: 'GitHub', href: personalInfo.github },
+      { label: 'LinkedIn', href: personalInfo.linkedin }
+    ]
+  }
+];
+
 export function Footer() {
-  const footerRef = useRef<HTMLElement>(null);
-  const [revealed, setRevealed] = useState(false);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const currentYear = new Date().getFullYear();
-
-  // Scroll-scrubbed cinematic reveal: as the footer passes through the viewport
-  // a 0→1 progress value is written to --reveal, driving the poster's scale
-  // and staged directory entrance. Honours prefers-reduced-motion. rAF-throttled.
-  useEffect(() => {
-    const el = footerRef.current;
-    if (!el) return;
-
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      el.style.setProperty('--reveal', '1');
-      el.style.setProperty('--curtain', '1');
-      setRevealed(true);
-      return;
-    }
-
-    const art = el.querySelector<HTMLElement>('.hermes-artwork-wrap');
-
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const vh = window.innerHeight || 1;
-      const rect = el.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, (vh - rect.top) / vh));
-      el.style.setProperty('--reveal', progress.toFixed(3));
-
-      // Subtle blur-in driven by the artwork's own entry as it rises into view
-      if (art) {
-        const a = art.getBoundingClientRect();
-        const curtain = (vh - a.top) / (vh * 0.9);
-        el.style.setProperty('--curtain', Math.min(1, Math.max(0, curtain)).toFixed(3));
-      }
-
-      if (progress > 0.18) setRevealed(true);
-    };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    update();
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, []);
+  const year = new Date().getFullYear();
 
   return (
-    <footer
-      ref={footerRef}
-      className={`hermes-wrapper${revealed ? ' is-revealed' : ''}`}
-      aria-label="Site Footer and Directory"
-    >
-      {/* ======================================================== */}
-      {/* STAGE 0: LEAD-IN — soft cream→forest noir leading edge    */}
-      {/* ======================================================== */}
-      <div className="hermes-leadin" aria-hidden="true" />
+    <footer className="site-footer" aria-label="Site footer">
+      {/* Decorative 3D plane of project cards receding to the horizon */}
+      <div className="footer-plane-wrap" aria-hidden="true">
+        <div className="footer-plane">
+          <div className="footer-plane-track">
+            {[...planeCards, ...planeCards, ...planeCards, ...planeCards].map((p, i) => (
+              <div key={i} className="footer-plane-card">
+                <span className="footer-plane-tag">PROJECT · {p.category}</span>
+                <span className="footer-plane-title">{p.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="footer-plane-fade" />
+      </div>
 
-      {/* ======================================================== */}
-      {/* STAGE 1: CURTAIN REVEAL — Full Bleed Artwork              */}
-      {/* ======================================================== */}
-      <div className="hermes-footer-reveal">
-        {/* Top Visual Artwork Area (curtain) */}
-        <div className="hermes-artwork-wrap">
-          <img
-            src="/hermes/footer-kairos.jpg"
-            alt="North Silence · Kairos — Field Studies in Silence · LM. Irsal Shydiq"
-            className="hermes-artwork-img"
-            loading="lazy"
-          />
-
-          <div className="hermes-artwork-vignette" aria-hidden="true" />
-          <div className="hermes-noise-overlay" aria-hidden="true" />
-          <div className="hermes-artwork-fade" aria-hidden="true" />
+      <div className="footer-content">
+        {/* Top line */}
+        <div className="footer-top">
+          <span className="footer-mark" aria-hidden="true" />
+          <span className="footer-top-name">
+            {personalInfo.name} · {personalInfo.location}
+          </span>
+          <button type="button" className="footer-top-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            Back to top <ArrowUp size={13} aria-hidden="true" />
+          </button>
         </div>
 
-        {/* Colophon & Dispatch */}
-        <div className="hermes-directory-wrap">
-          {/* 08 · INQUIRIES & DISPATCH */}
-          <div className="hermes-dispatch" id="contact">
-
-            <div className="hermes-dispatch-label">
-              <span>08</span>
-              <span aria-hidden="true">&bull;</span>
-              <span>INQUIRIES &amp; DISPATCH</span>
+        {/* Link columns */}
+        <nav className="footer-columns" aria-label="Footer">
+          {columns.map((col) => (
+            <div key={col.title} className="footer-col">
+              <h3 className="footer-col-title">{col.title}</h3>
+              <ul>
+                {col.links?.map((l) =>
+                  l.to.startsWith('/#') ? (
+                    <li key={l.label}>
+                      <a href={l.to}>{l.label}</a>
+                    </li>
+                  ) : (
+                    <li key={l.label}>
+                      <Link to={l.to}>{l.label}</Link>
+                    </li>
+                  )
+                )}
+                {col.external?.map((l) => (
+                  <li key={l.label}>
+                    <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">
+                      {l.label} <ArrowUpRight size={11} aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
+          ))}
+        </nav>
 
-            <h2 className="hermes-dispatch-title">
-              Initiate dialogue<br />
-              <em>or engineering inquiry.</em>
-            </h2>
+        {/* Huge wordmark */}
+        <div className="footer-wordmark" aria-hidden="true">
+          <span>Irsal Shydiq</span>
+          <span>Software Engineer</span>
+        </div>
 
-            <p className="hermes-dispatch-sub">
-              Open to software engineering internships, technical collaborations, and research in full-stack systems and accessible technology.
-            </p>
-
-            <a
-              className="hermes-dispatch-email"
-              href={`mailto:${personalInfo.email}?subject=Project%20Inquiry%20%E2%80%94%20LM.%20Irsal%20Shydiq`}
-              aria-label={`Send dispatch email to ${personalInfo.email}`}
-            >
-              <span>{personalInfo.email}</span>
-              <span className="hermes-dispatch-pill">
-                Send Dispatch <ArrowUpRight size={13} />
-              </span>
-            </a>
-          </div>
-
-          {/* Bottom Colophon Bar */}
-          <div className="hermes-bottom-bar">
-            {/* Social Icons */}
-            <div className="hermes-social-row">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hermes-social-link"
-                aria-label="GitHub"
-              >
-                <Github size={18} />
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hermes-social-link"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={18} />
-              </a>
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="hermes-social-link"
-                aria-label="Email"
-              >
-                <Mail size={18} />
-              </a>
-            </div>
-
-            {/* Colophon Text */}
-            <div className="hermes-colophon-legal">
-              <p>&copy; {currentYear} {personalInfo.name}</p>
-            </div>
-
-            {/* Back to top */}
-            <div>
-              <button
-                type="button"
-                onClick={scrollToTop}
-                className="hermes-back-top-btn group"
-                aria-label="Back to top"
-              >
-                <span>Back to top</span>
-                <ArrowUp
-                  size={13}
-                  className="transition-transform duration-200 group-hover:-translate-y-1"
-                />
-              </button>
-            </div>
-          </div>
+        {/* Bottom row */}
+        <div className="footer-bottom">
+          <span>© {year} {personalInfo.name}</span>
+          <span className="footer-bottom-art">{artCredits}</span>
+          <span>irsalshydiqq.vercel.app</span>
         </div>
       </div>
     </footer>

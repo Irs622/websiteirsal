@@ -1,363 +1,216 @@
-/* Kairos / North Silence Editorial Footer Styles Harmonized with Portfolio Palette */
-
-:root {
-  --hermes-primary: #0a130c; /* Deep Noir Olive Forest from artwork */
-  --hermes-primary-deep: #060c07; /* Botanical Pine Obsidian Noir */
-  --hermes-obsidian: #040805; /* Deep Noir Floor */
-  --hermes-accent-bright: #27442f; /* Luminous Botanical Forest Green */
-  --hermes-accent-sage: #b8c8a8; /* Sage Parchment */
-  --hw-fg: #f4eee1; /* Vintage Poster Cream White */
-  --hw-teams-col: 1200px;
-  --hw-teams-pad-x: 24px;
-}
-
-.hermes-wrapper {
+/* ==========================================================================
+   Dark footer with a receding 3D plane of project cards
+   ========================================================================== */
+.site-footer {
   position: relative;
-  z-index: 1;
-  width: 100%;
+  overflow: hidden;
+  background: #0b0b0b;
+  color: #f4f4f2;
   isolation: isolate;
-  background-color: var(--hermes-obsidian);
 }
 
-/* ================================================================== */
-/* STAGE 0: CONTINUOUS LEAD-IN                                        */
-/* A tall gradient ramp from the cream canvas above into the deep     */
-/* olive noir forest stage, seamlessly unified with the site's palette */
-/* ================================================================== */
-.hermes-leadin {
-  position: relative;
-  width: 100%;
-  height: clamp(170px, 26vh, 320px);
+/* ---- 3D plane ---- */
+.footer-plane-wrap {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  background: linear-gradient(
-    to bottom,
-    #fbfbf9 0%,
-    #eff2ed 16%,
-    #c8d6c5 40%,
-    #6d8a70 64%,
-    #233d28 86%,
-    var(--hermes-primary) 100%
-  );
-}
-
-/* ================================================================== */
-/* STAGE 1: KAIROS / NORTH SILENCE FULL BLEED ARTWORK                 */
-/* ================================================================== */
-.hermes-footer-reveal {
-  position: relative;
-  background-color: var(--hermes-primary);
-  color: var(--hw-fg);
-}
-
-/* Top Visual Artwork Area (pinned curtain) */
-.hermes-artwork-wrap {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--hermes-primary);
-  filter: blur(calc((1 - var(--curtain, 0)) * 10px));
-  will-change: filter;
-}
-
-/* Full bleed artwork covering 100% of the viewport */
-.hermes-artwork-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 36%;
-  filter: contrast(1.05) brightness(0.96);
-  user-select: none;
-}
-
-/* Subtle scroll-scrubbed de-zoom as user reaches the section */
-.hermes-wrapper .hermes-artwork-img {
-  opacity: clamp(0.35, calc(var(--reveal, 0) * 1.5 + 0.15), 1);
-  transform: scale(calc(1.06 - var(--reveal, 0) * 0.06));
-  transition: transform 160ms ease-out;
-}
-
-/* Soft Edge Vignette */
-.hermes-artwork-vignette {
-  position: absolute;
-  inset: 0;
+  perspective: 1200px;
+  perspective-origin: 50% 0%;
+  z-index: 0;
   pointer-events: none;
-  background: radial-gradient(circle at 50% 45%, transparent 45%, rgba(4, 8, 5, 0.55) 100%);
-  z-index: 3;
 }
 
-/* CRT Noise Pattern */
-.hermes-noise-overlay {
+.footer-plane {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 1 1 0 -1.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.08;
-  mix-blend-mode: overlay;
-  z-index: 4;
+  top: -10%;
+  left: -25%;
+  width: 150%;
+  height: 150%;
+  transform: rotateX(60deg);
+  transform-origin: 50% 0%;
+  opacity: 0.55;
 }
 
-/* Gradient Fade into Footer Base (where directory scrolls up) */
-.hermes-artwork-fade {
-  position: absolute;
-  inset-x: 0;
-  bottom: 0;
-  height: 52%;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(10, 19, 12, 0.45) 40%,
-    rgba(10, 19, 12, 0.88) 80%,
-    var(--hermes-primary) 100%
-  );
-  pointer-events: none;
-  z-index: 5;
+.footer-plane-track {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  animation: footer-plane-scroll 36s linear infinite;
 }
 
-/* ================================================================== */
-/* STAGE 2: DIRECTORY & DISPATCH CONTAINER                            */
-/* ================================================================== */
-.hermes-directory-wrap {
-  position: relative;
-  z-index: 6;
-  max-width: calc(var(--hw-teams-col) + 2 * var(--hw-teams-pad-x));
-  margin: 0 auto;
-  padding: 24px var(--hw-teams-pad-x) 40px;
-  /* Dark floor that rises over the pinned poster; dispatch CTA fills it */
-  min-height: 58vh;
+@keyframes footer-plane-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.footer-plane-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  gap: 36px;
-}
-
-/* ---- 08 · INQUIRIES & DISPATCH ---- */
-.hermes-dispatch {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  padding-bottom: 36px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.hermes-dispatch-label {
-  display: flex;
-  align-items: center;
   gap: 10px;
+  height: 120px;
+  padding: 10px;
+  background: #151515;
+  border: 1px solid #262626;
+  border-radius: 4px;
+}
+
+.footer-plane-tag {
+  align-self: flex-start;
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.09em;
+  font-size: 8px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+  background: #3d4bff;
+  padding: 3px 5px;
 }
 
-.hermes-dispatch-label > :first-child {
-  color: #ffffff;
-  font-weight: 500;
-}
-
-.hermes-dispatch-title {
-  margin: 4px 0 0;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(32px, 4.6vw, 62px);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--hw-fg);
-}
-
-.hermes-dispatch-title em {
-  font-style: italic;
-  color: var(--hermes-accent-sage);
-}
-
-.hermes-dispatch-sub {
-  margin: 0;
-  max-width: 540px;
-  font-size: 14px;
-  line-height: 1.8;
-  color: rgba(244, 238, 225, 0.76);
-}
-
-.hermes-dispatch-email {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 10px;
-  padding-bottom: 8px;
-  color: var(--hw-fg);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  transition: border-color 260ms ease;
-}
-
-.hermes-dispatch-email > span:first-child {
-  min-width: 0;
-  font-family: var(--font-body);
-  font-size: clamp(22px, 4.6vw, 54px);
-  font-weight: 400;
-  letter-spacing: -0.04em;
+.footer-plane-title {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 300;
+  color: #cfcfca;
   line-height: 1.2;
 }
 
-.hermes-dispatch-email:hover,
-.hermes-dispatch-email:focus-visible {
-  border-color: #ffffff;
-}
-
-.hermes-dispatch-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  padding: 8px 16px;
-  border-radius: 9999px;
-  background: var(--hw-fg);
-  color: var(--hermes-primary);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: transform 200ms ease, background-color 200ms ease;
-}
-
-.hermes-dispatch-email:hover .hermes-dispatch-pill {
-  transform: translateY(-2px);
-  background: #ffffff;
-}
-
-/* Semi-transparent wash over pinned poster */
-.hermes-directory-wrap::before {
-  content: '';
+/* fade the plane into black at the top */
+.footer-plane-fade {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
+  inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(10, 19, 12, 0) 0%,
-    rgba(10, 19, 12, 0.58) 20%,
-    rgba(6, 12, 7, 0.92) 55%,
-    var(--hermes-primary-deep) 100%
+    #0b0b0b 0%,
+    rgba(11, 11, 11, 0.7) 32%,
+    rgba(11, 11, 11, 0.85) 70%,
+    #0b0b0b 100%
   );
-  z-index: -1;
-  pointer-events: none;
 }
 
-/* Bottom Colophon Bar */
-.hermes-bottom-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding-top: 28px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(244, 238, 225, 0.7);
+/* ---- Foreground content ---- */
+.footer-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 72px 24px 32px;
 }
 
-.hermes-social-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+@media (min-width: 640px) {
+  .footer-content { padding: 96px 32px 36px; }
 }
 
-.hermes-social-link {
-  color: rgba(244, 238, 225, 0.75);
-  transition: color 180ms ease, transform 180ms ease;
-}
-
-.hermes-social-link:hover {
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-.hermes-colophon-legal {
+.footer-top {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 11px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #262626;
 }
 
-.hermes-back-top-btn {
+.footer-mark {
+  width: 10px;
+  height: 26px;
+  background: #f4f4f2;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+}
+
+.footer-top-name {
+  font-size: 14px;
+  color: #cfcfca;
+}
+
+.footer-top-btn {
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(244, 238, 225, 0.85);
-  background: transparent;
-  border: none;
+  letter-spacing: 0.08em;
+  color: #9a9a94;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 2px;
-  transition: color 180ms ease, background-color 180ms ease;
+  transition: color 0.15s;
+}
+.footer-top-btn:hover { color: #f4f4f2; }
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 40px;
 }
 
-.hermes-back-top-btn:hover {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.12);
+.footer-col {
+  padding: 0 24px;
+  border-left: 1px solid #262626;
+}
+.footer-col:first-child { padding-left: 0; border-left: none; }
+
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #6b6b66;
+  margin-bottom: 14px;
 }
 
-/* ================================================================== */
-/* RESPONSIVE BREAKPOINTS                                             */
-/* ================================================================== */
-@media (max-width: 640px) {
-  .hermes-artwork-img {
-    object-position: center 25%;
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+
+.footer-col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 15px;
+  color: #cfcfca;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-col a:hover { color: #3d4bff; }
+
+.footer-wordmark {
+  margin-top: 72px;
+  display: flex;
+  flex-direction: column;
+  line-height: 0.98;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  font-size: clamp(44px, 11vw, 150px);
+  color: #f4f4f2;
+}
+.footer-wordmark span:last-child { color: #4a4a46; }
+
+.footer-bottom {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid #262626;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #6b6b66;
+}
+.footer-bottom-art { max-width: 46ch; }
+
+/* ---- Mobile: flatten the 3D plane to a static grid ---- */
+@media (max-width: 767px) {
+  .footer-plane {
+    transform: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.18;
   }
-
-  .hermes-dispatch-email {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .hermes-bottom-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-}
-
-/* ================================================================== */
-/* STAGED ENTRANCE & REDUCED MOTION                                   */
-/* ================================================================== */
-.hermes-wrapper .hermes-bottom-bar {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 900ms var(--hermes-reveal-ease, cubic-bezier(0.22, 0.61, 0.36, 1)),
-    transform 900ms var(--hermes-reveal-ease, cubic-bezier(0.22, 0.61, 0.36, 1));
-}
-
-.hermes-wrapper.is-revealed .hermes-bottom-bar {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 200ms;
+  .footer-plane-track { animation: none; }
+  .footer-columns { grid-template-columns: 1fr; gap: 28px; }
+  .footer-col { padding: 0; border-left: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hermes-wrapper *,
-  .hermes-artwork-img {
-    transition: none !important;
-    transform: none !important;
-    animation: none !important;
-  }
-
-  .hermes-wrapper .hermes-artwork-img,
-  .hermes-wrapper .hermes-bottom-bar {
-    opacity: 1 !important;
-  }
+  .footer-plane { transform: none; opacity: 0.16; }
+  .footer-plane-track { animation: none; }
 }
