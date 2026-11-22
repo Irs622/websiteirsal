@@ -44,6 +44,7 @@ export const projectsContent: ProjectsContent = {
     {
       id: 'dengarbain',
       slug: 'dengarbain',
+    image: '/projects/dengarbain.webp',
       title: 'DengarBain',
       subtitle: 'Accessible Audio-First Hadith Learning Progressive Web App',
       year: '2026',
@@ -70,6 +71,7 @@ export const projectsContent: ProjectsContent = {
     {
       id: 'ar-hijaiyah',
       slug: 'ar-hijaiyah',
+    image: '/projects/ar-hijaiyah.webp',
       title: 'AR Hijaiyah',
       subtitle: 'Voice-Guided 3D Augmented Reality Literacy Platform',
       year: '2026',
@@ -97,6 +99,7 @@ export const projectsContent: ProjectsContent = {
     {
       id: 'fatayat-nu-management',
       slug: 'fatayat-nu-management',
+    image: '/projects/fatayat-nu-management.webp',
       title: 'Fatayat NU Central Registry',
       subtitle: 'Centralized Multi-Tier Organizational Administration System',
       year: '2026',
@@ -122,6 +125,7 @@ export const projectsContent: ProjectsContent = {
     {
       id: 'hadith-arbain-mobile',
       slug: 'hadith-arbain-mobile',
+    image: '/projects/hadith-arbain-mobile.webp',
       title: "Hadith Arba'in Native Android",
       subtitle: 'Audio-First Educational Application with Offline SQLite Persistence',
       year: '2026 — Present',
@@ -148,6 +152,7 @@ export const projectsContent: ProjectsContent = {
     {
       id: 'bahara',
       slug: 'bahara',
+    image: '/projects/bahara.webp',
       title: 'BAHARA',
       subtitle: 'Voice-Guided Arabic Phonetics Mobile Application',
       year: '2025',
@@ -174,6 +179,7 @@ export const projectsContent: ProjectsContent = {
     {
       id: 'kamus-cerdas-indo-sunda',
       slug: 'kamus-cerdas-indo-sunda',
+    image: '/projects/kamus-cerdas-indo-sunda.webp',
       title: 'Kamus Cerdas Indo-Sunda',
       subtitle: 'Regional Lexicon REST API & Automated CI/CD Pipeline',
       year: '2025',
@@ -200,6 +206,7 @@ export const projectsContent: ProjectsContent = {
     {
       id: 'library-of-focus',
       slug: 'library-of-focus',
+    image: '/projects/library-of-focus.webp',
       title: 'Library of Focus',
       subtitle: 'Cognitive Science Experimental Telemetry Environment',
       year: '2025',
