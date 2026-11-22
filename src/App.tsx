@@ -34,7 +34,7 @@ function ScrollHandler() {
 
 function MainLayout() {
   return (
-    <div className="relative min-h-screen flex flex-col bg-[#FBFBF9] text-[#44423E]">
+    <div className="relative min-h-screen flex flex-col bg-[#F4F4F2] text-[#1A1A18]">
       <Navigation />
       <main className="flex-1 overflow-x-clip">
         <Routes>

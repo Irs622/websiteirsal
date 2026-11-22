@@ -1,61 +1,86 @@
 :root {
-  /* Editorial Palette: Warm Off-White Canvas & Near-Black Ink */
-  --colors-canvas: #fbfbf9;
-  --colors-canvas-subtle: #f5f4f0;
-  --colors-canvas-elevated: #ffffff;
-  --colors-canvas-dark: #141413;
+  /* Contra-approach system: light paper, near-black ink, one electric accent */
+  --color-bg: #f4f4f2;
+  --color-surface: #ffffff;
+  --color-ink: #0b0b0b;
+  --color-footer: #0b0b0b;
 
-  /* Hairlines & Grid Rules */
-  --colors-hairline: #e5e2dc;
-  --colors-hairline-soft: #eeebe6;
-  --colors-hairline-strong: #d0ccc3;
+  /* Hairlines & grid rules */
+  --color-line: #e2e2de;
+  --color-line-soft: #ecece8;
+  --color-line-strong: #d4d4cf;
 
-  /* Typographic Ink */
-  --colors-ink: #141413;
-  --colors-body: #44423e;
-  --colors-body-strong: #242321;
-  --colors-muted: #6e6b65;
-  --colors-muted-soft: #9c9890;
-  --colors-accent: #1e3a2b;
+  /* Text ink ramp */
+  --color-text: #1a1a18;
+  --color-text-strong: #0b0b0b;
+  --color-text-muted: #6b6b66;
+  --color-text-soft: #9a9a94;
+
+  /* Accent — electric blue. Annotation tags, detection boxes, connector lines ONLY. */
+  --color-accent: #3d4bff;
+  --color-accent-soft: #d9dcff;
 
   /* Fonts */
-  --font-display: 'EB Garamond', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-accent: 'EB Garamond', Georgia, serif;
 
-  /* Radii — Restrained and Architectural */
+  /* Back-compat aliases — existing components still reference --colors-* / --font-*.
+     Repointed to the new system so unported pages degrade gracefully. */
+  --colors-canvas: var(--color-bg);
+  --colors-canvas-subtle: #ecece8;
+  --colors-canvas-elevated: var(--color-surface);
+  --colors-canvas-dark: var(--color-ink);
+  --colors-hairline: var(--color-line);
+  --colors-hairline-soft: var(--color-line-soft);
+  --colors-hairline-strong: var(--color-line-strong);
+  --colors-ink: var(--color-ink);
+  --colors-body: var(--color-text);
+  --colors-body-strong: var(--color-text-strong);
+  --colors-muted: var(--color-text-muted);
+  --colors-muted-soft: var(--color-text-soft);
+  --colors-accent: var(--color-accent);
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+
+  /* Radii */
   --rounded-xs: 2px;
   --rounded-sm: 4px;
   --rounded-md: 6px;
   --rounded-lg: 8px;
   --rounded-pill: 9999px;
 
-  /* Shadows — Subdued, Almost Flat */
-  --shadow-subtle: 0 1px 3px rgba(20, 20, 19, 0.04);
-  --shadow-editorial: 0 2px 8px rgba(20, 20, 19, 0.05);
+  /* Shadows — subdued, almost flat */
+  --shadow-subtle: 0 1px 3px rgba(11, 11, 11, 0.04);
+  --shadow-editorial: 0 2px 8px rgba(11, 11, 11, 0.05);
 }
 
 /* Base Body Styles */
 html {
   scroll-behavior: smooth;
-  background-color: var(--colors-canvas);
+  background-color: var(--color-bg);
   color-scheme: light;
 }
 
 body {
-  background-color: var(--colors-canvas);
-  color: var(--colors-body);
-  font-family: var(--font-body);
-  letter-spacing: -0.005em;
-  line-height: 1.6;
+  background-color: var(--color-bg);
+  /* Very faint 1px grid */
+  background-image:
+    linear-gradient(to right, rgba(11, 11, 11, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 11, 11, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Selection */
 ::selection {
-  background-color: #eae7e1;
-  color: var(--colors-ink);
+  background-color: var(--color-accent-soft);
+  color: var(--color-ink);
 }
 
 /* Editorial Typography */
@@ -71,23 +96,23 @@ body {
   font-family: var(--font-mono);
 }
 
-/* EB Garamond Display Hierarchy */
+/* Geist Display Hierarchy — light weights, tight tracking, left-aligned */
 .display-mega {
   font-family: var(--font-display);
-  font-size: clamp(38px, 6vw, 76px);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.025em;
-  color: var(--colors-ink);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
 }
 
 .display-xl {
   font-family: var(--font-display);
   font-size: clamp(30px, 4.2vw, 48px);
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.12;
   letter-spacing: -0.02em;
-  color: var(--colors-ink);
+  color: var(--color-ink);
 }
 
 .display-lg {
@@ -95,8 +120,8 @@ body {
   font-size: clamp(24px, 3vw, 36px);
   font-weight: 400;
   line-height: 1.18;
-  letter-spacing: -0.015em;
-  color: var(--colors-ink);
+  letter-spacing: -0.018em;
+  color: var(--color-ink);
 }
 
 .display-md {
@@ -104,8 +129,8 @@ body {
   font-size: clamp(19px, 2.2vw, 25px);
   font-weight: 400;
   line-height: 1.28;
-  letter-spacing: -0.005em;
-  color: var(--colors-ink);
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
 }
 
 .display-sm {
@@ -113,7 +138,15 @@ body {
   font-size: 21px;
   font-weight: 400;
   line-height: 1.3;
-  color: var(--colors-ink);
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+/* Optional single hero italic accent (the one remaining EB Garamond use) */
+.accent-italic {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 400;
 }
 
 /* Clean Editorial Text & Headings */
@@ -199,6 +232,51 @@ body {
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.005em;
+}
+
+/* ==========================================================================
+   ACCENT & ANNOTATION SYSTEM (electric blue — annotations only)
+   ========================================================================== */
+.text-accent {
+  color: var(--color-accent);
+}
+
+/* 1px blue outline marking a "detected" element */
+.annotation-frame {
+  position: relative;
+  outline: 1px solid var(--color-accent);
+  outline-offset: 0;
+}
+
+/* Blue filled label, white uppercase mono — e.g. "PROJECT · DENGARBAIN" */
+.annotation-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--color-accent);
+  padding: 4px 6px;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .annotation-tag {
+    font-size: 10px;
+  }
+}
+
+/* Top-left-anchored tag for a framed element */
+.annotation-tag--tl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
 }
 
 /* Reduced motion preference */
