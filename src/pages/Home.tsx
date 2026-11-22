@@ -27,6 +27,7 @@ import { ExperienceTimeline } from '../components/ExperienceTimeline';
 import { AboutEngineerAnatomy } from '../components/AboutEngineerAnatomy';
 import { GithubIcon, LinkedinIcon } from '../components/ui/Icons';
 import { HeroAtlas } from '../components/hero/HeroAtlas';
+import { AboutSpecimen } from '../components/about/AboutSpecimen';
 
 import portraitImg from '../assets/irsal-portrait.png';
 
@@ -49,69 +50,11 @@ export function Home() {
       {/* ====================================================== */}
       <HeroAtlas />
 
-      {/* ======================================================== */}
-      {/* SECTION 2: ABOUT (EDITORIAL BIOGRAPHY & ACADEMIC DOSSIER) */}
-      {/* ======================================================== */}
-      <section
-        id="about"
-        aria-label="About LM. Irsal Shydiq"
-        className="py-14 sm:py-16 px-6 sm:px-8 border-b border-[#e5e2dc]"
-      >
-        <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left: Section Header, Guiding Thesis & Editorial Narrative (6 cols) */}
-            <div className="lg:col-span-6 space-y-4">
-              <div>
-                <div className="flex items-center gap-2 mb-2 text-[11px] font-mono text-[#6e6b65] tracking-wider uppercase">
-                  <span className="text-[#141413] font-medium">01</span>
-                  <span className="text-[#d0ccc3]">&bull;</span>
-                  <span>{aboutContent.sectionTitle}</span>
-                </div>
-                <h2 className="display-lg text-[#141413] tracking-[-0.01em]">
-                  {aboutContent.headline}
-                </h2>
-              </div>
+      {/* ====================================================== */}
+      {/* SECTION 2: ABOUT — SPECIMEN PLATE                      */}
+      {/* ====================================================== */}
+      <AboutSpecimen />
 
-              <blockquote className="text-[17px] sm:text-[18.5px] font-display italic text-[#141413] border-l-2 border-[#141413] pl-4 py-0.5 leading-snug">
-                "{personalInfo.brandStatement}"
-              </blockquote>
-
-              <div className="space-y-3">
-                {aboutContent.narrative.map((paragraph, idx) => (
-                  <p
-                    key={idx}
-                    className="text-[15px] leading-[1.65] text-[#44423e] text-justify"
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: Isometric Anatomy Rig (6 cols) */}
-            <div className="lg:col-span-6">
-              <AboutEngineerAnatomy />
-            </div>
-          </div>
-
-          {/* Full-Width Single-Row Dossier Bar spanning Left to Right */}
-          <div className="mt-8 pt-6 border-t border-[#e5e2dc] grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {aboutContent.snapshot.map((item) => (
-              <div key={item.label} className="space-y-0.5">
-                <span className="caption-uppercase text-[10px] text-[#9c9890] block">
-                  {item.label}
-                </span>
-                <span className="font-medium text-[#141413] text-[14px] block">
-                  {item.value}
-                </span>
-                <span className="caption text-[#6e6b65] text-[12px] block">
-                  {item.detail}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ======================================================== */}
       {/* SECTION 3: EXPERTISE (STRUCTURED TYPOGRAPHIC LIST)       */}
