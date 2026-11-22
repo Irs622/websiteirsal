@@ -133,14 +133,14 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
   return (
     <div ref={containerRef} className="relative">
       {/* Top Interactive Chronological Index Bar (Sticky on Desktop & Mobile) */}
-      <div className="sticky top-16 z-30 bg-[#fbfbf9] border-t border-b border-[#e5e2dc] py-3 mb-2 transition-colors">
+      <div className="sticky top-28 z-30 bg-[#f4f4f2] border-t border-b border-[#e2e2de] py-3 mb-2 transition-colors">
         <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 font-mono text-[11px] text-[#6e6b65] min-w-0">
-            <span className="text-[#141413] font-medium shrink-0">
+          <div className="flex items-center gap-2.5 font-mono text-[11px] text-[#6b6b66] min-w-0">
+            <span className="text-[#0b0b0b] font-medium shrink-0">
               CHRONOLOGY 0{activeIndex + 1} / 0{items.length}
             </span>
-            <span className="text-[#d0ccc3] shrink-0">&bull;</span>
-            <span className="truncate text-[#44423e]">
+            <span className="text-[#d4d4cf] shrink-0">&bull;</span>
+            <span className="truncate text-[#1a1a18]">
               {items[activeIndex]?.company}
             </span>
           </div>
@@ -159,10 +159,10 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                     aria-label={`Jump to ${item.company}`}
                     className={`font-mono text-[11px] px-2 py-0.5 rounded-xs transition-all duration-300 cursor-pointer border ${
                       isActive
-                        ? 'bg-[#1b4330] text-[#fbfbf9] border-[#1b4330] shadow-sm shadow-[#1b4330]/25'
+                        ? 'bg-[#0b0b0b] text-[#f4f4f2] border-[#0b0b0b] shadow-sm shadow-[#0b0b0b]/25'
                         : isPast
-                        ? 'bg-[#e3eee7] text-[#1b4330] border-[#b6cebf]'
-                        : 'bg-transparent text-[#9c9890] border-transparent hover:text-[#141413]'
+                        ? 'bg-[#ecece8] text-[#0b0b0b] border-[#d4d4cf]'
+                        : 'bg-transparent text-[#9a9a94] border-transparent hover:text-[#0b0b0b]'
                     }`}
                   >
                     0{idx + 1}
@@ -171,13 +171,13 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
               })}
             </div>
 
-            <div className="w-14 sm:w-20 h-[2px] bg-[#e5e2dc] overflow-hidden rounded-full">
+            <div className="w-14 sm:w-20 h-[2px] bg-[#e2e2de] overflow-hidden rounded-full">
               <div
-                className="h-full bg-[#1b4330] transition-transform duration-150 ease-out origin-left"
+                className="h-full bg-[#0b0b0b] transition-transform duration-150 ease-out origin-left"
                 style={{ transform: `scaleX(${scrollProgress})` }}
               />
             </div>
-            <span className="font-mono text-[10px] text-[#6e6b65] w-7 text-right tabular-nums">
+            <span className="font-mono text-[10px] text-[#6b6b66] w-7 text-right tabular-nums">
               {Math.round(scrollProgress * 100)}%
             </span>
           </div>
@@ -189,16 +189,16 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
         {/* Continuous Vertical Hairline Track (Desktop & Mobile) */}
         <div
           aria-hidden="true"
-          className="absolute left-[24px] md:left-[25%] top-0 bottom-0 w-[1px] bg-[#e5e2dc]"
+          className="absolute left-[24px] md:left-[25%] top-0 bottom-0 w-[1px] bg-[#e2e2de]"
         >
           {/* Live Scroll-Linked Ink Fill (Green Spine Glow) */}
           <div
-            className="w-full bg-[#1b4330] origin-top transition-all duration-150 ease-out shadow-[0_0_8px_rgba(27,67,48,0.4)]"
+            className="w-full bg-[#0b0b0b] origin-top transition-all duration-150 ease-out shadow-[0_0_8px_rgba(11,11,11,0.4)]"
             style={{ height: `${scrollProgress * 100}%` }}
           />
         </div>
 
-        <div className="divide-y divide-[#e5e2dc]">
+        <div className="divide-y divide-[#e2e2de]">
           {items.map((item, idx) => {
             const isRevealed = !!revealedIndices[idx] || reducedMotion;
             const isActive = idx === activeIndex;
@@ -233,7 +233,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                         : 'opacity-0 translate-y-4'
                     }`}
                   >
-                    <div className="flex items-center gap-2 font-mono text-[11px] text-[#9c9890]">
+                    <div className="flex items-center gap-2 font-mono text-[11px] text-[#9a9a94]">
                       <span>0{idx + 1}</span>
                       <span>/</span>
                       <span>0{items.length}</span>
@@ -241,13 +241,13 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
 
                     <div
                       className={`font-mono text-[13px] transition-colors duration-300 ${
-                        isActive ? 'text-[#141413] font-medium' : 'text-[#6e6b65]'
+                        isActive ? 'text-[#0b0b0b] font-medium' : 'text-[#6b6b66]'
                       }`}
                     >
                       {item.period}
                     </div>
 
-                    <div className="font-mono text-[11px] text-[#6e6b65]">
+                    <div className="font-mono text-[11px] text-[#6b6b66]">
                       {item.location}
                     </div>
 
@@ -255,8 +255,8 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                       <span
                         className={`inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-xs border transition-colors duration-300 ${
                           isActive
-                            ? 'text-[#1e3a2b] bg-[#1e3a2b]/8 border-[#1e3a2b]/25'
-                            : 'text-[#6e6b65] bg-transparent border-[#e5e2dc]'
+                            ? 'text-[#0b0b0b] bg-[#0b0b0b]/8 border-[#0b0b0b]/25'
+                            : 'text-[#6b6b66] bg-transparent border-[#e2e2de]'
                         }`}
                       >
                         {item.type}
@@ -276,12 +276,12 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                   <div className="space-y-1">
                     <h3
                       className={`font-display text-[26px] sm:text-[32px] leading-tight tracking-[-0.015em] transition-colors duration-300 ${
-                        isActive ? 'text-[#141413]' : 'text-[#44423e]'
+                        isActive ? 'text-[#0b0b0b]' : 'text-[#1a1a18]'
                       }`}
                     >
                       {item.company}
                     </h3>
-                    <div className="text-[15px] sm:text-[16px] font-medium text-[#242321]">
+                    <div className="text-[15px] sm:text-[16px] font-medium text-[#0b0b0b]">
                       {item.role}
                     </div>
                   </div>
@@ -298,11 +298,11 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                           isRevealed
                             ? 'opacity-100 translate-x-0'
                             : 'opacity-0 translate-x-3'
-                        } ${isActive ? 'text-[#242321]' : 'text-[#6e6b65]'}`}
+                        } ${isActive ? 'text-[#0b0b0b]' : 'text-[#6b6b66]'}`}
                       >
                         <span
                           className={`font-mono text-[11px] select-none mt-1 transition-colors duration-300 ${
-                            isActive ? 'text-[#141413]' : 'text-[#9c9890]'
+                            isActive ? 'text-[#0b0b0b]' : 'text-[#9a9a94]'
                           }`}
                         >
                           —
@@ -320,7 +320,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                           ? '0ms'
                           : `${150 + item.responsibilities.length * 65}ms`
                       }}
-                      className={`pt-4 flex flex-wrap gap-1.5 border-t border-[#eeebe6] transition-all duration-500 ${
+                      className={`pt-4 flex flex-wrap gap-1.5 border-t border-[#ecece8] transition-all duration-500 ${
                         isRevealed
                           ? 'opacity-100 translate-y-0'
                           : 'opacity-0 translate-y-2'
@@ -331,8 +331,8 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                           key={tech}
                           className={`font-mono text-[11px] px-2.5 py-0.5 rounded-xs border transition-colors duration-300 ${
                             isActive
-                              ? 'bg-[#ffffff] text-[#141413] border-[#d0ccc3]'
-                              : 'bg-[#f5f4f0] text-[#6e6b65] border-[#e5e2dc]'
+                              ? 'bg-[#ffffff] text-[#0b0b0b] border-[#d4d4cf]'
+                              : 'bg-[#f5f4f0] text-[#6b6b66] border-[#e2e2de]'
                           }`}
                         >
                           {tech}
