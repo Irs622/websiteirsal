@@ -19,7 +19,8 @@ const hash = (i: number, s: number) => {
 };
 
 // Objects that stay in colour and remain draggable at the end.
-const COLOR_IDS = new Set(['0105', '0102', '0108']); // roses, poppy, grapes
+// Selected from flowers well-centered within the landscape crop.
+const COLOR_IDS = new Set(['0105', '0104', '0107']); // roses, anemone, carnation
 
 /* ---------- shared heading block ---------- */
 function Heading() {
@@ -47,19 +48,37 @@ function Heading() {
 /* ---------- static fallback ---------- */
 function ContactStatic() {
   const webp = artSrc1200(contactPainting, 'webp');
-  const ratio = artBySlug[contactPainting]?.ratio ?? 0.76;
   return (
-    <section id="contact" aria-label="Contact" className="px-6 sm:px-8 py-20 sm:py-28">
-      <div className="max-w-[1100px] mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        <Heading />
-        <div className="rounded-2xl overflow-hidden border border-[#e2e2de] mx-auto" style={{ aspectRatio: String(ratio), maxWidth: 440 }}>
-          <picture>
-            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="(max-width: 1024px) 90vw, 440px" type="image/avif" />
-            <source srcSet={artSrcset(contactPainting, 'webp')} sizes="(max-width: 1024px) 90vw, 440px" type="image/webp" />
-            <img src={webp} alt="Still life by Jan van Huysum (public domain)" className="w-full h-full object-cover" loading="lazy" decoding="async" />
-          </picture>
-        </div>
+    <section
+      id="contact"
+      aria-label="Contact"
+      className="relative w-full overflow-hidden py-24 sm:py-32 px-6 sm:px-8 border-b border-[#e2e2de] flex items-center justify-center min-h-[520px]"
+    >
+      {/* Full-bleed stage: the still life fills the whole section edge-to-edge. */}
+      <div className="absolute inset-0 w-full h-full" aria-hidden="true">
+        <picture>
+          <source srcSet={artSrcset(contactPainting, 'avif')} sizes="100vw" type="image/avif" />
+          <source srcSet={artSrcset(contactPainting, 'webp')} sizes="100vw" type="image/webp" />
+          <img
+            src={webp}
+            alt="Still life by Jan van Huysum (public domain)"
+            className="w-full h-full object-cover object-[center_42%]"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        {/* Light radial scrim concentrated behind the heading. */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 62% 46% at 50% 48%, rgba(244,244,242,0.82) 0%, rgba(244,244,242,0.46) 55%, rgba(244,244,242,0.1) 100%)'
+          }}
+        />
       </div>
+
+      {/* Centered heading over full bleed artwork */}
+      <Heading />
     </section>
   );
 }
@@ -95,7 +114,7 @@ function DetailChip({ obj }: { obj: ContactObject }) {
       onPointerMove={onMove}
       onPointerUp={onUp}
       onPointerCancel={onUp}
-      className="absolute"
+      className="absolute pointer-events-auto"
       style={{
         left: `${obj.x * 100}%`,
         top: `${obj.y * 100}%`,
@@ -143,77 +162,100 @@ function ContactStage() {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[#f4f4f2]">
         <InkCanvas passages={inkPassages} reduced={false} active />
 
-        {/* assemble card */}
+        {/* Full-bleed assemble stage — ink + scrim fill the screen, while the
+            reconstructed painting stays contained so the still life is never
+            cropped. */}
         <div
           aria-hidden="true"
-          className="relative rounded-2xl overflow-hidden"
-          style={{ height: '78vh', width: `calc(78vh * ${ratio})`, maxWidth: '92vw' }}
+          className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center"
         >
-          {/* reconstructed painting beneath */}
-          <picture>
-            <source srcSet={artSrcset(contactPainting, 'avif')} sizes="60vh" type="image/avif" />
-            <source srcSet={artSrcset(contactPainting, 'webp')} sizes="60vh" type="image/webp" />
-            <img
-              src={webp}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ opacity: paintingIn, filter: `grayscale(${gray})` }}
-              draggable={false}
-            />
-          </picture>
+          {/* Full-bleed painting layer: width fills the whole viewport, height
+              follows the master's portrait ratio (overflowing top/bottom) and
+              is centred, so the still life fills the screen edge-to-edge while
+              the cut-out fractional coordinates stay exact. */}
+          <div
+            className="absolute left-0 w-full"
+            style={{
+              aspectRatio: String(ratio),
+              top: '50%',
+              transform: 'translateY(-50%)'
+            }}
+          >
+            {/* reconstructed painting beneath */}
+            <picture>
+              <source srcSet={artSrcset(contactPainting, 'avif')} sizes="100vw" type="image/avif" />
+              <source srcSet={artSrcset(contactPainting, 'webp')} sizes="100vw" type="image/webp" />
+              <img
+                src={webp}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ opacity: paintingIn, filter: `grayscale(${gray})` }}
+                draggable={false}
+              />
+            </picture>
 
-          {/* flying cut-out objects */}
-          {contactObjects.map((obj, i) => {
-            const isColor = COLOR_IDS.has(obj.id);
-            const t = easeInOut(phase(progress, 0.2 + i * 0.012, 0.56));
-            const sxScatter = (hash(i, 1) - 0.5) * 820;
-            const syScatter = (hash(i, 2) - 0.5) * 680;
-            const rot = (hash(i, 3) - 0.5) * 44;
+            {/* flying cut-out objects */}
+            {contactObjects.map((obj, i) => {
+              const isColor = COLOR_IDS.has(obj.id);
+              const t = easeInOut(phase(progress, 0.2 + i * 0.012, 0.56));
+              const sxScatter = (hash(i, 1) - 0.5) * 820;
+              const syScatter = (hash(i, 2) - 0.5) * 680;
+              const rot = (hash(i, 3) - 0.5) * 44;
 
-            // Once settled, colour exceptions become draggable chips on top.
-            if (isColor && progress > 0.75) {
-              return <DetailChip key={obj.id} obj={obj} />;
-            }
+              // Once settled, colour exceptions become draggable chips on top.
+              if (isColor && progress > 0.75) {
+                return <DetailChip key={obj.id} obj={obj} />;
+              }
 
-            // Non-colour objects fade as the full painting takes over.
-            const fade = isColor ? 1 : 1 - phase(progress, 0.74, 0.9);
+              // Non-colour objects fade as the full painting takes over.
+              const fade = isColor ? 1 : 1 - phase(progress, 0.74, 0.9);
 
-            return (
-              <div
-                key={obj.id}
-                className="absolute"
-                style={{
-                  left: `${obj.x * 100}%`,
-                  top: `${obj.y * 100}%`,
-                  width: `${obj.w * 100}%`,
-                  height: `${obj.h * 100}%`,
-                  transform: `translate(${sxScatter * (1 - t)}px, ${syScatter * (1 - t)}px) rotate(${rot * (1 - t)}deg) scale(${0.55 + 0.45 * t})`,
-                  opacity: fade * Math.min(1, t * 1.6),
-                  zIndex: isColor ? 20 : 10
-                }}
-              >
-                <img src={obj.file} alt="" draggable={false} className="w-full h-full object-contain" />
-                <span
-                  className="annotation-tag"
-                  style={{ position: 'absolute', top: 0, left: 0, opacity: boxOut * t }}
+              return (
+                <div
+                  key={obj.id}
+                  className="absolute"
+                  style={{
+                    left: `${obj.x * 100}%`,
+                    top: `${obj.y * 100}%`,
+                    width: `${obj.w * 100}%`,
+                    height: `${obj.h * 100}%`,
+                    transform: `translate(${sxScatter * (1 - t)}px, ${syScatter * (1 - t)}px) rotate(${rot * (1 - t)}deg) scale(${0.55 + 0.45 * t})`,
+                    opacity: fade * Math.min(1, t * 1.6),
+                    zIndex: isColor ? 20 : 10
+                  }}
                 >
-                  {obj.label}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 border border-[#3d4bff]"
-                  style={{ opacity: boxOut * t }}
-                />
-              </div>
-            );
-          })}
+                  <img src={obj.file} alt="" draggable={false} className="w-full h-full object-contain" />
+                  <span
+                    className="annotation-tag"
+                    style={{ position: 'absolute', top: 0, left: 0, opacity: boxOut * t }}
+                  >
+                    {obj.label}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-0 border border-[#3d4bff]"
+                    style={{ opacity: boxOut * t }}
+                  />
+                </div>
+              );
+            })}
+          </div>
 
-          {/* scrim for text legibility */}
-          <div className="absolute inset-0 bg-[#f4f4f2]/35" style={{ opacity: paintingIn }} />
+          {/* Light legibility scrim — concentrated behind the centered text,
+              fading to clear at the edges so the still life and detection
+              boxes stay crisp. */}
+          <div
+            className="absolute inset-0"
+            style={{
+              opacity: paintingIn,
+              background:
+                'radial-gradient(ellipse 60% 44% at 50% 46%, rgba(244,244,242,0.78) 0%, rgba(244,244,242,0.42) 55%, rgba(244,244,242,0) 100%)'
+            }}
+          />
         </div>
 
         {/* centered heading over everything */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <Heading />
         </div>
 

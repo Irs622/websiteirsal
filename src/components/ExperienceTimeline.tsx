@@ -191,7 +191,7 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
           aria-hidden="true"
           className="absolute left-[24px] md:left-[25%] top-0 bottom-0 w-[1px] bg-[#e2e2de]"
         >
-          {/* Live Scroll-Linked Ink Fill (Green Spine Glow) */}
+          {/* Live Scroll-Linked Ink Fill */}
           <div
             className="w-full bg-[#0b0b0b] origin-top transition-all duration-150 ease-out shadow-[0_0_8px_rgba(11,11,11,0.4)]"
             style={{ height: `${scrollProgress * 100}%` }}
@@ -233,10 +233,15 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                         : 'opacity-0 translate-y-4'
                     }`}
                   >
-                    <div className="flex items-center gap-2 font-mono text-[11px] text-[#6b6b66]">
-                      <span>0{idx + 1}</span>
-                      <span>/</span>
-                      <span>0{items.length}</span>
+                    <div
+                      className={`font-mono text-[11px] tracking-[0.1em] transition-colors duration-300 ${
+                        isActive ? 'text-[#3d4bff]' : 'text-[#6b6b66]'
+                      }`}
+                    >
+                      OBJ_{String(idx + 1).padStart(2, '0')}
+                      <span className="text-[#b0aba2]">
+                        {' '}/ {String(items.length).padStart(2, '0')}
+                      </span>
                     </div>
 
                     <div
@@ -252,15 +257,13 @@ export function ExperienceTimeline({ items }: ExperienceTimelineProps) {
                     </div>
 
                     <div className="pt-2">
-                      <span
-                        className={`inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-xs border transition-colors duration-300 ${
-                          isActive
-                            ? 'text-[#0b0b0b] bg-[#0b0b0b]/8 border-[#0b0b0b]/25'
-                            : 'text-[#6b6b66] bg-transparent border-[#e2e2de]'
-                        }`}
-                      >
-                        {item.type}
-                      </span>
+                      {isActive ? (
+                        <span className="annotation-tag">{item.type}</span>
+                      ) : (
+                        <span className="inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-xs border text-[#6b6b66] bg-transparent border-[#e2e2de]">
+                          {item.type}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

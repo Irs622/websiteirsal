@@ -148,49 +148,62 @@ export function Home() {
             subheadline={leadershipContent.subheadline}
           />
 
+          {/* Detection timeline: each role is a "detected object" with a mono
+              object id and a blue connector rail threading the entries. */}
           <div className="border-t border-[#e2e2de] divide-y divide-[#ecece8]">
-            {leadershipContent.roles.map((role) => (
+            {leadershipContent.roles.map((role, idx) => (
               <div
                 key={role.organization}
-                className="py-8 space-y-3"
+                className="py-8 grid grid-cols-[2.25rem_1fr] sm:grid-cols-[3.25rem_1fr] gap-x-4 sm:gap-x-6"
               >
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-                  <div>
-                    <h3 className="display-sm text-[#0b0b0b]">
-                      {role.organization}
-                    </h3>
-                    <p className="body-strong text-[#0b0b0b] mt-0.5">
-                      {role.role}
-                    </p>
-                    <p className="caption text-[#6b6b66] text-[12px] mt-0.5">
-                      {role.scope}
-                    </p>
-                  </div>
-                  <span className="font-mono text-[12px] text-[#6b6b66]">
-                    {role.period}
+                {/* detection gutter */}
+                <div className="relative flex flex-col items-start pt-1.5">
+                  <span className="font-mono text-[10px] tracking-[0.1em] text-[#6b6b66]">
+                    OBJ_{String(idx + 1).padStart(2, '0')}
                   </span>
+                  <span aria-hidden="true" className="mt-3 h-1.5 w-1.5 rounded-full bg-[#3d4bff]" />
+                  <span aria-hidden="true" className="mt-1.5 w-px grow bg-[#3d4bff]/20" />
                 </div>
 
-                <ul className="space-y-1.5 max-w-3xl pt-1">
-                  {role.contributions.map((c, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#1a1a18]"
-                    >
-                      <span className="text-[#6b6b66] font-mono text-[11px] select-none mt-0.5">
-                        &bull;
-                      </span>
-                      <span>{c}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="space-y-3 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+                    <div>
+                      <h3 className="display-sm text-[#0b0b0b]">
+                        {role.organization}
+                      </h3>
+                      <p className="body-strong text-[#0b0b0b] mt-0.5">
+                        {role.role}
+                      </p>
+                      <p className="caption text-[#6b6b66] text-[12px] mt-0.5">
+                        {role.scope}
+                      </p>
+                    </div>
+                    <span className="font-mono text-[12px] text-[#6b6b66]">
+                      {role.period}
+                    </span>
+                  </div>
 
-                <div className="pt-2 flex flex-wrap gap-1.5">
-                  {role.tags.map((tag) => (
-                    <Badge key={tag} variant="mono" size="sm">
-                      {tag}
-                    </Badge>
-                  ))}
+                  <ul className="space-y-1.5 max-w-3xl pt-1">
+                    {role.contributions.map((c, i) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-2.5 text-[14px] leading-relaxed text-[#1a1a18]"
+                      >
+                        <span className="text-[#6b6b66] font-mono text-[11px] select-none mt-0.5">
+                          &bull;
+                        </span>
+                        <span>{c}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="pt-2 flex flex-wrap gap-1.5">
+                    {role.tags.map((tag) => (
+                      <Badge key={tag} variant="mono" size="sm">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}

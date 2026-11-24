@@ -46,17 +46,20 @@ export function EducationRecord() {
       <div className="education-record-inner">
         <SectionHeader number={educationContent.sectionNumber} label={educationContent.sectionTitle} headline={educationContent.headline} subheadline={educationContent.subheadline} />
         <div className="education-record-grid">
-          <article className="education-academic" aria-labelledby={`${id}-institution`}>
-            <div className="education-column-label"><span>Academic record</span><span>{education.period}</span></div>
-            <h3 id={`${id}-institution`}>{education.institution}</h3>
-            <p className="education-degree">{education.degree}</p>
-            <p className="education-field">{education.field}</p>
-            <dl className="education-facts">
-              <div><dt>Timeline</dt><dd>{education.status}</dd></div>
-              <div><dt>GPA</dt><dd>{education.gpa}</dd></div>
-            </dl>
-            <div className="education-fellowship"><span className="education-small-label">Scholarship</span><p>{education.scholarship}</p></div>
-            {education.notes && <p className="education-notes">{education.notes}</p>}
+          <article className="education-academic annotation-frame" aria-labelledby={`${id}-institution`}>
+            <span className="annotation-tag annotation-tag--tl" aria-hidden="true">OBJ_01 · DEGREE</span>
+            <div className="education-academic-body">
+              <div className="education-column-label"><span>Academic record</span><span>{education.period}</span></div>
+              <h3 id={`${id}-institution`}>{education.institution}</h3>
+              <p className="education-degree">{education.degree}</p>
+              <p className="education-field">{education.field}</p>
+              <dl className="education-facts">
+                <div><dt>Timeline</dt><dd>{education.status}</dd></div>
+                <div><dt>GPA</dt><dd>{education.gpa}</dd></div>
+              </dl>
+              <div className="education-fellowship"><span className="education-small-label">Scholarship</span><p>{education.scholarship}</p></div>
+              {education.notes && <p className="education-notes">{education.notes}</p>}
+            </div>
           </article>
           <div className="education-credentials">
             <div className="education-credentials-heading">

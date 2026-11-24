@@ -27,7 +27,8 @@ import {
 
 // ============================================================================
 // ANATOMY REACT DRAWING PRIMITIVES (wheresryan22/anatomy kit/react/draw.tsx)
-// Two-Color Editorial Palette (Warm Sand/Cream + Botanical Forest/Sage Green)
+// Editorial palette (warm sand/cream neutrals + the system's electric-blue
+// accent for passed/active nodes — harmonised with the global design system)
 // ============================================================================
 
 type MaterialColor = 'sand' | 'sage' | 'forest';
@@ -50,18 +51,18 @@ const MATERIAL_PALETTES: Record<
     crease: '#cfc6b6'
   },
   sage: {
-    fill: '#e3eee7',
-    top: '#eef6f1',
-    shades: ['#b6cebf', '#c4d8cc', '#d2e2d8', '#e0ece5'],
-    edge: '#1e3a2b',
-    crease: '#adc6b7'
+    fill: '#e5e7fb',
+    top: '#f0f1fe',
+    shades: ['#c3c8f2', '#d0d4f6', '#dde0f9', '#eaecfd'],
+    edge: '#2b3180',
+    crease: '#b9bff0'
   },
   forest: {
-    fill: '#1b4330',
-    top: '#285c43',
-    shades: ['#112b1e', '#153626', '#1b4330', '#22503a'],
-    edge: '#0f2318',
-    crease: '#356f52'
+    fill: '#3d4bff',
+    top: '#5b67ff',
+    shades: ['#242da3', '#2d38c8', '#3d4bff', '#5059ff'],
+    edge: '#1a1f6b',
+    crease: '#6b76ff'
   }
 };
 
@@ -529,7 +530,7 @@ export function ExperienceSpinePin({
       title={`0${index + 1} • ${company}`}
       className={`iso group absolute left-[24px] md:left-[25%] top-6 -translate-x-1/2 z-20 w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center cursor-pointer focus:outline-none transition-all duration-500 ${
         isActive
-          ? 'scale-110 drop-shadow-[0_8px_18px_rgba(27,67,48,0.38)]'
+          ? 'scale-110 drop-shadow-[0_8px_18px_rgba(61,75,255,0.32)]'
           : isPassed
           ? 'scale-100 opacity-95'
           : 'scale-95 opacity-55'
@@ -547,11 +548,11 @@ export function ExperienceSpinePin({
           </filter>
         </defs>
 
-        {/* Ambient Green Glowing Shadow when Active */}
+        {/* Ambient electric-blue glow when active */}
         {isActive && (
           <path
             d={geo.base.halo}
-            fill="#1b4330"
+            fill="#242da3"
             opacity="0.32"
             filter={`url(#node-glow-${index})`}
           />
@@ -575,13 +576,13 @@ export function ExperienceSpinePin({
           halo={isActive || hovered}
           color={isActive ? 'forest' : isPassed ? 'sage' : 'sand'}
         />
-        <Line d={geo.base.groove} tone={isActive ? 'lit' : 'lo'} stroke={isActive ? '#86efac' : undefined} />
-        <Line d={geo.base.screwRings} tone={isActive ? 'lit' : 'lo'} stroke={isActive ? '#86efac' : undefined} />
+        <Line d={geo.base.groove} tone={isActive ? 'lit' : 'lo'} stroke={isActive ? '#9aa6ff' : undefined} />
+        <Line d={geo.base.screwRings} tone={isActive ? 'lit' : 'lo'} stroke={isActive ? '#9aa6ff' : undefined} />
         <Dots
           points={geo.base.screws}
           size={0.5}
           tone={isActive ? 'lit' : baseTone}
-          fill={isActive ? '#86efac' : undefined}
+          fill={isActive ? '#9aa6ff' : undefined}
         />
 
         {/* ================================================================
@@ -605,39 +606,39 @@ export function ExperienceSpinePin({
               <path
                 d={geo.deskComputer.crtBezelPath}
                 fill={isActive ? '#f3efe6' : '#efece6'}
-                stroke={isActive ? '#1b4330' : '#6e6b65'}
+                stroke={isActive ? '#242da3' : '#6e6b65'}
                 strokeWidth="0.65"
                 vectorEffect="non-scaling-stroke"
               />
-              {/* Green Illuminated CRT Terminal Glass */}
+              {/* Illuminated CRT terminal glass — electric-blue when active */}
               <path
                 d={geo.deskComputer.crtGlassPath}
                 fill={isActive ? '#0f2418' : '#2c2b29'}
-                stroke={isActive ? '#22c55e' : '#141413'}
+                stroke={isActive ? '#3d4bff' : '#141413'}
                 strokeWidth={isActive ? '0.85' : '0.65'}
                 vectorEffect="non-scaling-stroke"
               />
               <path
                 d={geo.deskComputer.scanLines}
-                stroke={isActive ? '#86efac' : '#fbfbf9'}
+                stroke={isActive ? '#9aa6ff' : '#fbfbf9'}
                 strokeOpacity={isActive ? '0.45' : '0.22'}
                 strokeWidth="0.5"
                 vectorEffect="non-scaling-stroke"
               />
-              {/* Terminal Prompt "> _" on CRT glass glowing bright green */}
+              {/* Terminal prompt "> _" on CRT glass — electric-blue when active */}
               <path
                 d="M-9 -35 L-5 -33 L-9 -31"
                 fill="none"
-                stroke={isActive ? '#86efac' : '#fbfbf9'}
+                stroke={isActive ? '#9aa6ff' : '#fbfbf9'}
                 strokeWidth="1.1"
                 vectorEffect="non-scaling-stroke"
               />
               {anim.cursorVisible && (
-                <rect x="-3" y="-35.5" width="4.5" height="4.5" fill={isActive ? '#86efac' : '#fbfbf9'} />
+                <rect x="-3" y="-35.5" width="4.5" height="4.5" fill={isActive ? '#9aa6ff' : '#fbfbf9'} />
               )}
               <path
                 d={geo.deskComputer.floppySlotPath}
-                fill={isActive ? '#1b4330' : '#2c2b29'}
+                fill={isActive ? '#242da3' : '#2c2b29'}
                 stroke={isActive ? '#6be0a0' : '#141413'}
                 strokeWidth="0.6"
                 vectorEffect="non-scaling-stroke"
@@ -645,17 +646,17 @@ export function ExperienceSpinePin({
               <path
                 d={geo.deskComputer.speakerGrillePath}
                 fill="none"
-                stroke={isActive ? '#1b4330' : '#6e6b65'}
+                stroke={isActive ? '#242da3' : '#6e6b65'}
                 strokeWidth="0.5"
                 vectorEffect="non-scaling-stroke"
               />
             </g>
-            <Dots points={geo.deskComputer.ledDot} size={0.9} tone="hi" fill={isActive ? '#22c55e' : undefined} />
+            <Dots points={geo.deskComputer.ledDot} size={0.9} tone="hi" fill={isActive ? '#3d4bff' : undefined} />
 
             {/* Side Port & Coiled Keyboard Cord */}
             <Solid paths={geo.deskComputer.sidePort} tone="mid" crease="none" color={isActive ? 'forest' : undefined} />
-            <Line d={geo.deskComputer.kbCord.back} tone="lo" stroke={isActive ? '#1b4330' : undefined} />
-            <Line d={geo.deskComputer.kbCord.front} tone="lit" stroke={isActive ? '#22c55e' : undefined} />
+            <Line d={geo.deskComputer.kbCord.back} tone="lo" stroke={isActive ? '#242da3' : undefined} />
+            <Line d={geo.deskComputer.kbCord.front} tone="lit" stroke={isActive ? '#3d4bff' : undefined} />
 
             {/* Mechanical Keyboard & Animated Typing Keys */}
             <Solid
@@ -665,7 +666,7 @@ export function ExperienceSpinePin({
               lit={isActive}
               color={isActive ? 'sage' : undefined}
             />
-            <Line d={geo.deskComputer.kbWell} tone="lo" stroke={isActive ? '#1b4330' : undefined} />
+            <Line d={geo.deskComputer.kbWell} tone="lo" stroke={isActive ? '#242da3' : undefined} />
             {geo.deskComputer.keys.map((kPaths, kIdx) => {
               const isPressed = (isActive || hovered) && kIdx === anim.activeKeyIdx;
               return (
@@ -680,7 +681,7 @@ export function ExperienceSpinePin({
                     lit={isPressed}
                     color={isPressed ? 'forest' : isActive ? 'sage' : undefined}
                   />
-                  <Line d={geo.deskComputer.keyTops[kIdx]} tone="faint" stroke={isPressed ? '#86efac' : undefined} />
+                  <Line d={geo.deskComputer.keyTops[kIdx]} tone="faint" stroke={isPressed ? '#9aa6ff' : undefined} />
                 </g>
               );
             })}
@@ -696,8 +697,8 @@ export function ExperienceSpinePin({
             {geo.serverRack.psuCylinders.map((paths, idx) => (
               <Solid key={idx} paths={paths} tone="mid" crease="faint" color={isActive ? 'sage' : undefined} />
             ))}
-            <Line d={geo.serverRack.patchCord.back} tone="lo" stroke={isActive ? '#1b4330' : undefined} />
-            <Line d={geo.serverRack.patchCord.front} tone="lit" stroke={isActive ? '#22c55e' : undefined} />
+            <Line d={geo.serverRack.patchCord.back} tone="lo" stroke={isActive ? '#242da3' : undefined} />
+            <Line d={geo.serverRack.patchCord.front} tone="lit" stroke={isActive ? '#3d4bff' : undefined} />
 
             {/* Server Rack Tower Chassis */}
             <Solid paths={geo.serverRack.plinth} tone="lo" crease="faint" color={isActive ? 'forest' : undefined} />
@@ -708,8 +709,8 @@ export function ExperienceSpinePin({
               lit={isActive}
               color={isActive ? 'sand' : undefined}
             />
-            <Line d={geo.serverRack.topFanRing} tone="lo" stroke={isActive ? '#1b4330' : undefined} />
-            <Line d={anim.fanCross} tone="lit" stroke={isActive ? '#22c55e' : undefined} />
+            <Line d={geo.serverRack.topFanRing} tone="lo" stroke={isActive ? '#242da3' : undefined} />
+            <Line d={anim.fanCross} tone="lit" stroke={isActive ? '#3d4bff' : undefined} />
             <Solid paths={geo.serverRack.topFanHub} tone="hi" crease="none" color={isActive ? 'forest' : undefined} />
 
             {/* 4 Hot-Swap Docker Blade Drawers (Bay #2 slides out smoothly) */}
@@ -728,7 +729,7 @@ export function ExperienceSpinePin({
                     color={isSlidingBay && isActive ? 'forest' : isActive ? 'sage' : undefined}
                   />
                   <Solid paths={blade.handle} tone="hi" crease="none" color={isActive ? 'forest' : undefined} />
-                  <Dots points={blade.leds} size={0.7} tone="hi" fill={isActive ? '#22c55e' : undefined} />
+                  <Dots points={blade.leds} size={0.7} tone="hi" fill={isActive ? '#3d4bff' : undefined} />
                 </g>
               );
             })}
@@ -748,8 +749,8 @@ export function ExperienceSpinePin({
               lit={isActive}
               color={isActive ? 'forest' : isPassed ? 'sage' : undefined}
             />
-            <Line d={geo.motherboard.pcbOutline} tone="lo" stroke={isActive ? '#86efac' : undefined} />
-            <Line d={geo.motherboard.busTraces} tone="lit" stroke={isActive ? '#86efac' : undefined} />
+            <Line d={geo.motherboard.pcbOutline} tone="lo" stroke={isActive ? '#9aa6ff' : undefined} />
+            <Line d={geo.motherboard.busTraces} tone="lit" stroke={isActive ? '#9aa6ff' : undefined} />
 
             {/* Rear I/O Shield & VRM Capacitor Cylinders */}
             <Solid paths={geo.motherboard.ioTower} tone="mid" crease="faint" color={isActive ? 'sand' : undefined} />
@@ -766,8 +767,8 @@ export function ExperienceSpinePin({
               lit={isActive}
               color={isActive ? 'sage' : undefined}
             />
-            <Line d={geo.motherboard.cpuFanRing} tone="lo" stroke={isActive ? '#1b4330' : undefined} />
-            <Line d={anim.cpuFanBlades} tone="lit" stroke={isActive ? '#22c55e' : undefined} />
+            <Line d={geo.motherboard.cpuFanRing} tone="lo" stroke={isActive ? '#242da3' : undefined} />
+            <Line d={anim.cpuFanBlades} tone="lit" stroke={isActive ? '#3d4bff' : undefined} />
             <Solid paths={geo.motherboard.cpuFanHub} tone="hi" crease="none" color={isActive ? 'forest' : undefined} />
 
             {/* DDR Memory DIMM Sticks */}
@@ -785,7 +786,7 @@ export function ExperienceSpinePin({
 
             {/* Southbridge Chipset Heatsink */}
             <Solid paths={geo.motherboard.southbridge} tone="mid" crease="faint" color={isActive ? 'sand' : undefined} />
-            <Line d={geo.motherboard.southbridgeFins} tone="lo" stroke={isActive ? '#86efac' : undefined} />
+            <Line d={geo.motherboard.southbridgeFins} tone="lo" stroke={isActive ? '#9aa6ff' : undefined} />
           </g>
         )}
 
@@ -806,13 +807,13 @@ export function ExperienceSpinePin({
               <path
                 d={geo.laptopMobile.lidScreenPath}
                 fill={isActive ? '#0f2418' : '#2c2b29'}
-                stroke={isActive ? '#22c55e' : '#141413'}
+                stroke={isActive ? '#3d4bff' : '#141413'}
                 strokeWidth={isActive ? '0.8' : '0.6'}
                 vectorEffect="non-scaling-stroke"
               />
               <path
                 d={geo.laptopMobile.lidCodeLines}
-                stroke={isActive ? '#86efac' : '#fbfbf9'}
+                stroke={isActive ? '#9aa6ff' : '#fbfbf9'}
                 strokeWidth="0.85"
                 vectorEffect="non-scaling-stroke"
               />
@@ -826,7 +827,7 @@ export function ExperienceSpinePin({
               lit={isActive}
               color={isActive ? 'sage' : undefined}
             />
-            <Line d={geo.laptopMobile.trackpad} tone="lo" stroke={isActive ? '#1b4330' : undefined} />
+            <Line d={geo.laptopMobile.trackpad} tone="lo" stroke={isActive ? '#242da3' : undefined} />
             {geo.laptopMobile.laptopKeys.map((kPaths, kIdx) => {
               const isKeyActive = (isActive || hovered) && kIdx === anim.activeLaptopKey;
               return (
@@ -841,8 +842,8 @@ export function ExperienceSpinePin({
             })}
 
             {/* Coiled USB Debug Cable */}
-            <Line d={geo.laptopMobile.usbCoil.back} tone="lo" stroke={isActive ? '#1b4330' : undefined} />
-            <Line d={geo.laptopMobile.usbCoil.front} tone="lit" stroke={isActive ? '#22c55e' : undefined} />
+            <Line d={geo.laptopMobile.usbCoil.back} tone="lo" stroke={isActive ? '#242da3' : undefined} />
+            <Line d={geo.laptopMobile.usbCoil.front} tone="lit" stroke={isActive ? '#3d4bff' : undefined} />
 
             {/* Mobile Handset Test Dock & Lifting Smartphone */}
             <Solid paths={geo.laptopMobile.dockBase} tone="lo" crease="faint" color={isActive ? 'sand' : undefined} />
@@ -854,8 +855,8 @@ export function ExperienceSpinePin({
                 lit={isActive}
                 color={isActive ? 'forest' : undefined}
               />
-              <Line d={geo.laptopMobile.phoneScreen} tone="hi" stroke={isActive ? '#86efac' : undefined} />
-              <Line d={geo.laptopMobile.phoneSpeaker} tone="lo" stroke={isActive ? '#86efac' : undefined} />
+              <Line d={geo.laptopMobile.phoneScreen} tone="hi" stroke={isActive ? '#9aa6ff' : undefined} />
+              <Line d={geo.laptopMobile.phoneSpeaker} tone="lo" stroke={isActive ? '#9aa6ff' : undefined} />
             </g>
           </g>
         )}

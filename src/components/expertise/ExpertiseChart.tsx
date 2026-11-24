@@ -54,6 +54,9 @@ export function ExpertiseChart() {
 
   const category = CATEGORY_DATA.find((c) => c.id === active) ?? CATEGORY_DATA[0];
   const maxCount = Math.max(1, ...CATEGORY_DATA.flatMap((c) => c.bars.map((b) => b.count)));
+  // The most-leveraged technology in the active category — "detected" and
+  // marked in the signature electric blue.
+  const catMax = Math.max(...category.bars.map((b) => b.count));
 
   return (
     <div ref={ref} className="bg-white border border-[#e2e2de] rounded-2xl p-5 sm:p-8">
@@ -96,16 +99,21 @@ export function ExpertiseChart() {
           >
             {category.bars.map((b, i) => {
               const target = (b.count / maxCount) * BAR_AREA;
+              const isPeak = b.count > 0 && b.count === catMax;
               return (
                 <div
                   key={b.name}
                   className="flex-1 min-w-0 flex flex-col items-center justify-end"
                 >
-                  <span className="font-mono text-[11px] text-[#0b0b0b] mb-1.5 tabular-nums">
-                    {b.count}
-                  </span>
+                  {isPeak ? (
+                    <span className="annotation-tag mb-1.5 tabular-nums">{b.count}</span>
+                  ) : (
+                    <span className="font-mono text-[11px] text-[#0b0b0b] mb-1.5 tabular-nums">
+                      {b.count}
+                    </span>
+                  )}
                   <div
-                    className="w-full max-w-[44px] rounded-t-sm bg-[#d4d4cf]"
+                    className={`w-full max-w-[44px] rounded-t-sm ${isPeak ? 'bg-[#3d4bff]' : 'bg-[#d4d4cf]'}`}
                     style={{
                       height: Math.max(2, inView ? target : 0),
                       transition: reduced
@@ -119,16 +127,21 @@ export function ExpertiseChart() {
           </div>
           {/* rotated technology labels */}
           <div className="flex gap-1.5 sm:gap-3">
-            {category.bars.map((b) => (
-              <div key={b.name} className="flex-1 min-w-0 flex justify-center h-16">
-                <span
-                  className="mt-2 font-mono text-[10px] leading-none text-[#6b6b66] whitespace-nowrap origin-top-right"
-                  style={{ transform: 'rotate(-40deg)' }}
-                >
-                  {b.name}
-                </span>
-              </div>
-            ))}
+            {category.bars.map((b) => {
+              const isPeak = b.count > 0 && b.count === catMax;
+              return (
+                <div key={b.name} className="flex-1 min-w-0 flex justify-center h-16">
+                  <span
+                    className={`mt-2 font-mono text-[10px] leading-none whitespace-nowrap origin-top-right ${
+                      isPeak ? 'text-[#3d4bff] font-medium' : 'text-[#6b6b66]'
+                    }`}
+                    style={{ transform: 'rotate(-40deg)' }}
+                  >
+                    {b.name}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
